@@ -1,0 +1,144 @@
+@import "./globals.css";
+
+.circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
+  border: 2px solid hsl(var(--menu-border));
+}
+
+.menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1), height 0s linear;
+}
+
+.menu-overlay.active {
+  z-index: 1000;
+  height: 100%;
+  opacity: 1;
+}
+
+.menu-group {
+  position: sticky;
+  top: calc(100vh - (1 * 3rem) - 1rem);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: fit-content;
+  height: auto;
+  margin-left: auto;
+  margin-right: 1rem;
+  z-index: 1030;
+  transition: all 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.menu-group:has(.menu-container.active) {
+  top: calc(100vh - (2 * 1rem) - 7rem - (3 * 3rem));
+}
+
+.theme-toggle-btn-wrapper {
+  width: 3rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.theme-toggle-btn-wrapper.active {
+  width: 0;
+  opacity: 0;
+}
+
+.menu-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1020;
+  background-color: transparent;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    height 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.menu-container.active {
+  width: calc(100vw - (2 * 1rem));
+  height: calc((3 * 3rem) + 7rem + 1rem);
+  min-width: 300px;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding-bottom: 5rem;
+  cursor: default;
+  z-index: 1010;
+  background-color: hsl(var(--background));
+}
+
+.menu-item {
+  position: relative;
+  width: 1.5rem;
+  height: 0.25rem;
+  margin: 0.1rem 0;
+  padding: 0;
+  z-index: 1010;
+  font-size: 0;
+  user-select: none;
+  background-color: hsl(var(--primary));
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.menu-container.active .menu-item {
+  width: calc(90vw - 3rem) !important;
+  height: 1rem !important;
+  min-width: 300px;
+  overflow: hidden;
+  margin: 0.4rem 0;
+  padding: 1rem 0;
+  background-color: hsl(var(--secondary));
+  font-size: 1rem;
+  z-index: 1020;
+}
+
+.menu-item.inactive {
+  animation: item-reverse 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards 1;
+}
+
+.about-me {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 9999px;
+  cursor: default;
+  bottom: 1rem;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.menu-container.active .about-me {
+  padding: 1.5rem 1.2rem !important;
+  opacity: 1;
+}
+
+.prpb-icon,
+.github-icon,
+.linkedin-icon {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.menu-container.active .prpb-icon {
+  height: 2rem !important;
+}
+
+.menu-container.active .github-icon,
+.linkedin-icon {
+  height: 1.4rem !important;
+}
