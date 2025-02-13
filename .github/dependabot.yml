@@ -12,6 +12,7 @@ updates:
       type-dependencies:
         patterns:
           - "@types/*"
+    open-pull-requests-limit: 10
 
   - package-ecosystem: "github-actions"
     directory: "/"
