@@ -14,11 +14,11 @@ updates:
           - "@types/*"
     open-pull-requests-limit: 10
     ignore:
-      update-types: "version-update:semver-major"
+      update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
     ignore:
-      update-types: "version-update:semver-major"
+      update-types: ["version-update:semver-major"]
