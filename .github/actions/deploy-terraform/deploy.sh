@@ -10,7 +10,6 @@ export TF_WORKSPACE=${ENVIRONMENT,,}
   export TF_VAR_enable_account_logging="true" || \
   export TF_VAR_enable_account_logging="false"
 
-cd terraform/
 terraform init \
   -backend-config "bucket=$S3_BUCKET_NAME" \
   -backend-config "dynamodb_table=$DYNAMODB_TABLE_NAME" \
