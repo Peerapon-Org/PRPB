@@ -14,6 +14,7 @@ export default [
       "playwright-report",
       ".astro",
       "**/*.config*",
+      "tests-examples",
     ],
   },
   { languageOptions: { globals: globals.browser } },
