@@ -2,11 +2,11 @@ name: Test, build, and deploy new feature to staging environment
 
 on:
   pull_request:
-    branches: [feature/**]
     types: [opened, synchronize, reopened]
 
 jobs:
   test:
+    if: startsWith(github.head_ref, 'feature/')
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging
