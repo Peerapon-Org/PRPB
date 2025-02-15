@@ -11,6 +11,9 @@ inputs:
     description: "AWS region to deploy application to"
     required: true
     default: "ap-southeast-1"
+  account-id:
+    description: "AWS account ID to deploy to"
+    required: true
   environment:
     description: "Environment to deploy to"
     required: true
@@ -39,6 +42,7 @@ runs:
       env:
         S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
+        ACCOUNT_ID: ${{ inputs.account-id }}
         AWS_REGION: ${{ inputs.aws-region }}
         ENVIRONMENT: ${{ inputs.environment }}
         IS_PRODUCTION: ${{ inputs.is-production }}
