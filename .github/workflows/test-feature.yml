@@ -91,7 +91,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: astro-build
-          repository: dist/
+          path: ${{ github.workspace }}/terraform/assets/dist
       - name: Deploy Terraform
         uses: ./.github/actions/deploy-terraform
         with:

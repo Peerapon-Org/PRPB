@@ -25,8 +25,7 @@ terraform apply \
   -var "is_production=$IS_PRODUCTION" \
   -auto-approve
 
-cd ../
-aws s3 sync dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/"
+aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/"
 
 echo "domain-name=$(terraform output -raw app_domain_name)" >> "$GITHUB_OUTPUT"
 
