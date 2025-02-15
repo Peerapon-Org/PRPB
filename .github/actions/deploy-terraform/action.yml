@@ -26,10 +26,16 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
     - name: Run deploy script
       id: deploy
       run: deploy.sh
       shell: bash
+      working-directory: ${{ github.workspace }}
       env:
         S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
