@@ -11,11 +11,9 @@ terraform {
 
 provider "aws" {
   region  = var.region
-  profile = "741448960615_AdministratorAccess"
 }
 
 provider "aws" {
   alias   = "virginia"
   region  = "us-east-1"
-  profile = "741448960615_AdministratorAccess"
 }
