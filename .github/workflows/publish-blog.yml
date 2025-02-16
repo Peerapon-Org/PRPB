@@ -2,28 +2,35 @@ name: Publish new blog post
 
 on:
   pull_request:
-    branches: [blog/**]
-    types: [opened, synchronize, reopened]
+    branches: [main]
+    types: [closed]
 
 jobs:
-  test:
+  deploy:
+    if: startsWith(github.head_ref, 'blog/') && github.event.pull_request.merged == true
+    timeout-minutes: 60
     runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v2
+      - name: Assume AWS role
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          fetch-depth: 2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: "20.x"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: |
-          npm test
-
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v3
+          name: astro-build-${{ github.event.pull_request.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ github.workspace }}/dist
+      - name: Publish blog post
+        uses: ./.github/actions/deploy-terraform
+        with:
+          s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
+          dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
+          account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-region: ${{ vars.AWS_REGION }}
+          environment: prod
