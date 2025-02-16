@@ -1,0 +1,48 @@
+name: "Deploy Terraform"
+description: "Deploy Terraform code to AWS account"
+inputs:
+  s3-bucket-name:
+    description: "S3"
+    required: true
+  dynamodb-table-name:
+    description: "S3"
+    required: true
+  aws-region:
+    description: "AWS region to deploy application to"
+    required: true
+    default: "ap-southeast-1"
+  account-id:
+    description: "AWS account ID to deploy to"
+    required: true
+  environment:
+    description: "Environment to deploy to"
+    required: true
+    default: "dev"
+  is-production:
+    description: "Is this a production deployment?"
+    required: false
+    default: "false"
+outputs:
+  domain-name:
+    description: "Domain name of the deployed application"
+    value: ${{ steps.deploy.outputs.domain-name }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: Run deploy script
+      id: deploy
+      run: deploy.sh
+      shell: bash
+      working-directory: ${{ github.workspace }}/terraform
+      env:
+        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
+        DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
+        ACCOUNT_ID: ${{ inputs.account-id }}
+        AWS_REGION: ${{ inputs.aws-region }}
+        ENVIRONMENT: ${{ inputs.environment }}
+        IS_PRODUCTION: ${{ inputs.is-production }}

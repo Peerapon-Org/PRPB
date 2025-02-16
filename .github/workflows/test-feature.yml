@@ -1,0 +1,103 @@
+name: Test, build, and deploy new feature to staging environment
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    if: startsWith(github.head_ref, 'feature/')
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Run linter
+        run: npm run lint
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npm run test
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ github.event.pull_request.number}}
+          path: playwright-report/
+          retention-days: 7
+          overwrite: true
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ needs.test.result == 'success' }}
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-build-${{ github.event.pull_request.number}}
+          path: dist/
+          retention-days: 7
+          if-no-files-found: error
+          overwrite: true
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+    environment: staging
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Assume AWS role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: astro-build-${{ github.event.pull_request.number}}
+          path: ${{ github.workspace }}/terraform/assets/dist
+      - name: Deploy Terraform
+        uses: ./.github/actions/deploy-terraform
+        with:
+          s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
+          dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
+          account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-region: ${{ vars.AWS_REGION }}
+          environment: staging
