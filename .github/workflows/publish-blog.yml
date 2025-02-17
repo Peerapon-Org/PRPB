@@ -23,7 +23,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: astro-build-${{ github.event.pull_request.number }}
+          name: astro-build
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ github.workspace }}/dist
       - name: Publish blog post
