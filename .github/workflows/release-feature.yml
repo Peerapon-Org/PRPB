@@ -32,10 +32,10 @@ jobs:
         with:
           script: |
             const runs = await github.rest.actions.listWorkflowRuns({
-              owner: "cmthPeerapon",
-              repo: "tic-tac-toe",
-              workflow_id: "test.yml",
-              branch: "feature/terraform",
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "test-feature.yml",
+              branch: "${{ github.head_ref }}",
               event: "pull_request",
               status: "success",
               per_page: 1
