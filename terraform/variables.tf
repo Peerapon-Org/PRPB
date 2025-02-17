@@ -31,7 +31,12 @@ variable "is_production" {
   type        = bool
   description = "(Optional) Flag to determine if the environment is production or not"
   default     = false
+}
 
+variable "environment" {
+  type        = string
+  description = "(Optional) Name of the environment"
+  default     = "dev"
 }
 
 variable "branch" {
