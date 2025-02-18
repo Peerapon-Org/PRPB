@@ -4,15 +4,10 @@ set -e
 
 export REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 export BRANCH_NAME=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-export TF_WORKSPACE="$REPO_NAME-${ENVIRONMENT,,}-$(echo $BRANCH_NAME | tr '\[/*\]' '-')"
 
 [[ "$(aws apigateway get-account | jq -r '.cloudwatchRoleArn')" == null ]] && \
   export TF_VAR_enable_account_logging="true" || \
   export TF_VAR_enable_account_logging="false"
-
-if ! terraform workspace list | grep -q "$TF_WORKSPACE"; then
-  terraform workspace new "$TF_WORKSPACE"
-fi
 
 terraform init \
   -backend-config "bucket=$S3_BUCKET_NAME" \
@@ -20,6 +15,12 @@ terraform init \
   -backend-config "region=$AWS_REGION" \
   -backend-config "key=terraform.tfstate" \
   -reconfigure
+
+export TF_WORKSPACE="$REPO_NAME-${ENVIRONMENT,,}-$(echo $BRANCH_NAME | tr '\[/*\]' '-')"
+
+if ! terraform workspace list | grep -q "$TF_WORKSPACE"; then
+  terraform workspace new "$TF_WORKSPACE"
+fi
 
 if [[ $BRANCH_NAME == feature/* ]]; then
   terraform apply \
