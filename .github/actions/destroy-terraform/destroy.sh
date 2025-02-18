@@ -28,10 +28,13 @@ fi
 [[ "$(aws apigateway get-account | jq -r '.cloudwatchRoleArn')" == null ]] && \
   export TF_VAR_enable_account_logging="true" || \
   export TF_VAR_enable_account_logging="false"
-  
+
 terraform destroy \
   -var-file "tfvars/$TF_VAR_environment.tfvars" \
   -auto-approve
-terraform workspace delete "$TF_WORKSPACE"
+
+OLD_TF_WORKSPACE=$TF_WORKSPACE
+unset TF_WORKSPACE
+terraform workspace delete "$OLD_TF_WORKSPACE"
 
 echo "Terraform destroy complete!"
