@@ -166,7 +166,7 @@ resource "aws_route53_record" "prpb_record" {
 
 resource "aws_route53_record" "www_prpb_record" {
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
-  name    = "www.${var.app_sub_domain_name}"
+  name    = var.app_sub_domain_name != null ? "www.${var.app_sub_domain_name}" : "www"
   type    = "CNAME"
   ttl     = 300
   records = [local.app_domain_name]
