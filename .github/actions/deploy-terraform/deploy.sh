@@ -18,7 +18,6 @@ export TF_VAR_region=$AWS_REGION
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   export TF_VAR_branch="main"
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
-  export TF_VAR_app_sub_domain_name=null
 else
   export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
