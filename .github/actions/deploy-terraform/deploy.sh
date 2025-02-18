@@ -17,17 +17,17 @@ export TF_VAR_region=$AWS_REGION
 
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   export TF_VAR_branch="main"
+  export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
   export TF_VAR_app_sub_domain_name=null
 else
   export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+  export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
   export TF_VAR_app_sub_domain_name=$TF_WORKSPACE
 fi
 
 [[ "$(aws apigateway get-account | jq -r '.cloudwatchRoleArn')" == null ]] && \
   export TF_VAR_enable_account_logging="true" || \
   export TF_VAR_enable_account_logging="false"
-
-export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
 
 if [[ $TF_VAR_branch == blog/* ]]; then
   aws s3 sync assets/dist/blog "s3://$(terraform output -raw s3_origin_bucket_name)/blog/"
