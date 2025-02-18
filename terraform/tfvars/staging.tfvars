@@ -19,4 +19,3 @@ tag_ref_table_max_write_request_units = 5
 
 cloudfront_cache_policy = "Managed-CachingOptimized"
 hosted_zone_name        = "prpblog.com"
-app_sub_domain_name     = "staging"
