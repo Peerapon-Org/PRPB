@@ -5,6 +5,7 @@ variable "global_variables" {
     account       = number
     is_production = bool
     prefix        = string
+    environment   = string
   })
   description = "Global variables for sharing across modules"
 }

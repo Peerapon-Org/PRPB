@@ -23,6 +23,7 @@ terraform destroy \
   -var "region=$AWS_REGION" \
   -var "branch=$BRANCH_NAME" \
   -var "is_production=$IS_PRODUCTION" \
+  -var "environment=${ENVIRONMENT,,}" \
   -auto-approve
 
 echo "Terraform destroy complete!"

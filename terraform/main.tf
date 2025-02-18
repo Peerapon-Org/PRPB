@@ -5,7 +5,8 @@ locals {
     account       = "${var.account}"
     is_production = var.is_production
     branch        = "${var.branch}"
-    prefix        = "${var.project}-${terraform.workspace}-${replace(var.branch, "/", "-")}"
+    prefix        = "${terraform.workspace}"
+    environment   = "${var.environment}"
   }
 }
 
