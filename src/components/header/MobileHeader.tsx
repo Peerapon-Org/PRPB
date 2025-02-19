@@ -59,7 +59,7 @@ export function MobileHeader() {
       }
     });
 
-    menuOverlay.current?.addEventListener("click", (e) => {
+    menuOverlay.current?.addEventListener("click", () => {
       if (menuContainer.current?.classList.contains("active")) {
         themeToggleBtn.current?.classList.remove("active");
         menuOverlay.current?.classList.remove("active");
