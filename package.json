@@ -6,11 +6,13 @@
     "dev": "astro dev",
     "dev2": "astro dev --port 43210",
     "build": "astro build",
+    "test": "playwright test --fully-parallel",
+    "lint": "eslint",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.1.2",
+    "@astrojs/react": "^4.2.0",
     "@astrojs/tailwind": "^5.1.4",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-slot": "^1.1.1",
@@ -25,13 +27,18 @@
     "recharts": "^2.15.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.17",
-    "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.1.2"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
     "@playwright/test": "^1.49.1",
-    "@types/node": "^22.10.5",
-    "create-playwright": "^1.17.134",
-    "playwright": "^1.49.1"
+    "@types/node": "^22.10.7",
+    "@typescript-eslint/parser": "^8.24.0",
+    "eslint": "^9.20.1",
+    "eslint-plugin-astro": "^1.3.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.15.0",
+    "typescript-eslint": "^8.24.0"
   }
 }

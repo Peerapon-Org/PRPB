@@ -1,0 +1,39 @@
+name: "Destroy Terraform"
+description: "Destroy Terraform resources in AWS account"
+inputs:
+  s3-bucket-name:
+    description: "S3"
+    required: true
+  dynamodb-table-name:
+    description: "S3"
+    required: true
+  aws-region:
+    description: "AWS region where the application is"
+    required: true
+    default: "ap-southeast-1"
+  account-id:
+    description: "AWS account ID where the application is"
+    required: true
+  environment:
+    description: "Environment where the application is"
+    required: true
+    default: "dev"
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: Run destroy script
+      id: destroy
+      run: destroy.sh
+      shell: bash
+      working-directory: ${{ github.workspace }}/terraform
+      env:
+        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
+        DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
+        ACCOUNT_ID: ${{ inputs.account-id }}
+        AWS_REGION: ${{ inputs.aws-region }}
+        ENVIRONMENT: ${{ inputs.environment }}
