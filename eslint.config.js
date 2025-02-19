@@ -15,6 +15,7 @@ export default [
       ".astro",
       "**/*.config*",
       "tests-examples",
+      "src/middleware.ts",
     ],
   },
   { languageOptions: { globals: globals.browser } },

@@ -1,15 +1,15 @@
 "use client";
 
 import "@/styles/mobileHeader.css";
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+// import { cn } from "@/lib/utils";
+// import { Button, buttonVariants } from "@/components/ui/button";
 import { ThemeToggleBtn } from "@/components/ui/themeToggleBtn";
-import prpbIcon from "@/assets/prpb.svg";
-import githubIcon from "@/assets/github.svg";
-import darkGithubIcon from "@/assets/github-dark.svg";
-import linkedinIcon from "@/assets/linkedin.svg";
-import darkLinkedinIcon from "@/assets/linkedin-dark.svg";
-import { useEffect, useRef } from "react";
+// import prpbIcon from "@/assets/prpb.svg";
+// import githubIcon from "@/assets/github.svg";
+// import darkGithubIcon from "@/assets/github-dark.svg";
+// import linkedinIcon from "@/assets/linkedin.svg";
+// import darkLinkedinIcon from "@/assets/linkedin-dark.svg";
+// import { useEffect, useRef } from "react";
 
 export function MobileHeader() {
   // const menus = [
@@ -28,50 +28,50 @@ export function MobileHeader() {
   // const githubIconNode = useRef<HTMLImageElement | null>(null);
   // const linkedinIconNode = useRef<HTMLImageElement | null>(null);
 
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    // if (isDark) {
-    //   (githubIconNode.current as HTMLImageElement).src = darkGithubIcon.src;
-    //   (linkedinIconNode.current as HTMLImageElement).src = darkLinkedinIcon.src;
-    // } else {
-    //   (githubIconNode.current as HTMLImageElement).src = githubIcon.src;
-    //   (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
-    // }
+  // useEffect(() => {
+  //   const isDark = document.documentElement.classList.contains("dark");
+  // if (isDark) {
+  //   (githubIconNode.current as HTMLImageElement).src = darkGithubIcon.src;
+  //   (linkedinIconNode.current as HTMLImageElement).src = darkLinkedinIcon.src;
+  // } else {
+  //   (githubIconNode.current as HTMLImageElement).src = githubIcon.src;
+  //   (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
+  // }
 
-    // themeToggleBtn.current?.addEventListener("click", () => {
-    //   if (document.documentElement.classList.contains("dark")) {
-    //     (githubIconNode.current as HTMLImageElement).src = githubIcon.src;
-    //     (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
-    //   } else {
-    //     (githubIconNode.current as HTMLImageElement).src = darkGithubIcon.src;
-    //     (linkedinIconNode.current as HTMLImageElement).src =
-    //       darkLinkedinIcon.src;
-    //   }
-    // });
+  // themeToggleBtn.current?.addEventListener("click", () => {
+  //   if (document.documentElement.classList.contains("dark")) {
+  //     (githubIconNode.current as HTMLImageElement).src = githubIcon.src;
+  //     (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
+  //   } else {
+  //     (githubIconNode.current as HTMLImageElement).src = darkGithubIcon.src;
+  //     (linkedinIconNode.current as HTMLImageElement).src =
+  //       darkLinkedinIcon.src;
+  //   }
+  // });
 
-    // menuContainer.current?.addEventListener("click", (e) => {
-    //   if (!menuContainer.current?.classList.contains("active")) {
-    //     e.preventDefault();
-    //     themeToggleBtn.current?.classList.add("active");
-    //     menuOverlay.current?.classList.add("active");
-    //     menuContainer.current?.classList.add("active");
-    //     disableScroll();
-    //   }
-    // });
+  // menuContainer.current?.addEventListener("click", (e) => {
+  //   if (!menuContainer.current?.classList.contains("active")) {
+  //     e.preventDefault();
+  //     themeToggleBtn.current?.classList.add("active");
+  //     menuOverlay.current?.classList.add("active");
+  //     menuContainer.current?.classList.add("active");
+  //     disableScroll();
+  //   }
+  // });
 
-    //   menuOverlay.current?.addEventListener("click", (e) => {
-    //     if (menuContainer.current?.classList.contains("active")) {
-    //       themeToggleBtn.current?.classList.remove("active");
-    //       menuOverlay.current?.classList.remove("active");
-    //       menuContainer.current.classList.remove("active");
-    //       enableScroll();
-    //     }
-    //   });
-  }, []);
+  //   menuOverlay.current?.addEventListener("click", (e) => {
+  //     if (menuContainer.current?.classList.contains("active")) {
+  //       themeToggleBtn.current?.classList.remove("active");
+  //       menuOverlay.current?.classList.remove("active");
+  //       menuContainer.current.classList.remove("active");
+  //       enableScroll();
+  //     }
+  //   });
+  // }, []);
 
-  function preventDefault(e: Event) {
-    e.preventDefault();
-  }
+  // function preventDefault(e: Event) {
+  //   e.preventDefault();
+  // }
 
   // function preventDefaultForScrollKeys(e: KeyboardEvent) {
   //   if (keys.includes(e.keyCode)) {
