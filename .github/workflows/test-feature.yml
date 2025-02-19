@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    if: startsWith(github.head_ref, 'feature/')
+    if: startsWith(github.head_ref, 'blog/') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging
