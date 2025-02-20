@@ -42,6 +42,12 @@ variable "cloudfront_response_headers_policy" {
   default     = null
 }
 
+variable "cloudfront_function_source_code" {
+  type        = string
+  description = "(Optional) Path to the CloudFront function source code file (relative to the Terraform root module directory)"
+  default     = "assets/cdn/addIndex.js"
+}
+
 variable "hosted_zone_name" {
   type        = string
   description = "(Required) The name of the hosted zone"

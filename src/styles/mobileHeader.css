@@ -15,7 +15,7 @@
   height: 0;
   opacity: 0;
   z-index: -1;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1), height 0s linear;
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1), height 0s linear;
 }
 
 .menu-overlay.active {
@@ -26,7 +26,7 @@
 
 .menu-group {
   position: sticky;
-  top: calc(100vh - (1 * 3rem) - 1rem);
+  top: calc(100dvh - (1 * 3rem) - 1rem);
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -35,18 +35,19 @@
   margin-left: auto;
   margin-right: 1rem;
   z-index: 1030;
-  transition: all 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all 0.8s cubic-bezier(0.32, 0.72, 0, 1),
+    top 0.6s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-group:has(.menu-container.active) {
-  top: calc(100vh - (2 * 1rem) - 7rem - (3 * 3rem));
+  top: calc(100dvh - (2 * 1rem) - 7rem - (3 * 3rem));
 }
 
 .theme-toggle-btn-wrapper {
   width: 3rem;
   margin-right: 0.5rem;
   overflow: hidden;
-  transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: width 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .theme-toggle-btn-wrapper.active {
@@ -63,8 +64,8 @@
   cursor: pointer;
   z-index: 1020;
   background-color: transparent;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-    height 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+    height 0.6s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-container.active {
@@ -89,10 +90,12 @@
   font-size: 0;
   user-select: none;
   background-color: hsl(var(--primary));
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-container.active .menu-item {
+  transition: background-color 0s cubic-bezier(0.32, 0.72, 0, 1),
+    width 0.6s cubic-bezier(0.32, 0.72, 0, 1) !important;
   width: calc(90vw - 3rem) !important;
   height: 1rem !important;
   min-width: 300px;
@@ -105,7 +108,7 @@
 }
 
 .menu-item.inactive {
-  animation: item-reverse 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards 1;
+  animation: item-reverse 0.4s cubic-bezier(0.32, 0.72, 0, 1) forwards 1;
 }
 
 .about-me {
@@ -117,7 +120,7 @@
   cursor: default;
   bottom: 1rem;
   opacity: 0;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-container.active .about-me {
@@ -131,7 +134,7 @@
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-container.active .prpb-icon {

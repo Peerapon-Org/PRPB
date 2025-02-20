@@ -43,6 +43,7 @@ module "cdn" {
   cloudfront_cache_policy            = var.cloudfront_cache_policy
   cloudfront_origin_request_policy   = var.cloudfront_origin_request_policy
   cloudfront_response_headers_policy = var.cloudfront_response_headers_policy
+  cloudfront_function_source_code    = var.cloudfront_function_source_code
   hosted_zone_name                   = var.hosted_zone_name
   app_sub_domain_name                = var.app_sub_domain_name
 }

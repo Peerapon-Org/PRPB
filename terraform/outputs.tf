@@ -16,5 +16,5 @@ output "app_domain_name" {
 
 output "distribution_id" {
   description = "CloudFront distribution ID"
-  value = module.cdn.distribution_id
+  value       = module.cdn.distribution_id
 }

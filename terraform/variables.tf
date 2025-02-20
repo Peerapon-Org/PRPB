@@ -50,7 +50,8 @@ variable "branch" {
 
 variable "api_definition" {
   type        = string
-  description = "(Required) Path to the API Gateway definition JSON file (relative to the Terraform root module directory)"
+  description = "(Optional) Path to the API Gateway definition JSON file (relative to the Terraform root module directory)"
+  default     = "assets/api/api.json"
 }
 
 variable "enable_account_logging" {
@@ -106,6 +107,12 @@ variable "cloudfront_response_headers_policy" {
   type        = string
   description = "(Optional) CloudFront response header policy name. See https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-response-headers-policies.html for more details."
   default     = null
+}
+
+variable "cloudfront_function_source_code" {
+  type        = string
+  description = "(Optional) Path to the CloudFront function source code file (relative to the Terraform root module directory)"
+  default     = "assets/cdn/addIndex.js"
 }
 
 variable "hosted_zone_name" {

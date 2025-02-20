@@ -74,6 +74,14 @@ resource "aws_cloudfront_origin_access_control" "s3_oac" {
   signing_protocol                  = "sigv4"
 }
 
+resource "aws_cloudfront_function" "cf_function" {
+  name    = "${var.global_variables.prefix}-function"
+  runtime = "cloudfront-js-2.0"
+  comment = "Add index.html at the end of incoming viewer request URI"
+  publish = true
+  code    = file(join("", [path.root, startswith(var.cloudfront_function_source_code, "/") ? "${var.cloudfront_function_source_code}" : "/${var.cloudfront_function_source_code}"]))
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   enabled             = true
   default_root_object = "index.html"
@@ -86,8 +94,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cloudfront_cert.arn
-    ssl_support_method = "sni-only"
+    acm_certificate_arn      = aws_acm_certificate.cloudfront_cert.arn
+    ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
@@ -99,6 +107,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cache_policy_id            = data.aws_cloudfront_cache_policy.cache_policy.id
     origin_request_policy_id   = var.cloudfront_origin_request_policy != null ? data.aws_cloudfront_origin_request_policy.origin_request_policy.0.id : null
     response_headers_policy_id = var.cloudfront_response_headers_policy != null ? data.aws_cloudfront_response_headers_policy.response_header_policy.0.id : null
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.cf_function.arn
+    }
   }
 
   restrictions {
