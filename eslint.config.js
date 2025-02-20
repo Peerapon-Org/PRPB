@@ -12,6 +12,7 @@ export default [
       "node_modules",
       "dist",
       "playwright-report",
+      "terraform",
       ".astro",
       "**/*.config*",
       "tests-examples",
