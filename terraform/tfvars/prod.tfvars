@@ -11,5 +11,14 @@ tag_ref_table_max_write_request_units = 5
 # module: cdn
 # ==========================================================================================
 
-cloudfront_cache_policy = "Managed-CachingOptimized"
-hosted_zone_name        = "prpblog.com"
+s3_origin_cache_behavior = {
+  cloudfront_cache_policy_name = "Managed-CachingOptimized"
+}
+s3_blog_assets_cache_behavior = {
+  cloudfront_cache_policy_name = "Managed-CachingOptimized"
+}
+api_gateway_cache_behavior = {
+  cloudfront_cache_policy_name          = "Managed-CachingDisabled",
+  cloudfront_origin_request_policy_name = "Managed-AllViewerExceptHostHeader"
+}
+hosted_zone_name = "prpblog.com"

@@ -23,6 +23,7 @@ export function MobileHeader() {
   const wheelEvent =
     "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
   const menuOverlay = useRef<HTMLDivElement | null>(null);
+  const menuGroup = useRef<HTMLDivElement | null>(null);
   const menuContainer = useRef<HTMLDivElement | null>(null);
   const themeToggleBtn = useRef<HTMLDivElement | null>(null);
   const githubIconNode = useRef<HTMLImageElement | null>(null);
@@ -38,7 +39,7 @@ export function MobileHeader() {
       (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
     }
 
-    themeToggleBtn.current?.addEventListener("click", () => {
+    const handleThemeToggle = () => {
       if (document.documentElement.classList.contains("dark")) {
         (githubIconNode.current as HTMLImageElement).src = githubIcon.src;
         (linkedinIconNode.current as HTMLImageElement).src = linkedinIcon.src;
@@ -47,26 +48,50 @@ export function MobileHeader() {
         (linkedinIconNode.current as HTMLImageElement).src =
           darkLinkedinIcon.src;
       }
-    });
+    };
 
-    menuContainer.current?.addEventListener("click", (e) => {
+    const handleMenuClick = (e: MouseEvent) => {
       if (!menuContainer.current?.classList.contains("active")) {
         e.preventDefault();
+        menuContainer.current?.classList.add("active");
         themeToggleBtn.current?.classList.add("active");
         menuOverlay.current?.classList.add("active");
-        menuContainer.current?.classList.add("active");
         disableScroll();
       }
-    });
+    };
 
-    menuOverlay.current?.addEventListener("click", () => {
+    const handleMenuTransitionStart = (e: TransitionEvent) => {
+      if (e.propertyName === "height")
+        menuGroup.current?.classList.toggle("active");
+    };
+
+    const handleOverlayClick = () => {
       if (menuContainer.current?.classList.contains("active")) {
+        menuContainer.current.classList.remove("active");
         themeToggleBtn.current?.classList.remove("active");
         menuOverlay.current?.classList.remove("active");
-        menuContainer.current.classList.remove("active");
         enableScroll();
       }
-    });
+    };
+
+    themeToggleBtn.current?.addEventListener("click", handleThemeToggle);
+    menuContainer.current?.addEventListener("click", handleMenuClick);
+    menuContainer.current?.addEventListener(
+      "transitionstart",
+      handleMenuTransitionStart
+    );
+    menuOverlay.current?.addEventListener("click", handleOverlayClick);
+
+    return () => {
+      themeToggleBtn.current?.removeEventListener("click", handleThemeToggle);
+      menuContainer.current?.removeEventListener("click", handleMenuClick);
+      menuContainer.current?.removeEventListener(
+        "transitionstart",
+        handleMenuTransitionStart
+      );
+      menuOverlay.current?.removeEventListener("click", handleOverlayClick);
+      enableScroll();
+    };
   }, []);
 
   function preventDefault(e: Event) {
@@ -112,7 +137,7 @@ export function MobileHeader() {
         ref={menuOverlay}
         className="menu-overlay bg-overlay/90 dark:bg-overlay/90"
       ></div>
-      <div className="menu-group">
+      <div ref={menuGroup} className="menu-group">
         <div ref={themeToggleBtn} className="theme-toggle-btn-wrapper">
           <ThemeToggleBtn />
         </div>

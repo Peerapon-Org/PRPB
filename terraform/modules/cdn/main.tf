@@ -53,33 +53,71 @@ resource "aws_route53_record" "cloudfront_cert_validation" {
 # CloudFront Distribution
 # ==========================================================================================
 
+locals {
+  cloudfront_origins = {
+    s3_origin_bucket      = var.s3_origin_cache_behavior,
+    s3_blog_assets_bucket = var.s3_blog_assets_cache_behavior,
+    api_gateway           = var.api_gateway_cache_behavior
+  }
+}
+
+locals {
+  s3_buckets = {
+    s3_origin_bucket      = var.s3_origin_bucket,
+    s3_blog_assets_bucket = var.s3_blog_assets_bucket
+  }
+}
+
 data "aws_cloudfront_cache_policy" "cache_policy" {
-  name = var.cloudfront_cache_policy
+  for_each = { for k, v in local.cloudfront_origins : k => v.cloudfront_cache_policy_name }
+  name     = each.value
 }
 
 data "aws_cloudfront_origin_request_policy" "origin_request_policy" {
-  count = var.cloudfront_origin_request_policy != null ? 1 : 0
-  name  = var.cloudfront_origin_request_policy
+  for_each = { for k, v in local.cloudfront_origins : k => v.cloudfront_origin_request_policy_name if trimspace(try(coalesce(v.cloudfront_origin_request_policy_name), "")) != "" }
+  name     = each.value
 }
 
 data "aws_cloudfront_response_headers_policy" "response_header_policy" {
-  count = var.cloudfront_response_headers_policy != null ? 1 : 0
-  name  = var.cloudfront_response_headers_policy
+  for_each = { for k, v in local.cloudfront_origins : k => v.cloudfront_response_headers_policy_name if trimspace(try(coalesce(v.cloudfront_response_headers_policy_name), "")) != "" }
+  name     = each.value
 }
 
+# data "aws_s3_bucket" "s3_bucket_endpoints" {
+#   for_each = local.s3_buckets
+#   bucket   = each.value.bucket
+# }
+
 resource "aws_cloudfront_origin_access_control" "s3_oac" {
-  name                              = "${var.s3_origin_bucket.bucket}-oac"
+  for_each                          = local.s3_buckets
+  name                              = "${each.value.bucket}-oac"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "no-override"
   signing_protocol                  = "sigv4"
 }
 
-resource "aws_cloudfront_function" "cf_function" {
-  name    = "${var.global_variables.prefix}-function"
+resource "aws_cloudfront_function" "add_index_cf_function" {
+  name    = "${var.global_variables.prefix}-add-index-function"
   runtime = "cloudfront-js-2.0"
   comment = "Add index.html at the end of incoming viewer request URI"
   publish = true
-  code    = file(join("", [path.root, startswith(var.cloudfront_function_source_code, "/") ? "${var.cloudfront_function_source_code}" : "/${var.cloudfront_function_source_code}"]))
+  code    = file(join("", [path.root, startswith(var.add_index_cf_function_source_code, "/") ? "${var.add_index_cf_function_source_code}" : "/${var.add_index_cf_function_source_code}"]))
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_cloudfront_function" "remove_path_cf_function" {
+  name    = "${var.global_variables.prefix}-remove-path-function"
+  runtime = "cloudfront-js-2.0"
+  comment = "Remove '/api/ or /assets/' part from the incoming viewer request URI"
+  publish = true
+  code    = file(join("", [path.root, startswith(var.remove_path_cf_function_source_code, "/") ? "${var.remove_path_cf_function_source_code}" : "/${var.remove_path_cf_function_source_code}"]))
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -88,15 +126,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   aliases             = [local.app_domain_name, "www.${local.app_domain_name}"]
 
   origin {
-    domain_name              = var.s3_origin_bucket.bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
+    domain_name = var.s3_origin_bucket.bucket_regional_domain_name
+    # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_origin_bucket"].bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac["s3_origin_bucket"].id
     origin_id                = var.s3_origin_bucket.id
-  }
-
-  viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.cloudfront_cert.arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   default_cache_behavior {
@@ -104,14 +137,72 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
     viewer_protocol_policy     = "redirect-to-https"
     target_origin_id           = var.s3_origin_bucket.id
-    cache_policy_id            = data.aws_cloudfront_cache_policy.cache_policy.id
-    origin_request_policy_id   = var.cloudfront_origin_request_policy != null ? data.aws_cloudfront_origin_request_policy.origin_request_policy.0.id : null
-    response_headers_policy_id = var.cloudfront_response_headers_policy != null ? data.aws_cloudfront_response_headers_policy.response_header_policy.0.id : null
+    cache_policy_id            = data.aws_cloudfront_cache_policy.cache_policy["s3_origin_bucket"].id
+    origin_request_policy_id   = trimspace(try(coalesce(var.s3_origin_cache_behavior.cloudfront_origin_request_policy_name), "")) != "" ? data.aws_cloudfront_origin_request_policy.origin_request_policy["s3_origin_bucket"].id : null
+    response_headers_policy_id = trimspace(try(coalesce(var.s3_origin_cache_behavior.cloudfront_response_headers_policy_name), "")) != "" ? data.aws_cloudfront_response_headers_policy.response_header_policy["s3_origin_bucket"].id : null
 
     function_association {
       event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.cf_function.arn
+      function_arn = aws_cloudfront_function.add_index_cf_function.arn
     }
+  }
+
+  origin {
+    domain_name = var.s3_blog_assets_bucket.bucket_regional_domain_name
+    # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_blog_assets_bucket"].bucket_regional_domain_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac["s3_blog_assets_bucket"].id
+    origin_id                = var.s3_blog_assets_bucket.id
+  }
+
+  ordered_cache_behavior {
+    path_pattern               = "/assets/*"
+    allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+    cached_methods             = ["GET", "HEAD", "OPTIONS"]
+    viewer_protocol_policy     = "redirect-to-https"
+    target_origin_id           = var.s3_blog_assets_bucket.id
+    cache_policy_id            = data.aws_cloudfront_cache_policy.cache_policy["s3_blog_assets_bucket"].id
+    origin_request_policy_id   = trimspace(try(coalesce(var.s3_blog_assets_cache_behavior.cloudfront_origin_request_policy_name), "")) != "" ? data.aws_cloudfront_origin_request_policy.origin_request_policy["s3_blog_assets_bucket"].id : null
+    response_headers_policy_id = trimspace(try(coalesce(var.s3_blog_assets_cache_behavior.cloudfront_response_headers_policy_name), "")) != "" ? data.aws_cloudfront_response_headers_policy.response_header_policy["s3_blog_assets_bucket"].id : null
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.remove_path_cf_function.arn
+    }
+  }
+
+  origin {
+    domain_name = trimprefix(trimsuffix(var.api.url, "/${var.global_variables.environment}"), "https://")
+    origin_id   = var.api.id
+    origin_path = "/${var.global_variables.environment}"
+
+    custom_origin_config {
+      http_port              = "80"
+      https_port             = "443"
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern               = "/api/*"
+    allowed_methods            = ["GET", "HEAD", "OPTIONS"]
+    cached_methods             = ["GET", "HEAD", "OPTIONS"]
+    viewer_protocol_policy     = "redirect-to-https"
+    target_origin_id           = var.api.id
+    cache_policy_id            = data.aws_cloudfront_cache_policy.cache_policy["api_gateway"].id
+    origin_request_policy_id   = trimspace(try(coalesce(var.api_gateway_cache_behavior.cloudfront_origin_request_policy_name), "")) != "" ? data.aws_cloudfront_origin_request_policy.origin_request_policy["api_gateway"].id : null
+    response_headers_policy_id = trimspace(try(coalesce(var.api_gateway_cache_behavior.cloudfront_response_headers_policy_name), "")) != "" ? data.aws_cloudfront_response_headers_policy.response_header_policy["api_gateway"].id : null
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.remove_path_cf_function.arn
+    }
+  }
+
+  viewer_certificate {
+    acm_certificate_arn      = aws_acm_certificate.cloudfront_cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   restrictions {
@@ -126,6 +217,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 # ==========================================================================================
 
 data "aws_iam_policy_document" "allow_public_access" {
+  for_each  = local.s3_buckets
   policy_id = "PolicyForCloudFrontPrivateContent"
 
   statement {
@@ -136,7 +228,7 @@ data "aws_iam_policy_document" "allow_public_access" {
       type        = "Service"
       identifiers = ["cloudfront.amazonaws.com"]
     }
-    resources = ["${var.s3_origin_bucket.arn}/*"]
+    resources = ["${each.value.arn}/*"]
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
@@ -147,7 +239,7 @@ data "aws_iam_policy_document" "allow_public_access" {
   statement {
     effect    = "Allow"
     actions   = ["s3:ListBucket"]
-    resources = ["${var.s3_origin_bucket.arn}"]
+    resources = ["${each.value.arn}"]
 
     principals {
       type        = "AWS"
@@ -157,8 +249,9 @@ data "aws_iam_policy_document" "allow_public_access" {
 }
 
 resource "aws_s3_bucket_policy" "origin_bucket_policy" {
-  bucket = var.s3_origin_bucket.id
-  policy = data.aws_iam_policy_document.allow_public_access.json
+  for_each = local.s3_buckets
+  bucket   = each.value.id
+  policy   = data.aws_iam_policy_document.allow_public_access[each.key].json
 }
 
 # ==========================================================================================

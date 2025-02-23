@@ -1,6 +1,7 @@
 ---
 import "@/styles/globals.css";
 import { Header } from "@/components/header/Header";
+import { Image } from "astro:assets";
 
 const { frontmatter } = Astro.props;
 ---
@@ -58,10 +59,12 @@ const { frontmatter } = Astro.props;
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
               <div class="w-full border rounded-xl">
-                <img
+                <Image
                   src={frontmatter?.thumbnail}
-                  alt="Thumbnail"
+                  alt={frontmatter?.title + " thumbnail"}
                   class="rounded-xl select-none"
+                  inferSize={true}
+                  loading={"eager"}
                 />
               </div>
             )
