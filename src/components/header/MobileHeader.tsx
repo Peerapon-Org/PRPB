@@ -167,22 +167,25 @@ export function MobileHeader() {
             fontSize={"custom"}
             className="menu-item about-me"
           >
-            <a href="/" rel="noopener noreferrer nofollow">
-              <img
-                src={prpbIcon.src}
-                className="h-0 prpb-icon"
-                alt="PRPB Logo"
-              />
-            </a>
+            <div className="flex items-center">
+              <a
+                href="/"
+                className="prpb-icon"
+                rel="noopener noreferrer nofollow"
+              >
+                <img src={prpbIcon.src} className="h-full" alt="PRPB Logo" />
+              </a>
+            </div>
             <div className="flex items-center">
               <a
                 href="https://github.com/Peerapon-Org/PRPB"
                 rel="noopener noreferrer nofollow"
                 target="_blank"
+                className="pr-[.8rem] github-icon"
               >
                 <img
                   ref={githubIconNode}
-                  className="h-0 pr-[.8rem] github-icon"
+                  className="h-full"
                   alt="GitHub Logo"
                 />
               </a>
@@ -190,10 +193,11 @@ export function MobileHeader() {
                 href="https://www.linkedin.com/in/peerapon-b-197172345"
                 rel="noopener noreferrer nofollow"
                 target="_blank"
+                className="linkedin-icon"
               >
                 <img
                   ref={linkedinIconNode}
-                  className="h-0 linkedin-icon"
+                  className="h-full"
                   alt="Linkedin Logo"
                 />
               </a>

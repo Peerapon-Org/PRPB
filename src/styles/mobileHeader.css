@@ -141,14 +141,16 @@
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
+  height: 0;
+  display: block;
   transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 .menu-container.active .prpb-icon {
-  height: 2rem !important;
+  height: 2em !important;
 }
 
 .menu-container.active .github-icon,
-.linkedin-icon {
-  height: 1.4rem !important;
+.menu-container.active .linkedin-icon {
+  height: 1.6em !important;
 }
