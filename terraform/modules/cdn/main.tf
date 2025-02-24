@@ -89,8 +89,7 @@ data "aws_cloudfront_response_headers_policy" "response_header_policy" {
 # }
 
 resource "aws_cloudfront_origin_access_control" "s3_oac" {
-  for_each                          = local.s3_buckets
-  name                              = "${each.value.bucket}-oac"
+  name                              = "${var.global_variables.prefix}-oac"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "no-override"
   signing_protocol                  = "sigv4"
@@ -128,7 +127,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = var.s3_origin_bucket.bucket_regional_domain_name
     # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_origin_bucket"].bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac["s3_origin_bucket"].id
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
     origin_id                = var.s3_origin_bucket.id
   }
 
@@ -150,7 +149,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = var.s3_blog_assets_bucket.bucket_regional_domain_name
     # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_blog_assets_bucket"].bucket_regional_domain_name
-    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac["s3_blog_assets_bucket"].id
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
     origin_id                = var.s3_blog_assets_bucket.id
   }
 
