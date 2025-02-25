@@ -99,23 +99,18 @@
 }
 
 .menu-container.active .menu-item {
-  transition: background-color 0s cubic-bezier(0.32, 0.72, 0, 1) !important;
-  width: calc(90vw - 3rem) !important;
-  height: 1rem !important;
+  width: calc(90vw - 3rem);
+  height: 1rem;
   overflow: hidden;
   margin: 0.4rem 0;
   padding: 1rem 0;
   background-color: hsl(var(--secondary));
+  color: inherit;
   font-size: 1rem;
-  z-index: 1020;
 }
 
 .menu-container.active .about-me {
   min-width: 300px;
-}
-
-.menu-item.inactive {
-  animation: item-reverse 0.4s cubic-bezier(0.32, 0.72, 0, 1) forwards 1;
 }
 
 .about-me {
@@ -141,16 +136,25 @@
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
-  height: 0;
   display: block;
-  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.prpb-icon {
+  height: 2em;
+}
+
+.github-icon,
+.linkedin-icon {
+  height: 1.6em;
 }
 
 .menu-container.active .prpb-icon {
-  height: 2em !important;
+  opacity: 1;
 }
 
 .menu-container.active .github-icon,
 .menu-container.active .linkedin-icon {
-  height: 1.6em !important;
+  opacity: 1;
 }

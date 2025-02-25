@@ -51,44 +51,47 @@ export function MobileHeader() {
     };
 
     const handleMenuClick = (e: MouseEvent) => {
-      if (!menuContainer.current?.classList.contains("active")) {
+      if (
+        !menuContainer.current?.classList.contains("active") &&
+        !menuGroup.current?.classList.contains("active")
+      ) {
         e.preventDefault();
         menuContainer.current?.classList.add("active");
         themeToggleBtn.current?.classList.add("active");
         menuOverlay.current?.classList.add("active");
+        setTimeout(() => {
+          menuGroup.current?.classList.add("active");
+        }, 600);
         disableScroll();
       }
     };
 
-    const handleMenuTransitionStart = (e: TransitionEvent) => {
-      if (e.propertyName === "height")
-        menuGroup.current?.classList.toggle("active");
-    };
-
     const handleOverlayClick = () => {
-      if (menuContainer.current?.classList.contains("active")) {
+      if (
+        menuContainer.current?.classList.contains("active") &&
+        menuGroup.current?.classList.contains("active")
+      ) {
         menuContainer.current.classList.remove("active");
         themeToggleBtn.current?.classList.remove("active");
         menuOverlay.current?.classList.remove("active");
+        setTimeout(() => {
+          menuGroup.current?.classList.remove("active");
+        }, 600);
         enableScroll();
       }
     };
 
     themeToggleBtn.current?.addEventListener("click", handleThemeToggle);
-    menuContainer.current?.addEventListener("click", handleMenuClick);
-    menuContainer.current?.addEventListener(
-      "transitionstart",
-      handleMenuTransitionStart
-    );
+    menuContainer.current?.addEventListener("click", handleMenuClick, {
+      capture: true,
+    });
     menuOverlay.current?.addEventListener("click", handleOverlayClick);
 
     return () => {
       themeToggleBtn.current?.removeEventListener("click", handleThemeToggle);
-      menuContainer.current?.removeEventListener("click", handleMenuClick);
-      menuContainer.current?.removeEventListener(
-        "transitionstart",
-        handleMenuTransitionStart
-      );
+      menuContainer.current?.removeEventListener("click", handleMenuClick, {
+        capture: true,
+      });
       menuOverlay.current?.removeEventListener("click", handleOverlayClick);
       enableScroll();
     };
