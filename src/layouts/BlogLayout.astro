@@ -1,11 +1,9 @@
 ---
 import "@/styles/globals.css";
 import { Header } from "@/components/header/Header";
+import { Image } from "astro:assets";
 
-interface Props {
-  title: string;
-}
-const { title } = Astro.props;
+const { frontmatter } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +19,7 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>{title + " | PRPB"}</title>
+    <title>{frontmatter?.title + " | PRPB"}</title>
     <script>
       const preferredTheme =
         localStorage && localStorage.getItem("PRPB_THEME")
@@ -54,8 +52,28 @@ const { title } = Astro.props;
       <Header client:load />
     </header>
     <main>
-      <div class="px-2 pt-0 md:pt-[3.4rem] relative">
-        <slot />
+      <div
+        class="px-4 md:px-[15%] xl:px-[22.5%] break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
+      >
+        <div class="py-4 md:py-6">
+          {
+            frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
+              <div class="w-full border rounded-xl">
+                <Image
+                  src={frontmatter?.thumbnail}
+                  alt={frontmatter?.title + " thumbnail"}
+                  class="rounded-xl select-none"
+                  inferSize={true}
+                  loading={"eager"}
+                />
+              </div>
+            )
+          }
+          <div class="text-4xl md:text-3xl font-bold py-8 md:py-6">
+            {frontmatter?.title}
+          </div>
+          <slot />
+        </div>
       </div>
     </main>
     <footer>

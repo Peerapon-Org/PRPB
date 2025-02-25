@@ -13,3 +13,8 @@ output "app_domain_name" {
   description = "Application domain name"
   value       = module.cdn.app_domain_name
 }
+
+output "distribution_id" {
+  description = "CloudFront distribution ID"
+  value       = module.cdn.distribution_id
+}

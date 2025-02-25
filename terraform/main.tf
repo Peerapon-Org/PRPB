@@ -38,11 +38,15 @@ module "cdn" {
   providers = {
     aws.virginia = aws.virginia
   }
-  global_variables                   = local.global_variables
-  s3_origin_bucket                   = module.s3.s3_origin_bucket
-  cloudfront_cache_policy            = var.cloudfront_cache_policy
-  cloudfront_origin_request_policy   = var.cloudfront_origin_request_policy
-  cloudfront_response_headers_policy = var.cloudfront_response_headers_policy
-  hosted_zone_name                   = var.hosted_zone_name
-  app_sub_domain_name                = var.app_sub_domain_name
+  global_variables                    = local.global_variables
+  s3_origin_bucket                    = module.s3.s3_origin_bucket
+  s3_blog_assets_bucket               = module.s3.s3_blog_assets_bucket
+  api                                 = module.api.api
+  s3_origin_cache_behavior            = var.s3_origin_cache_behavior
+  s3_blog_assets_cache_behavior       = var.s3_blog_assets_cache_behavior
+  api_gateway_cache_behavior          = var.api_gateway_cache_behavior
+  add_index_cf_function_source_code   = var.add_index_cf_function_source_code
+  remove_path_cf_function_source_code = var.remove_path_cf_function_source_code
+  hosted_zone_name                    = var.hosted_zone_name
+  app_sub_domain_name                 = var.app_sub_domain_name
 }

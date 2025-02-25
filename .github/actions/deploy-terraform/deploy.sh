@@ -38,7 +38,8 @@ else
   terraform apply \
     -var-file "tfvars/$TF_VAR_environment.tfvars" \
     -auto-approve
-  aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/"
+  aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/" --delete
+  aws cloudfront create-invalidation --distribution-id "$(terraform output -raw distribution_id)" --paths "/*"
 fi
 
 echo "domain-name=$(terraform output -raw app_domain_name)" >> "$GITHUB_OUTPUT"
