@@ -1,0 +1,38 @@
+[
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "null" },
+        "Value": { "S": "AWS" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "null" },
+        "Value": { "S": "DevOps" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "null" },
+        "Value": { "S": "Networking" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "null" },
+        "Value": { "S": "Linux" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  }
+]

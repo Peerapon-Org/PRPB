@@ -1,0 +1,198 @@
+[
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": { "S": "null" },
+        "Value": { "S": "AWS" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "EC2" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "Lambda" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "RDS" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "CloudFront" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "IAM" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "AWS" },
+        "Value": { "S": "S3" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": { "S": "null" },
+        "Value": { "S": "DevOps" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Docker" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Kubernetes" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Terraform" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Ansible" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Helm" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "DevOps" },
+        "Value": { "S": "Jenkins" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": { "S": "null" },
+        "Value": { "S": "Networking" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "Networking" },
+        "Value": { "S": "CDN" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "Networking" },
+        "Value": { "S": "DNS" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": { "S": "null" },
+        "Value": { "S": "Linux" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "Linux" },
+        "Value": { "S": "Bash Scripting" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  },
+  {
+    "Put": {
+      "Item": {
+        "Category": { "S": "Linux" },
+        "Value": { "S": "Systemd" }
+      },
+      "TableName": "tagRefTableName"
+    }
+  }
+]
