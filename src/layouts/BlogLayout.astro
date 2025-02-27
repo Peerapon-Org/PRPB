@@ -53,9 +53,9 @@ const { frontmatter } = Astro.props;
     </header>
     <main>
       <div
-        class="px-4 md:px-[15%] xl:px-[22.5%] break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
+        class="px-4 md:px-[15%] xl:px-[22.5%] flex justify-center break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
       >
-        <div class="py-4 md:py-6">
+        <div class="py-4 md:py-6 max-w-[1340px]">
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
               <div class="w-full border rounded-xl">

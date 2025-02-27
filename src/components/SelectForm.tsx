@@ -1,12 +1,10 @@
 "use client";
 
-// import Link from "next/link"
 import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-// import { toast } from "@/components/hooks/use-toast"
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,35 +24,36 @@ import {
 } from "@/components/ui/select";
 
 const FormSchema = z.object({
-  email: z
-    .string({
-      required_error: "Please select an email to display.",
-    })
-    .email(),
+  category: z.string(),
+  subCategory: z.string(),
 });
 
-export type Tags<T extends string[]> = {
-  category: T;
-  subCategory: {
-    [K in T[number]]: string[];
-  };
+type Categories = string[];
+type SubCategories = {
+  [K in Categories[number]]: string[];
+};
+
+export type Tags = {
+  category: Categories;
+  subCategory: SubCategories;
+};
+
+export type Blog = {
+  category: Categories[number];
+  subCategory: SubCategories[Categories[number]];
+  publishDate: string;
+  slug: string;
 };
 
 export function SelectForm() {
-  const [tags, setTags] = useState<Tags<string[]>>();
+  const [tags, setTags] = useState<Tags>();
+  const [category, setCategory] = useState<Categories[number] | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // })
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
   }
 
   useEffect(() => {
@@ -65,28 +64,34 @@ export function SelectForm() {
           "Content-Type": "application/json",
         },
       });
-      const { category, subCategory } = (await response.json()) as Tags<
-        string[]
-      >;
+      const { category, subCategory } = (await response.json()) as Tags;
       setTags({ category, subCategory });
-      console.log(JSON.stringify(category), JSON.stringify(subCategory));
     }
     fetchTags();
   }, []);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full flex flex-col sm:flex-row justify-center items-center"
+      >
         <FormField
           control={form.control}
-          name="email"
+          name="category"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormItem className="w-5/6 mb-4 sm:w-1/3 sm:mb-0 sm:mr-4">
+              {/* <FormLabel>Email</FormLabel> */}
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(value);
+                  setCategory(value);
+                }}
+                defaultValue={field.value}
+              >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Category" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -97,15 +102,46 @@ export function SelectForm() {
                   ))}
                 </SelectContent>
               </Select>
-              <FormDescription>
+              {/* <FormDescription>
                 You can manage email addresses in your{" "}
-                {/* <Link href="/examples/forms">email settings</Link>. */}
-              </FormDescription>
+                <Link href="/examples/forms">email settings</Link>.
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="subCategory"
+          render={({ field }) => (
+            <FormItem className="w-5/6 mb-4 sm:w-1/3 sm:mb-0 sm:mr-4">
+              {/* <FormLabel>Email</FormLabel> */}
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Subcategory" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {category &&
+                    tags?.subCategory[category].map((subCategory) => (
+                      <SelectItem key={subCategory} value={subCategory}>
+                        {subCategory}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              {/* <FormDescription>
+                You can manage email addresses in your{" "}
+                <Link href="/examples/forms">email settings</Link>.
+              </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="justify-self-start">
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
