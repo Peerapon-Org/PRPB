@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "test-rest-api",
-    "version": "2025-02-08T16:16:29Z"
+    "version": "2025-02-28T19:45:05Z"
   },
   "servers": [
     {
@@ -47,7 +47,7 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
-                "application/json": "#set($items = $util.parseJson($input.json('Items')))\r\n#set($q = '\"')\r\n#set($response = {})\r\n#foreach($item in $items)\r\n#set($category = \"#if($item.Category.S=='null')category#{else}$item.Category.S#end\")\r\n#set($value = $item.Value.S)\r\n#if(!$response.containsKey($category))\r\n#set($_ = $response.put($category, []))\r\n#end\r\n#set($_ = $response[$category].add(\"${q}${value}${q}\"))\r\n#end\r\n{\r\n    \"status\": 200,\r\n    \"category\": $response.category,\r\n    \"subCategory\": {        \r\n    #foreach($category in $response.category)\r\n    #set($tags = $response[$util.escapeJavaScript($category).replaceAll('\\\\\"', '')])\r\n        $category: #if($!{tags}==\"\")[]#{else}$tags#end#if($foreach.hasNext),\r\n#end\r\n    #end\r\n    \r\n    }\r\n}"
+                "application/json": "#set($items = $util.parseJson($input.json('Items')))\r\n#set($q = '\"')\r\n#set($response = {})\r\n#foreach($item in $items)\r\n#set($category = \"#if($item.Category.S=='null')category#{else}$item.Category.S#end\")\r\n#set($value = $item.Value.S)\r\n#if(!$response.containsKey($category))\r\n#set($_ = $response.put($category, []))\r\n#end\r\n#set($_ = $response[$category].add(\"${q}${value}${q}\"))\r\n#end\r\n{\r\n    \"status\": 200,\r\n    \"category\": $response.category,\r\n    \"subcategory\": {        \r\n    #foreach($category in $response.category)\r\n    #set($tags = $response[$util.escapeJavaScript($category).replaceAll('\\\\\"', '')])\r\n        $category: #if($!{tags}==\"\")[]#{else}$tags#end#if($foreach.hasNext),\r\n#end\r\n    #end\r\n    \r\n    }\r\n}"
               }
             }
           },
@@ -205,12 +205,12 @@
             "default": {
               "statusCode": "200",
               "responseTemplates": {
-                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    {\n            \"category\": \"$item.Category.S\",\n            \"subCategory\": \"$item.SubCategory.S\",\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
+                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategory\": \"$item.Subcategory.S\",\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
               }
             }
           },
           "requestTemplates": {
-            "application/json": "#set($category = $util.escapeJavaScript($input.params('cat')))\r\n#set($subCategory = $util.escapeJavaScript($input.params('sub_cat')))\r\n#set($hasFilter = $!{category}!=\"\" || $!{subCategory}!=\"\")\r\n#set($lastPublishDate = $util.escapeJavaScript($input.params('last_pub_date')))\r\n#set($lastSlug = $util.escapeJavaScript($input.params('last_slug')))\r\n{\r\n    \"TableName\": \"$stageVariables.dynamoDBMainTableName\",\r\n    \"IndexName\": #if(!$hasFilter)\"PublishDateIndex\"#{else}#if($!{subCategory}!=\"\")\"SubCategoryIndex\"#{else}\"CategoryIndex\"#end#end,\r\n    \"Select\": \"ALL_PROJECTED_ATTRIBUTES\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#K\": #if(!$hasFilter)\"Type\"#{else}#if($!{subCategory}!=\"\")\"SubCategory\"#{else}\"Category\"#end#end\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":v\": {\r\n            \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subCategory}!=\"\")\"$subCategory\"#{else}\"$category\"#end#end\r\n        }\r\n    },\r\n    \"KeyConditionExpression\": \"#K = :v\",\r\n    \"Limit\": 2,\r\n    #if($!{lastPublishDate}!=\"\" && $!{lastSlug}!=\"\")\r\n    \"ExclusiveStartKey\": {\r\n        \"Type\": { \"S\": \"blog\" },\r\n        \"PublishDate\": { \"S\": \"$lastPublishDate\" },\r\n        \"Slug\": { \"S\": \"$lastSlug\" },\r\n        #if($!{subCategory}!=\"\")\"SubCategory\": { \"S\": \"$subCategory\" }#{else}\"Category\": { \"S\": \"$category\" }#end\r\n    },\r\n    #end\r\n    \"ReturnConsumedCapacity\": \"TOTAL\",\r\n    \"ScanIndexForward\": false\r\n}\r\n"
+            "application/json": "#set($category = $util.escapeJavaScript($input.params('cat')))\r\n#set($subcategory = $util.escapeJavaScript($input.params('sub_cat')))\r\n#set($hasFilter = $!{category}!=\"\" || $!{subcategory}!=\"\")\r\n#set($lastPublishDate = $util.escapeJavaScript($input.params('last_pub_date')))\r\n#set($lastSlug = $util.escapeJavaScript($input.params('last_slug')))\r\n{\r\n    \"TableName\": \"$stageVariables.dynamoDBMainTableName\",\r\n    \"IndexName\": #if(!$hasFilter)\"PublishDateIndex\"#{else}#if($!{subcategory}!=\"\")\"SubcategoryIndex\"#{else}\"CategoryIndex\"#end#end,\r\n    \"Select\": \"ALL_PROJECTED_ATTRIBUTES\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#K\": #if(!$hasFilter)\"Type\"#{else}#if($!{subcategory}!=\"\")\"Subcategory\"#{else}\"Category\"#end#end\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":v\": {\r\n            \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"$subcategory\"#{else}\"$category\"#end#end\r\n        }\r\n    },\r\n    \"KeyConditionExpression\": \"#K = :v\",\r\n    \"Limit\": 6,\r\n    #if($!{lastPublishDate}!=\"\" && $!{lastSlug}!=\"\")\r\n    \"ExclusiveStartKey\": {\r\n        \"Type\": { \"S\": \"blog\" },\r\n        \"PublishDate\": { \"S\": \"$lastPublishDate\" },\r\n        \"Slug\": { \"S\": \"$lastSlug\" },\r\n        #if($!{subcategory}!=\"\")\"Subcategory\": { \"S\": \"$subcategory\" }#{else}\"Category\": { \"S\": \"$category\" }#end\r\n    },\r\n    #end\r\n    \"ReturnConsumedCapacity\": \"TOTAL\",\r\n    \"ScanIndexForward\": false\r\n}\r\n"
           },
           "passthroughBehavior": "when_no_match",
           "type": "aws"
@@ -255,7 +255,7 @@
             }
           },
           "requestTemplates": {
-            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($tags = {})\n#foreach($blog in $blogs)\n#if(!$tags.containsKey($blog.category))\n#set($_ = $tags.put($blog.category, []))\n#end\n#if(!$tags[$blog.category].contains($blog.sub_category))\n#set($_ = $tags[$blog.category].add($blog.sub_category))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n#foreach($category in $tags.keySet())\n  #foreach($subCategory in $tags[$category])\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"$category\" },\n            \"Value\": { \"S\": \"$subCategory\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  },\n  #end\n#end\n  #foreach($blog in $blogs)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"blog\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            \"SubCategory\": { \"S\": \"$blog.sub_category\" },\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
+            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($tags = {})\n#foreach($blog in $blogs)\n#if(!$tags.containsKey($blog.category))\n#set($_ = $tags.put($blog.category, []))\n#end\n#if(!$tags[$blog.category].contains($blog.subcategory))\n#set($_ = $tags[$blog.category].add($blog.subcategory))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n#foreach($category in $tags.keySet())\n  #foreach($subcategory in $tags[$category])\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"$category\" },\n            \"Value\": { \"S\": \"$subcategory\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  },\n  #end\n#end\n  #foreach($blog in $blogs)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"blog\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            \"Subcategory\": { \"S\": \"$blog.subcategory\" },\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
           },
           "passthroughBehavior": "when_no_match",
           "type": "aws"
@@ -348,13 +348,13 @@
           "blogs": {
             "type": "array",
             "items": {
-              "required": ["category", "publish_date", "slug", "sub_category"],
+              "required": ["category", "publish_date", "slug", "subcategory"],
               "type": "object",
               "properties": {
                 "category": {
                   "type": "string"
                 },
-                "sub_category": {
+                "subcategory": {
                   "type": "string"
                 },
                 "publish_date": {
@@ -384,35 +384,55 @@
             "type": "array",
             "description": "A list of blog entries.",
             "items": {
-              "required": ["category", "publishDate", "slug", "subCategory"],
+              "required": [
+                "category",
+                "description",
+                "publishDate",
+                "slug",
+                "subcategory",
+                "thumbnail",
+                "title"
+              ],
               "type": "object",
               "properties": {
+                "slug": {
+                  "type": "string",
+                  "description": "A unique slug identifier for the blog."
+                },
                 "category": {
                   "type": "string",
                   "description": "The category of the blog."
                 },
-                "subCategory": {
+                "subcategory": {
                   "type": "string",
-                  "description": "The sub-category of the blog."
+                  "description": "The subcategory of the blog."
                 },
                 "publishDate": {
                   "type": "string",
                   "description": "The publish date of the blog in ISO 8601 format."
                 },
-                "slug": {
+                "thumbnail": {
                   "type": "string",
-                  "description": "A unique slug identifier for the blog."
+                  "description": "A URL to the blog's thumbnail image."
+                },
+                "title": {
+                  "type": "string",
+                  "description": "The title of the blog."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "A brief description or summary of the blog."
                 }
               }
             }
           }
         },
         "additionalProperties": false,
-        "description": "A response containing a list of blogs with their categories, sub-categories, publish dates, and slugs."
+        "description": "A response containing a list of blogs with their categories, subcategories, publish dates, slugs, thumbnails, titles, and descriptions."
       },
       "TagsResponseSchema": {
         "title": "Tags Response Schema",
-        "required": ["category", "status", "subCategory"],
+        "required": ["category", "status", "subcategory"],
         "type": "object",
         "properties": {
           "status": {
@@ -427,7 +447,7 @@
               "type": "string"
             }
           },
-          "subCategory": {
+          "subcategory": {
             "type": "object",
             "additionalProperties": {
               "type": "array",

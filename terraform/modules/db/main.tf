@@ -21,12 +21,12 @@ resource "aws_dynamodb_table" "blog_table" {
   }
 
   attribute {
-    name = "PublishDate"
+    name = "Subcategory"
     type = "S"
   }
 
   attribute {
-    name = "SubCategory"
+    name = "PublishDate"
     type = "S"
   }
 
@@ -40,12 +40,12 @@ resource "aws_dynamodb_table" "blog_table" {
     hash_key           = "Category"
     range_key          = "PublishDate"
     projection_type    = "INCLUDE"
-    non_key_attributes = ["SubCategory", "Slug"]
+    non_key_attributes = ["Subcategory", "Slug"]
   }
 
   global_secondary_index {
-    name               = "SubCategoryIndex"
-    hash_key           = "SubCategory"
+    name               = "SubcategoryIndex"
+    hash_key           = "Subcategory"
     range_key          = "PublishDate"
     projection_type    = "INCLUDE"
     non_key_attributes = ["Category", "Slug"]

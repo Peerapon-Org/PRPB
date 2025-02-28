@@ -214,8 +214,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-25" },
-        "SubCategory": { "S": "EC2" },
-        "Slug": { "S": "elastic-compute-cloud-for-scalable-computing" }
+        "Subcategory": { "S": "EC2" },
+        "Slug": { "S": "elastic-compute-cloud-for-scalable-computing" },
+        "Title": { "S": "Elastic Compute Cloud for Scalable Computing" },
+        "Description": { "S": "Learn about scalable computing with AWS EC2." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -226,8 +229,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-24" },
-        "SubCategory": { "S": "Jenkins" },
-        "Slug": { "S": "continuous-integration-and-delivery-with-jenkins" }
+        "Subcategory": { "S": "Jenkins" },
+        "Slug": { "S": "continuous-integration-and-delivery-with-jenkins" },
+        "Title": { "S": "Continuous Integration and Delivery with Jenkins" },
+        "Description": { "S": "Automate your CI/CD pipeline with Jenkins." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -238,8 +244,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-23" },
-        "SubCategory": { "S": "S3" },
-        "Slug": { "S": "scalable-object-storage-with-amazon-s3" }
+        "Subcategory": { "S": "S3" },
+        "Slug": { "S": "scalable-object-storage-with-amazon-s3" },
+        "Title": { "S": "Scalable Object Storage with Amazon S3" },
+        "Description": {
+          "S": "Discover scalable storage solutions with Amazon S3."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -250,8 +261,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-22" },
-        "SubCategory": { "S": "Docker" },
-        "Slug": { "S": "containerization-made-easy-with-docker" }
+        "Subcategory": { "S": "Docker" },
+        "Slug": { "S": "containerization-made-easy-with-docker" },
+        "Title": { "S": "Containerization Made Easy with Docker" },
+        "Description": { "S": "Simplify containerization with Docker." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -262,8 +276,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-21" },
-        "SubCategory": { "S": "Lambda" },
-        "Slug": { "S": "serverless-computing-with-aws-lambda" }
+        "Subcategory": { "S": "Lambda" },
+        "Slug": { "S": "serverless-computing-with-aws-lambda" },
+        "Title": { "S": "Serverless Computing with AWS Lambda" },
+        "Description": { "S": "Explore serverless computing with AWS Lambda." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -274,8 +291,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-20" },
-        "SubCategory": { "S": "Kubernetes" },
-        "Slug": { "S": "orchestrating-containers-with-kubernetes" }
+        "Subcategory": { "S": "Kubernetes" },
+        "Slug": { "S": "orchestrating-containers-with-kubernetes" },
+        "Title": { "S": "Orchestrating Containers with Kubernetes" },
+        "Description": {
+          "S": "Manage containers efficiently with Kubernetes."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -286,8 +308,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-19" },
-        "SubCategory": { "S": "RDS" },
-        "Slug": { "S": "managed-relational-databases-with-amazon-rds" }
+        "Subcategory": { "S": "RDS" },
+        "Slug": { "S": "managed-relational-databases-with-amazon-rds" },
+        "Title": { "S": "Managed Relational Databases with Amazon RDS" },
+        "Description": {
+          "S": "Learn about managed relational databases with Amazon RDS."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -298,8 +325,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-18" },
-        "SubCategory": { "S": "Terraform" },
-        "Slug": { "S": "infrastructure-as-code-with-terraform" }
+        "Subcategory": { "S": "Terraform" },
+        "Slug": { "S": "infrastructure-as-code-with-terraform" },
+        "Title": { "S": "Infrastructure as Code with Terraform" },
+        "Description": {
+          "S": "Implement infrastructure as code with Terraform."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -310,8 +342,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-17" },
-        "SubCategory": { "S": "CloudFront" },
-        "Slug": { "S": "content-delivery-with-amazon-cloudfront" }
+        "Subcategory": { "S": "CloudFront" },
+        "Slug": { "S": "content-delivery-with-amazon-cloudfront" },
+        "Title": { "S": "Content Delivery with Amazon CloudFront" },
+        "Description": {
+          "S": "Optimize content delivery with Amazon CloudFront."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -322,8 +359,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-16" },
-        "SubCategory": { "S": "Ansible" },
-        "Slug": { "S": "automation-with-ansible" }
+        "Subcategory": { "S": "Ansible" },
+        "Slug": { "S": "automation-with-ansible" },
+        "Title": { "S": "Automation with Ansible" },
+        "Description": { "S": "Automate your infrastructure with Ansible." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -334,8 +374,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-15" },
-        "SubCategory": { "S": "IAM" },
-        "Slug": { "S": "securing-aws-accounts-with-iam-policies" }
+        "Subcategory": { "S": "IAM" },
+        "Slug": { "S": "securing-aws-accounts-with-iam-policies" },
+        "Title": { "S": "Securing AWS Accounts with IAM Policies" },
+        "Description": { "S": "Secure your AWS accounts with IAM policies." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -346,8 +389,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-14" },
-        "SubCategory": { "S": "Helm" },
-        "Slug": { "S": "managing-kubernetes-packages-with-helm" }
+        "Subcategory": { "S": "Helm" },
+        "Slug": { "S": "managing-kubernetes-packages-with-helm" },
+        "Title": { "S": "Managing Kubernetes Packages with Helm" },
+        "Description": { "S": "Manage Kubernetes packages with Helm." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -358,8 +404,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "Networking" },
         "PublishDate": { "S": "2023-10-13" },
-        "SubCategory": { "S": "CDN" },
-        "Slug": { "S": "optimizing-web-speed-with-content-delivery-networks" }
+        "Subcategory": { "S": "CDN" },
+        "Slug": { "S": "optimizing-web-speed-with-content-delivery-networks" },
+        "Title": { "S": "Optimizing Web Speed with Content Delivery Networks" },
+        "Description": {
+          "S": "Improve web speed with content delivery networks."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -370,8 +421,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "Linux" },
         "PublishDate": { "S": "2023-10-12" },
-        "SubCategory": { "S": "Bash Scripting" },
-        "Slug": { "S": "automation-with-bash-scripts" }
+        "Subcategory": { "S": "Bash Scripting" },
+        "Slug": { "S": "automation-with-bash-scripts" },
+        "Title": { "S": "Automation with Bash Scripts" },
+        "Description": { "S": "Automate tasks with Bash scripts." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -382,8 +436,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-11" },
-        "SubCategory": { "S": "S3" },
-        "Slug": { "S": "secure-storage-strategies-for-amazon-s3" }
+        "Subcategory": { "S": "S3" },
+        "Slug": { "S": "secure-storage-strategies-for-amazon-s3" },
+        "Title": { "S": "Secure Storage Strategies for Amazon S3" },
+        "Description": {
+          "S": "Learn secure storage strategies for Amazon S3."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -394,8 +453,13 @@
         "Type": { "S": "blog" },
         "Category": { "S": "DevOps" },
         "PublishDate": { "S": "2023-10-10" },
-        "SubCategory": { "S": "Jenkins" },
-        "Slug": { "S": "automating-ci-cd-with-jenkins-pipelines" }
+        "Subcategory": { "S": "Jenkins" },
+        "Slug": { "S": "automating-ci-cd-with-jenkins-pipelines" },
+        "Title": { "S": "Automating CI/CD with Jenkins Pipelines" },
+        "Description": {
+          "S": "Automate CI/CD processes with Jenkins pipelines."
+        },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -406,8 +470,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "Networking" },
         "PublishDate": { "S": "2023-10-09" },
-        "SubCategory": { "S": "DNS" },
-        "Slug": { "S": "dns-configuration-best-practices" }
+        "Subcategory": { "S": "DNS" },
+        "Slug": { "S": "dns-configuration-best-practices" },
+        "Title": { "S": "DNS Configuration Best Practices" },
+        "Description": { "S": "Follow best practices for DNS configuration." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   },
@@ -418,8 +485,11 @@
         "Type": { "S": "blog" },
         "Category": { "S": "Linux" },
         "PublishDate": { "S": "2023-10-08" },
-        "SubCategory": { "S": "Systemd" },
-        "Slug": { "S": "service-management-with-systemd" }
+        "Subcategory": { "S": "Systemd" },
+        "Slug": { "S": "service-management-with-systemd" },
+        "Title": { "S": "Service Management with Systemd" },
+        "Description": { "S": "Manage services with Systemd." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
       }
     }
   }

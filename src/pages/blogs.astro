@@ -1,16 +1,10 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { SelectScrollable } from "@/components/SelectScrollable";
-import { SelectForm } from "@/components/SelectForm";
+import { BlogList } from "@/components/blogs/BlogList";
 ---
 
 <Layout title="Blogs">
-  <!-- <SelectScrollable client:load /> -->
   <div class="w-full flex justify-center">
-    <div class="w-full max-w-[1340px] flex justify-center">
-      <div class="w-full mt-8">
-        <SelectForm client:load />
-      </div>
-    </div>
+    <BlogList client:load />
   </div>
 </Layout>
