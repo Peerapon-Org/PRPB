@@ -215,6 +215,21 @@
         "Category": { "S": "AWS" },
         "PublishDate": { "S": "2023-10-25" },
         "Subcategory": { "S": "EC2" },
+        "Slug": { "S": "elastic-compute-cloud-for-scalable-computing-2" },
+        "Title": { "S": "Elastic Compute Cloud for Scalable Computing 2" },
+        "Description": { "S": "Learn about scalable computing with AWS EC2." },
+        "Thumbnail": { "S": "https://dev.prpblog.com/assets/thumbnail.png" }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": { "S": "blog" },
+        "Category": { "S": "AWS" },
+        "PublishDate": { "S": "2023-10-25" },
+        "Subcategory": { "S": "EC2" },
         "Slug": { "S": "elastic-compute-cloud-for-scalable-computing" },
         "Title": { "S": "Elastic Compute Cloud for Scalable Computing" },
         "Description": { "S": "Learn about scalable computing with AWS EC2." },

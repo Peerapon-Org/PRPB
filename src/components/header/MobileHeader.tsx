@@ -154,8 +154,6 @@ export function MobileHeader() {
               className={cn([
                 buttonVariants({
                   variant: "secondary",
-                  size: "custom",
-                  fontSize: "custom",
                 }),
                 "menu-item",
               ])}
@@ -164,12 +162,7 @@ export function MobileHeader() {
               {menu}
             </a>
           ))}
-          <Button
-            variant={"secondary"}
-            size={"custom"}
-            fontSize={"custom"}
-            className="menu-item about-me"
-          >
+          <Button variant={"secondary"} className="menu-item about-me">
             <div className="flex items-center">
               <a
                 href="/"

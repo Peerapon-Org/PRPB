@@ -56,6 +56,7 @@ export default {
         menu: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       screens: {
+        sm: "767px",
         md: "990px",
       },
       zIndex: {

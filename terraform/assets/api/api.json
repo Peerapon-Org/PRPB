@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "test-rest-api",
-    "version": "2025-02-28T19:45:05Z"
+    "version": "2025-03-01T20:17:49Z"
   },
   "servers": [
     {
@@ -187,6 +187,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -204,6 +211,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
               "responseTemplates": {
                 "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategory\": \"$item.Subcategory.S\",\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
               }
@@ -296,7 +306,7 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS'",
+                "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
@@ -319,13 +329,18 @@
       },
       "TagsRequestBodySchema": {
         "title": "Tags Request Body Schema",
-        "required": ["tags"],
+        "required": [
+          "tags"
+        ],
         "type": "object",
         "properties": {
           "tags": {
             "type": "array",
             "items": {
-              "required": ["category", "value"],
+              "required": [
+                "category",
+                "value"
+              ],
               "type": "object",
               "properties": {
                 "category": {
@@ -342,13 +357,20 @@
       },
       "BlogsRequestBodySchema": {
         "title": "Blogs Request Body Schema",
-        "required": ["blogs"],
+        "required": [
+          "blogs"
+        ],
         "type": "object",
         "properties": {
           "blogs": {
             "type": "array",
             "items": {
-              "required": ["category", "publish_date", "slug", "subcategory"],
+              "required": [
+                "category",
+                "publish_date",
+                "slug",
+                "subcategory"
+              ],
               "type": "object",
               "properties": {
                 "category": {
@@ -372,7 +394,10 @@
       },
       "BlogsResponseSchema": {
         "title": "Blogs Response Schema",
-        "required": ["blogs", "status"],
+        "required": [
+          "blogs",
+          "status"
+        ],
         "type": "object",
         "properties": {
           "status": {
@@ -432,7 +457,11 @@
       },
       "TagsResponseSchema": {
         "title": "Tags Response Schema",
-        "required": ["category", "status", "subcategory"],
+        "required": [
+          "category",
+          "status",
+          "subcategory"
+        ],
         "type": "object",
         "properties": {
           "status": {
@@ -471,14 +500,14 @@
     }
   },
   "x-amazon-apigateway-gateway-responses": {
-    "DEFAULT_4XX": {
+    "DEFAULT_5XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
         "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       }
     },
-    "DEFAULT_5XX": {
+    "DEFAULT_4XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",

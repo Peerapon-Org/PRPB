@@ -39,16 +39,14 @@ resource "aws_dynamodb_table" "blog_table" {
     name               = "CategoryIndex"
     hash_key           = "Category"
     range_key          = "PublishDate"
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["Subcategory", "Slug"]
+    projection_type    = "ALL"
   }
 
   global_secondary_index {
     name               = "SubcategoryIndex"
     hash_key           = "Subcategory"
     range_key          = "PublishDate"
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["Category", "Slug"]
+    projection_type    = "ALL"
   }
 
   local_secondary_index {
