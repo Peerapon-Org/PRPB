@@ -1,0 +1,507 @@
+[
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Linux"
+        },
+        "Value": {
+          "S": "Ubuntu"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Linux"
+        },
+        "Value": {
+          "S": "CentOS"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Linux"
+        },
+        "Value": {
+          "S": "Cron Jobs"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Networking"
+        },
+        "Value": {
+          "S": "VPN"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Networking"
+        },
+        "Value": {
+          "S": "Load Balancing"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "TableName": "tagRefTableName",
+      "Key": {
+        "Category": {
+          "S": "Networking"
+        },
+        "Value": {
+          "S": "Firewalls"
+        }
+      },
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "ConditionExpression": "attribute_exists(#V)"
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Linux"
+        },
+        "PublishDate": {
+          "S": "2023-10-03"
+        },
+        "Subcategory": {
+          "S": "Ubuntu"
+        },
+        "Slug": {
+          "S": "getting-started-with-ubuntu-server-administration"
+        },
+        "Title": {
+          "S": "Getting Started with Ubuntu Server Administration"
+        },
+        "Description": {
+          "S": "A beginner's guide to Ubuntu server administration."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Linux"
+        },
+        "PublishDate": {
+          "S": "2023-10-02"
+        },
+        "Subcategory": {
+          "S": "CentOS"
+        },
+        "Slug": {
+          "S": "centos-administration-best-practices"
+        },
+        "Title": {
+          "S": "CentOS Administration Best Practices"
+        },
+        "Description": {
+          "S": "Best practices for administering CentOS servers."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Linux"
+        },
+        "PublishDate": {
+          "S": "2023-10-01"
+        },
+        "Subcategory": {
+          "S": "Cron Jobs"
+        },
+        "Slug": {
+          "S": "automating-tasks-with-cron-jobs"
+        },
+        "Title": {
+          "S": "Automating Tasks with Cron Jobs"
+        },
+        "Description": {
+          "S": "Learn how to schedule and automate tasks using cron jobs in Linux."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Networking"
+        },
+        "PublishDate": {
+          "S": "2023-09-30"
+        },
+        "Subcategory": {
+          "S": "VPN"
+        },
+        "Slug": {
+          "S": "setting-up-a-secure-vpn-server"
+        },
+        "Title": {
+          "S": "Setting Up a Secure VPN Server"
+        },
+        "Description": {
+          "S": "A step-by-step guide to setting up a secure VPN server."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Networking"
+        },
+        "PublishDate": {
+          "S": "2023-09-29"
+        },
+        "Subcategory": {
+          "S": "Load Balancing"
+        },
+        "Slug": {
+          "S": "implementing-load-balancing-for-high-availability"
+        },
+        "Title": {
+          "S": "Implementing Load Balancing for High Availability"
+        },
+        "Description": {
+          "S": "Learn how to implement load balancing for high availability applications."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Networking"
+        },
+        "PublishDate": {
+          "S": "2023-09-28"
+        },
+        "Subcategory": {
+          "S": "Firewalls"
+        },
+        "Slug": {
+          "S": "configuring-firewalls-for-network-security"
+        },
+        "Title": {
+          "S": "Configuring Firewalls for Network Security"
+        },
+        "Description": {
+          "S": "Best practices for configuring firewalls to enhance network security."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "AWS"
+        },
+        "PublishDate": {
+          "S": "2023-09-27"
+        },
+        "Subcategory": {
+          "S": "ECS"
+        },
+        "Slug": {
+          "S": "container-orchestration-with-amazon-ecs"
+        },
+        "Title": {
+          "S": "Container Orchestration with Amazon ECS"
+        },
+        "Description": {
+          "S": "Learn how to orchestrate containers using Amazon ECS."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "AWS"
+        },
+        "PublishDate": {
+          "S": "2023-09-26"
+        },
+        "Subcategory": {
+          "S": "DynamoDB"
+        },
+        "Slug": {
+          "S": "building-scalable-applications-with-dynamodb"
+        },
+        "Title": {
+          "S": "Building Scalable Applications with DynamoDB"
+        },
+        "Description": {
+          "S": "A guide to building scalable applications using Amazon DynamoDB."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "DevOps"
+        },
+        "PublishDate": {
+          "S": "2023-09-25"
+        },
+        "Subcategory": {
+          "S": "GitLab CI"
+        },
+        "Slug": {
+          "S": "continuous-integration-with-gitlab-ci"
+        },
+        "Title": {
+          "S": "Continuous Integration with GitLab CI"
+        },
+        "Description": {
+          "S": "Setting up and optimizing continuous integration pipelines with GitLab CI."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "DevOps"
+        },
+        "PublishDate": {
+          "S": "2023-09-24"
+        },
+        "Subcategory": {
+          "S": "Prometheus"
+        },
+        "Slug": {
+          "S": "monitoring-infrastructure-with-prometheus"
+        },
+        "Title": {
+          "S": "Monitoring Infrastructure with Prometheus"
+        },
+        "Description": {
+          "S": "Learn how to monitor your infrastructure effectively with Prometheus."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Linux"
+        },
+        "PublishDate": {
+          "S": "2023-09-22"
+        },
+        "Subcategory": {
+          "S": "Shell Scripting"
+        },
+        "Slug": {
+          "S": "advanced-shell-scripting-techniques"
+        },
+        "Title": {
+          "S": "Advanced Shell Scripting Techniques"
+        },
+        "Description": {
+          "S": "Take your shell scripting skills to the next level with these advanced techniques."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "AWS"
+        },
+        "PublishDate": {
+          "S": "2023-09-21"
+        },
+        "Subcategory": {
+          "S": "Route53"
+        },
+        "Slug": {
+          "S": "dns-management-with-amazon-route53"
+        },
+        "Title": {
+          "S": "DNS Management with Amazon Route53"
+        },
+        "Description": {
+          "S": "Learn how to manage DNS effectively with Amazon Route53."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "mainTableName",
+      "Item": {
+        "Type": {
+          "S": "blog"
+        },
+        "Category": {
+          "S": "Networking"
+        },
+        "PublishDate": {
+          "S": "2023-09-20"
+        },
+        "Subcategory": {
+          "S": "HTTPS"
+        },
+        "Slug": {
+          "S": "securing-web-traffic-with-https"
+        },
+        "Title": {
+          "S": "Securing Web Traffic with HTTPS"
+        },
+        "Description": {
+          "S": "Best practices for implementing HTTPS to secure web traffic."
+        },
+        "Thumbnail": {
+          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+        }
+      }
+    }
+  }
+]

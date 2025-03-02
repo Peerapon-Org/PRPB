@@ -20,24 +20,8 @@ export function BlogItem({
   thumbnail,
 }: BlogItemProps) {
   return (
-    <div>
-      <a href={`/blog/${slug}`}>
-        <div>
-          <div>
-            <img
-              src={thumbnail}
-              alt={title + " thumbnail"}
-              className="rounded-tl-3xl"
-            />
-          </div>
-          <div>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <p>{publishDate}</p>
-          </div>
-        </div>
-      </a>
-      <div className="flex absolute">
+    <div className="relative">
+      <div className="flex absolute top-0 left-2">
         <Tag key={slug + "category"} name={category} category={category} />
         {subcategory && (
           <Tag
@@ -48,6 +32,24 @@ export function BlogItem({
           />
         )}
       </div>
+      <a href={`/blog/${slug}`}>
+        <div>
+          <div>
+            <img
+              src={thumbnail}
+              alt={title + " thumbnail"}
+              className="rounded-tl-3xl"
+            />
+          </div>
+          <div className="px-2 py-2">
+            <div className="text-md leading-snug mb-2">{title}</div>
+            <div className="text-xs leading-tight mb-2 font-light">
+              {description}
+            </div>
+            <div className="text-xs font-light">{publishDate}</div>
+          </div>
+        </div>
+      </a>
     </div>
   );
 }

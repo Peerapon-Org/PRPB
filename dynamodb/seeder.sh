@@ -38,12 +38,16 @@ aws dynamodb transact-write-items \
   --profile $1
 
 echo -e "\nWriting blogs to the $MAIN_TABLE_NAME table..."
-TEMP_B=$(mktemp)
-sed -e "s/$TAG_REF_TABLE_NAME_PLACEHOLDER/$TAG_REF_TABLE_NAME/g; s/$MAIN_TABLE_NAME_PLACEHOLDER/$MAIN_TABLE_NAME/g" blogs.json | jq -r '.' > $TEMP_B
-aws dynamodb transact-write-items \
-  --transact-items file://$TEMP_B \
-  --return-consumed-capacity TOTAL \
-  --profile $1
+DATA_FILES=("blogs_1.json" "blogs_2.json" "blogs_3.json")
+for FILE in ${DATA_FILES[@]}; do
+  echo $FILE
+  TEMP_B=$(mktemp)
+  sed -e "s/$TAG_REF_TABLE_NAME_PLACEHOLDER/$TAG_REF_TABLE_NAME/g; s/$MAIN_TABLE_NAME_PLACEHOLDER/$MAIN_TABLE_NAME/g" $FILE | jq -r '.' > $TEMP_B
+  aws dynamodb transact-write-items \
+    --transact-items file://$TEMP_B \
+    --return-consumed-capacity TOTAL \
+    --profile $1
+done
 
 popd > /dev/null 2>&1
 
