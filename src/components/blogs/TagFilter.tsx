@@ -56,12 +56,15 @@ export function TagFilter({
 
   useEffect(() => {
     async function fetchTags() {
-      const response = await fetch("https://dev.prpblog.com/api/tags", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://${import.meta.env.PUBLIC_DOMAIN_NAME}/api/tags`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const { category, subcategory } = (await response.json()) as Tags;
       setTags({ category, subcategory });
     }

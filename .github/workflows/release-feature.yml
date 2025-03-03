@@ -57,4 +57,4 @@ jobs:
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           aws-region: ${{ vars.AWS_REGION }}
           is-production: true
-          environment: prod
+          environment: ${{ vars.STAGE }}

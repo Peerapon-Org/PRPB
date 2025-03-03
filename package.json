@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "dev2": "astro dev --port 43210",
+    "dev": "export PUBLIC_DOMAIN_NAME=dev.prpblog.com; astro dev",
+    "dev2": "export PUBLIC_DOMAIN_NAME=dev.prpblog.com; astro dev --port 43210",
     "build": "astro build",
     "test": "playwright test --fully-parallel",
     "lint": "eslint",

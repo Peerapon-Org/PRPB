@@ -81,7 +81,7 @@ export function BlogList() {
 
     const queryString = getQueryString(props);
     const response = await fetch(
-      `https://dev.prpblog.com/api/blogs${queryString}`,
+      `https://${import.meta.env.PUBLIC_DOMAIN_NAME}/api/blogs${queryString}`,
       {
         method: "GET",
         headers: {
