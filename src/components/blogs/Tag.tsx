@@ -18,7 +18,7 @@ export function Tag({ name, category, subcategory }: TagProps) {
     >
       <Button
         size="sm"
-        variant="default"
+        variant="tag"
         className="h-auto px-2 mx-1 text-sm sm:text-xs rounded-2xl"
       >
         {name}

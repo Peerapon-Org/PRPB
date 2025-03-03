@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 import { TagFilter } from "@/components/blogs/TagFilter";
 import { BlogItem, type BlogItemProps } from "@/components/blogs/BlogItem";
@@ -27,7 +27,6 @@ export type Tags = {
 export type TagFilterProps = {
   category: Categories[number];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
-  subcategory: Subcategories[Categories[number]][number];
   setSubcategory: React.Dispatch<React.SetStateAction<string>>;
   fetchBlogs: (props: FetchBlogsProps) => void;
 };
@@ -44,6 +43,8 @@ export function BlogList() {
     Subcategories[Categories[number]][number] | null
   >(null);
 
+  /* eslint-disable react/prop-types */
+  /* eslint-disable @typescript-eslint/no-unused-expressions */
   function getQueryString(props: FetchBlogsProps): string {
     let queryString = "";
 
@@ -74,7 +75,6 @@ export function BlogList() {
     const categoryChanged = props.category !== prevCategory.current;
     const subcategoryChanged = props.subcategory !== prevSubcategory.current;
     const filterChanged = categoryChanged || subcategoryChanged;
-    console.log("aaaaaa: ", categoryChanged, subcategoryChanged, filterChanged);
 
     // users click the 'Apply' button without changing the filter
     if (!props.lastBlog && !filterChanged) return;
@@ -102,16 +102,11 @@ export function BlogList() {
     if (subcategoryChanged) prevSubcategory.current = props.subcategory;
   }
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
-
   return (
     <div className="w-full min-w-[300px] max-w-[1440px] flex flex-col items-center mt-8">
       <TagFilter
         category={category}
         setCategory={setCategory}
-        subcategory={subcategory}
         setSubcategory={setSubcategory}
         fetchBlogs={fetchBlogs}
       />

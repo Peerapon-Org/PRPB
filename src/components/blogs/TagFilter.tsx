@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -25,7 +25,6 @@ import {
   type Subcategories,
   type Tags,
   type TagFilterProps,
-  type FetchBlogsProps,
 } from "./BlogList";
 
 const FormSchema = z.object({
@@ -36,7 +35,6 @@ const FormSchema = z.object({
 export function TagFilter({
   category,
   setCategory,
-  subcategory,
   setSubcategory,
   fetchBlogs,
 }: TagFilterProps) {
@@ -70,33 +68,41 @@ export function TagFilter({
     fetchTags();
   }, []);
 
-  // useEffect(() => {
-  //   const urlSearchParams = new URLSearchParams(window.location.search);
-  //   const category = urlSearchParams.get("category") ?? "";
-  //   const subcategory = urlSearchParams.get("subcategory") ?? "";
-  //   const isValidCategory = (
-  //     category: string
-  //   ): category is Categories[number] => {
-  //     return tags?.category.includes(category) ? true : false;
-  //   };
-  //   const isValidSubcategory = (
-  //     subcategory: string
-  //   ): subcategory is Subcategories[Categories[number]][number] => {
-  //     return (tags?.subcategory[category] ?? []).includes(subcategory) ||
-  //       (category && !subcategory)
-  //       ? true
-  //       : false;
-  //   };
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const category = urlSearchParams.get("category") ?? "";
+    const subcategory = urlSearchParams.get("subcategory") ?? "";
+    const isValidCategory = ((
+      category: string
+    ): category is Categories[number] => {
+      return tags?.category.includes(category) || category === ""
+        ? true
+        : false;
+    })(category);
+    const isValidSubcategory = ((
+      subcategory: string
+    ): subcategory is Subcategories[Categories[number]][number] => {
+      return (tags?.subcategory[category] ?? []).includes(subcategory) ||
+        (category && !subcategory)
+        ? true
+        : false;
+    })(subcategory);
 
-  //   if (isValidCategory(category)) {
-  //     form.setValue("category", category);
-  //     setCategory(category as Categories[number]);
-  //   }
-  //   if (isValidSubcategory(subcategory))
-  //     form.setValue("subcategory", subcategory);
+    if (isValidCategory) {
+      form.setValue("category", category);
+      setCategory(category);
+    }
+    if (isValidSubcategory) {
+      setSubcategory(subcategory);
+      form.setValue("subcategory", subcategory);
+      // set subcategory field value 2nd time
+      setTimeout(() => form.setValue("subcategory", subcategory), 100);
+    }
 
-  //   if (isValidCategory(category)) form.handleSubmit(onSubmit)();
-  // }, [tags]);
+    // Do not fetch the blogs if the category is invalid
+    // Ignore subcategory if the subcategory is invalid
+    if (isValidCategory) form.handleSubmit(onSubmit)();
+  }, [tags]);
 
   return (
     <Form {...form}>
@@ -138,12 +144,9 @@ export function TagFilter({
           control={form.control}
           name="subcategory"
           render={({ field }) => (
-            <FormItem className="w-5/6 mb-4 sm:w-1/3 sm:mb-0 sm:mr-4 select-none">
+            <FormItem className="w-5/6 mb-6 sm:w-1/3 sm:mb-0 sm:mr-4 select-none">
               <Select
-                onValueChange={(value) => {
-                  field.onChange(value);
-                  setSubcategory(value);
-                }}
+                onValueChange={field.onChange}
                 value={field.value}
                 disabled={category === ""}
               >
@@ -174,7 +177,6 @@ export function TagFilter({
             onClick={() => {
               form.reset();
               setCategory("");
-              setSubcategory("");
             }}
           >
             Clear

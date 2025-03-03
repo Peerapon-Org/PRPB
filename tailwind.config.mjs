@@ -13,6 +13,10 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         overlay: "hsl(var(--overlay))",
+        tag: {
+          DEFAULT: "hsl(var(--tag))",
+          foreground: "hsl(var(--tag-foreground))",
+        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
