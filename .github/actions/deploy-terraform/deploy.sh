@@ -47,7 +47,7 @@ else
   else
     # Run DynamoDB seeder
     pushd ../dynamodb > /dev/null 2>&1
-    . seeder.sh
+    bash seeder.sh
     popd > /dev/null 2>&1
   fi
   

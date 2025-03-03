@@ -2,12 +2,12 @@
 
 set -e
 
-# if [[ -z $1 ]]; then
-#   echo "Error: AWS profile is required"
-#   exit 1
-# fi
+if [[ "$(pwd)" != *dynamodb ]]; then
+  echo "Error: Please run this script from the dynamodb directory"
+  exit 1
+fi
 
-pushd ~/project/PRPB/terraform > /dev/null 2>&1
+pushd ../terraform > /dev/null 2>&1
 
 TAG_REF_TABLE_NAME_PLACEHOLDER="tagRefTableName"
 TAG_REF_TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
@@ -18,8 +18,6 @@ echo "replace $TAG_REF_TABLE_NAME_PLACEHOLDER with $TAG_REF_TABLE_NAME"
 echo "replace $MAIN_TABLE_NAME_PLACEHOLDER with $MAIN_TABLE_NAME"
 
 popd > /dev/null 2>&1
-
-pushd ~/project/PRPB/dynamodb > /dev/null 2>&1
 
 if [[ -z $1 ]]; then
   echo -e "\nWriting categories to the $TAG_REF_TABLE_NAME table..."
@@ -75,8 +73,5 @@ else
       --profile $1
   done
 fi
-
-
-popd > /dev/null 2>&1
 
 echo -e "\nSeeding completed"
