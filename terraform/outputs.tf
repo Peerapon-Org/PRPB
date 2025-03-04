@@ -18,3 +18,13 @@ output "distribution_id" {
   description = "CloudFront distribution ID"
   value       = module.cdn.distribution_id
 }
+
+output "blog_table_name" {
+  description = "DynamoDB blog table name"
+  value       = module.db.blog_table_name
+}
+
+output "tag_ref_table_name" {
+  description = "DynamoDB tag reference table name"
+  value       = module.db.tag_ref_table_name
+}

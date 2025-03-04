@@ -13,6 +13,10 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         overlay: "hsl(var(--overlay))",
+        tag: {
+          DEFAULT: "hsl(var(--tag))",
+          foreground: "hsl(var(--tag-foreground))",
+        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -56,6 +60,7 @@ export default {
         menu: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       screens: {
+        sm: "767px",
         md: "990px",
       },
       zIndex: {

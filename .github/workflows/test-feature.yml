@@ -51,7 +51,18 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - name: Set Astro environment variable
+        id: set-astro-env-var
+        run: |
+          PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
+          STAGE=${{ vars.STAGE }}
+          BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          PUBLIC_DOMAIN_NAME="$PROJECT-$STAGE-$(echo $BRANCH | tr '\[/*\]' '-').prpblog.com"
+          echo "$PUBLIC_DOMAIN_NAME"
+          echo "PUBLIC_DOMAIN_NAME=$PUBLIC_DOMAIN_NAME" >> "$GITHUB_OUTPUT"
       - name: Build
+        env:
+          PUBLIC_DOMAIN_NAME: ${{ steps.set-astro-env-var.outputs.PUBLIC_DOMAIN_NAME }}
         run: npm run build
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -101,4 +112,4 @@ jobs:
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           aws-region: ${{ vars.AWS_REGION }}
           is-production: false
-          environment: staging
+          environment: ${{ vars.STAGE }}
