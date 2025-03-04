@@ -2,11 +2,61 @@
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import "@/styles/globals.css";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout title="Home">
-  <Welcome />
+  <!-- <Welcome /> -->
+  <div
+    class="flex flex-col select-none md:overflow-hidden w-full h-screen md:h-[calc(100vh-(2*3.3rem)-0.1rem)]"
+  >
+    <div
+      class="flex flex-col md:flex-row justify-center items-center py-36 font-serif font-semibold"
+    >
+      <div class="text-8xl left-text">PRPB</div>
+      <div
+        class="border border-foreground w-1/5 md:w-0 h-0 md:h-1/2 mx-8 animate-stretch-x md:animate-stretch-y"
+      >
+      </div>
+      <div class="text-4xl right-text">
+        <div>KNOWLEDGE</div>
+        <div>ARCHIVE</div>
+      </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <a href="/blogs" class="border px-4 py-2 text-lg mr-8">
+        <div>BLOGS</div>
+      </a>
+      <a href="/about">
+        <div>ABOUT</div>
+      </a>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .left-text {
+    animation: up 0.8s ease-out 1 normal forwards;
+  }
+
+  .right-text {
+    animation: down 0.8s ease-out 1 normal forwards;
+  }
+
+  @keyframes up {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-2rem);
+    }
+  }
+
+  @keyframes down {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(2rem);
+    }
+  }
+</style>
