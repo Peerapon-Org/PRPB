@@ -1,16 +1,14 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import "@/styles/globals.css";
 ---
 
 <Layout title="Home">
-  <!-- <Welcome /> -->
   <div
     class="flex flex-col select-none md:overflow-hidden w-full h-screen md:h-[calc(100vh-(2*3.3rem)-0.1rem)]"
   >
     <div
-      class="flex flex-col md:flex-row justify-center items-center pt-36 pb-24 font-serif font-semibold"
+      class="flex flex-col md:flex-row justify-center items-center pt-20 pb-24 font-serif font-semibold"
     >
       <div class="text-8xl left-text">PRPB</div>
       <div
@@ -39,6 +37,7 @@ import "@/styles/globals.css";
         <div class="w-4 flex items-center ml-5">
           <svg
             version="1.1"
+            class="!w-full !h-full"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 120.64 122.88"
@@ -63,6 +62,7 @@ import "@/styles/globals.css";
         <div class="w-4 flex items-center ml-5">
           <svg
             version="1.1"
+            class="!w-full !h-full"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 120.64 122.88"

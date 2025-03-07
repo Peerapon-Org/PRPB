@@ -109,10 +109,6 @@
   font-size: 1rem;
 }
 
-.menu-container.active .about-me {
-  min-width: 300px;
-}
-
 .about-me {
   position: absolute;
   display: flex;
@@ -126,7 +122,8 @@
 }
 
 .menu-container.active .about-me {
-  padding: 1.5rem 1.2rem !important;
+  min-width: 300px;
+  padding: 1.5rem 1.2rem;
   opacity: 1;
 }
 
@@ -141,19 +138,13 @@
   transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.prpb-icon {
-  height: 2em;
-}
-
 .github-icon,
 .linkedin-icon {
   height: 1.6em;
+  width: 1.6em;
 }
 
-.menu-container.active .prpb-icon {
-  opacity: 1;
-}
-
+.menu-container.active .prpb-icon,
 .menu-container.active .github-icon,
 .menu-container.active .linkedin-icon {
   opacity: 1;

@@ -4,7 +4,6 @@ import "@/styles/mobileHeader.css";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ThemeToggleBtn } from "@/components/ui/themeToggleBtn";
-import prpbIcon from "@/assets/prpb.svg";
 import { useEffect, useRef } from "react";
 
 export function MobileHeader() {
@@ -13,11 +12,6 @@ export function MobileHeader() {
     { menu: "Blogs", link: "/blogs" },
     { menu: "About", link: "/about" },
   ];
-  // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-  // left: 37, up: 38, right: 39, down: 40,
-  const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
-  const wheelEvent =
-    "onwheel" in document.createElement("div") ? "wheel" : "mousewheel";
   const menuOverlay = useRef<HTMLDivElement | null>(null);
   const menuGroup = useRef<HTMLDivElement | null>(null);
   const menuContainer = useRef<HTMLDivElement | null>(null);
@@ -69,41 +63,12 @@ export function MobileHeader() {
     };
   }, []);
 
-  function preventDefault(e: Event) {
-    e.preventDefault();
-  }
-
-  function preventDefaultForScrollKeys(e: KeyboardEvent) {
-    if (keys.includes(e.keyCode)) {
-      e.preventDefault();
-      return false;
-    }
-  }
-
   function disableScroll() {
-    menuOverlay.current?.addEventListener(
-      "DOMMouseScroll",
-      preventDefault,
-      false
-    ); // older FF
-    menuOverlay.current?.addEventListener(wheelEvent, preventDefault, false); // modern desktop
-    menuOverlay.current?.addEventListener("touchmove", preventDefault, false); // mobile
-    window.addEventListener("keydown", preventDefaultForScrollKeys, false);
+    document.body.classList.add("lock");
   }
 
   function enableScroll() {
-    menuOverlay.current?.removeEventListener(
-      "DOMMouseScroll",
-      preventDefault,
-      false
-    ); // older FF
-    menuOverlay.current?.removeEventListener(wheelEvent, preventDefault, false); // modern desktop
-    menuOverlay.current?.removeEventListener(
-      "touchmove",
-      preventDefault,
-      false
-    ); // mobile
-    window.removeEventListener("keydown", preventDefaultForScrollKeys, false);
+    document.body.classList.remove("lock");
   }
 
   return (
@@ -138,10 +103,10 @@ export function MobileHeader() {
             <div className="flex items-center">
               <a
                 href="/"
-                className="prpb-icon"
+                className="prpb-icon font-serif font-semibold text-md"
                 rel="noopener noreferrer nofollow"
               >
-                <img src={prpbIcon.src} className="h-full" alt="PRPB Logo" />
+                PRPB
               </a>
             </div>
             <div className="flex items-center">
@@ -149,7 +114,7 @@ export function MobileHeader() {
                 href="https://github.com/Peerapon-Org/PRPB"
                 rel="noopener noreferrer nofollow"
                 target="_blank"
-                className="pr-[.8rem] github-icon"
+                className="mr-[.8rem] github-icon"
               >
                 <svg
                   className="!w-full !h-full"
@@ -157,7 +122,6 @@ export function MobileHeader() {
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <title>github</title>
                   <rect
                     width="48"
                     height="48"
@@ -191,7 +155,6 @@ export function MobileHeader() {
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <title>linkedin</title>
                   <path d="M28.778 1.004h-25.56c-0.008-0-0.017-0-0.027-0-1.199 0-2.172 0.964-2.186 2.159v25.672c0.014 1.196 0.987 2.161 2.186 2.161 0.010 0 0.019-0 0.029-0h25.555c0.008 0 0.018 0 0.028 0 1.2 0 2.175-0.963 2.194-2.159l0-0.002v-25.67c-0.019-1.197-0.994-2.161-2.195-2.161-0.010 0-0.019 0-0.029 0h0.001zM9.9 26.562h-4.454v-14.311h4.454zM7.674 10.293c-1.425 0-2.579-1.155-2.579-2.579s1.155-2.579 2.579-2.579c1.424 0 2.579 1.154 2.579 2.578v0c0 0.001 0 0.002 0 0.004 0 1.423-1.154 2.577-2.577 2.577-0.001 0-0.002 0-0.003 0h0zM26.556 26.562h-4.441v-6.959c0-1.66-0.034-3.795-2.314-3.795-2.316 0-2.669 1.806-2.669 3.673v7.082h-4.441v-14.311h4.266v1.951h0.058c0.828-1.395 2.326-2.315 4.039-2.315 0.061 0 0.121 0.001 0.181 0.003l-0.009-0c4.5 0 5.332 2.962 5.332 6.817v7.855z"></path>
                 </svg>
               </a>
