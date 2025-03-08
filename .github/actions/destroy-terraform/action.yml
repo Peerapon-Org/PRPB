@@ -2,10 +2,10 @@ name: "Destroy Terraform"
 description: "Destroy Terraform resources in AWS account"
 inputs:
   s3-bucket-name:
-    description: "S3"
+    description: "Terraform remote state S3 bucket name"
     required: true
   dynamodb-table-name:
-    description: "S3"
+    description: "Terraform remote state DynamoDB table name"
     required: true
   aws-region:
     description: "AWS region where the application is"
@@ -15,7 +15,7 @@ inputs:
     description: "AWS account ID where the application is"
     required: true
   environment:
-    description: "Environment where the application is"
+    description: "Environment of the application"
     required: true
     default: "dev"
 runs:

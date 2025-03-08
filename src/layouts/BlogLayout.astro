@@ -1,6 +1,7 @@
 ---
 import "@/styles/globals.css";
 import { Header } from "@/components/header/Header";
+import { Tag } from "@/components/blogs/Tag";
 import { Image } from "astro:assets";
 
 const { frontmatter } = Astro.props;
@@ -69,8 +70,32 @@ const { frontmatter } = Astro.props;
               </div>
             )
           }
-          <div class="text-4xl md:text-3xl font-bold py-8 md:py-6">
+          <div class="text-4xl md:text-3xl font-bold py-6">
             {frontmatter?.title}
+          </div>
+          <div class="flex pb-6 justify-between items-center">
+            <div class="flex">
+              {
+                frontmatter?.category && (
+                  <div class="mr-2">
+                    <Tag
+                      name={frontmatter.category}
+                      category={frontmatter.category}
+                    />
+                  </div>
+                )
+              }
+              {
+                frontmatter?.category && frontmatter?.subcategory && (
+                  <Tag
+                    name={frontmatter.subcategory}
+                    category={frontmatter.category}
+                    subcategory={frontmatter.subcategory}
+                  />
+                )
+              }
+            </div>
+            <p class="text-xs opacity-70">{frontmatter?.date}</p>
           </div>
           <slot />
         </div>

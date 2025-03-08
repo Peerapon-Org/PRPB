@@ -1,5 +1,5 @@
-name: "Deploy Terraform"
-description: "Deploy Terraform code to AWS account"
+name: "Publish blog"
+description: "Put a new blog to the S3 bucket and create CloudFront cache invalidation"
 inputs:
   s3-bucket-name:
     description: "Terraform remote state S3 bucket name"
@@ -8,24 +8,20 @@ inputs:
     description: "Terraform remote state DynamoDB table name"
     required: true
   aws-region:
-    description: "AWS region to deploy application to"
+    description: "AWS region where the application is"
     required: true
     default: "ap-southeast-1"
   account-id:
-    description: "AWS account ID to deploy to"
+    description: "AWS account ID where the application is"
     required: true
   environment:
     description: "Environment of the application"
     required: true
-    default: "dev"
-  is-production:
-    description: "Is this a production deployment?"
-    required: false
-    default: "false"
+    default: "prod"
 outputs:
-  domain-name:
-    description: "Domain name of the deployed application"
-    value: ${{ steps.deploy.outputs.domain-name }}
+  blog-url:
+    description: "URL link of the published blog"
+    value: ${{ steps.deploy.outputs.blog-url }}
 runs:
   using: "composite"
   steps:
@@ -45,4 +41,3 @@ runs:
         ACCOUNT_ID: ${{ inputs.account-id }}
         AWS_REGION: ${{ inputs.aws-region }}
         ENVIRONMENT: ${{ inputs.environment }}
-        IS_PRODUCTION: ${{ inputs.is-production }}

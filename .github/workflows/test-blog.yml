@@ -20,6 +20,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+      - name: Validate tag
+        uses: ./.github/actions/validate-tag
+        with:
+          s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
+          dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
+          account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-region: ${{ vars.AWS_REGION }}
+          environment: ${{ vars.STAGE }}
       - name: Install dependencies
         run: npm ci
       - name: Run linter
@@ -27,7 +35,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npm run test -- src/pages/blog/
+        run: npm run test
   build:
     runs-on: ubuntu-latest
     needs: test
@@ -46,11 +54,15 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Get slug
+        id: get_slug
+        run: |
+          echo "SLUG=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/blog/}}" >> "$GITHUB_OUTPUT"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: astro-build
-          path: dist/
+          name: astro-build-blog
+          path: dist/blog/${{ steps.get_slug.outputs.SLUG }}
           retention-days: 7
           if-no-files-found: error
           overwrite: true

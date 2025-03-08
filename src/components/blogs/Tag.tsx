@@ -4,9 +4,10 @@ export type TagProps = {
   name: string;
   category: string;
   subcategory?: string;
+  themeLock?: boolean;
 };
 
-export function Tag({ name, category, subcategory }: TagProps) {
+export function Tag({ name, category, subcategory, themeLock }: TagProps) {
   return (
     <a
       href={
@@ -18,8 +19,8 @@ export function Tag({ name, category, subcategory }: TagProps) {
     >
       <Button
         size="sm"
-        variant="tag"
-        className="h-auto px-2 mx-1 text-sm sm:text-xs rounded-2xl"
+        variant={themeLock ? "tag" : "default"}
+        className="h-auto px-2 text-sm sm:text-xs rounded-2xl select-none"
       >
         {name}
       </Button>
