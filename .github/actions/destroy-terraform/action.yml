@@ -14,6 +14,9 @@ inputs:
   account-id:
     description: "AWS account ID where the application is"
     required: true
+  domain-name:
+    description: "Domain name of the application"
+    required: true
   environment:
     description: "Environment of the application"
     required: true
@@ -36,4 +39,5 @@ runs:
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
         ACCOUNT_ID: ${{ inputs.account-id }}
         AWS_REGION: ${{ inputs.aws-region }}
+        DOMAIN_NAME: ${{ inputs.domain-name }}
         ENVIRONMENT: ${{ inputs.environment }}

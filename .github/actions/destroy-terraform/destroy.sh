@@ -15,6 +15,7 @@ export TF_VAR_environment=${ENVIRONMENT,,}
 export TF_VAR_region=$AWS_REGION
 export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
 export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
+export TF_VAR_hosted_zone_name=$DOMAIN_NAME
 export TF_VAR_app_sub_domain_name=$TF_WORKSPACE
 
 [[ "$(aws apigateway get-account | jq -r '.cloudwatchRoleArn')" == null ]] && \
