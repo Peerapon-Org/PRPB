@@ -42,6 +42,7 @@ TAG_REF_TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 MAIN_TABLE_NAME_PLACEHOLDER="mainTableName"
 MAIN_TABLE_NAME="$(terraform output -raw blog_table_name)"
 BUCKET_NAME="$(terraform output -raw s3_blog_assets_bucket_name)"
+APP_DOMAIN_NAME="$(terraform output -raw app_domain_name)"
 
 echo "replace $TAG_REF_TABLE_NAME_PLACEHOLDER with $TAG_REF_TABLE_NAME"
 echo "replace $MAIN_TABLE_NAME_PLACEHOLDER with $MAIN_TABLE_NAME"
@@ -66,9 +67,8 @@ if [[ -z $PROFILE ]]; then
   echo -e "\nWriting blogs to the $MAIN_TABLE_NAME table..."
   DATA_FILES=("blogs_1.json" "blogs_2.json" "blogs_3.json")
   aws s3api put-object --bucket $BUCKET_NAME --key thumbnail.png --body thumbnail.png
-  sed -i "s|<thumbnail>|https://$BUCKET_NAME.s3.$REGION.amazonaws.com/thumbnail.png|g" blogs_*.json
+  sed -i "s|<thumbnail>|https://$APP_DOMAIN_NAME/assets/thumbnail.png|g" blogs_*.json
   for FILE in ${DATA_FILES[@]}; do
-    echo $FILE
     TEMP_B=$(mktemp)
     sed -e "s/$TAG_REF_TABLE_NAME_PLACEHOLDER/$TAG_REF_TABLE_NAME/g; s/$MAIN_TABLE_NAME_PLACEHOLDER/$MAIN_TABLE_NAME/g" $FILE | jq -r '.' > $TEMP_B
     aws dynamodb transact-write-items \
