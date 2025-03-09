@@ -127,7 +127,7 @@
           "S": "A beginner's guide to Ubuntu server administration."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -158,7 +158,7 @@
           "S": "Best practices for administering CentOS servers."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -189,7 +189,7 @@
           "S": "Learn how to schedule and automate tasks using cron jobs in Linux."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -220,7 +220,7 @@
           "S": "A step-by-step guide to setting up a secure VPN server."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -251,7 +251,7 @@
           "S": "Learn how to implement load balancing for high availability applications."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -282,7 +282,7 @@
           "S": "Best practices for configuring firewalls to enhance network security."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -313,7 +313,7 @@
           "S": "Learn how to orchestrate containers using Amazon ECS."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -344,7 +344,7 @@
           "S": "A guide to building scalable applications using Amazon DynamoDB."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -375,7 +375,7 @@
           "S": "Setting up and optimizing continuous integration pipelines with GitLab CI."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -406,7 +406,7 @@
           "S": "Learn how to monitor your infrastructure effectively with Prometheus."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -437,7 +437,7 @@
           "S": "Take your shell scripting skills to the next level with these advanced techniques."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -468,7 +468,7 @@
           "S": "Learn how to manage DNS effectively with Amazon Route53."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -499,7 +499,7 @@
           "S": "Best practices for implementing HTTPS to secure web traffic."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }

@@ -263,7 +263,7 @@
           "S": "Learn how to deploy and manage Kubernetes clusters on AWS using EKS."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -294,7 +294,7 @@
           "S": "Best practices for designing secure network architectures with AWS VPC."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -325,7 +325,7 @@
           "S": "A comprehensive guide to building and deploying serverless APIs with AWS API Gateway."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -356,7 +356,7 @@
           "S": "Learn how to effectively monitor your AWS resources using CloudWatch."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -387,7 +387,7 @@
           "S": "Best practices for implementing GitOps workflows in Kubernetes environments."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -418,7 +418,7 @@
           "S": "Setting up continuous delivery pipelines for Kubernetes using ArgoCD."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -449,7 +449,7 @@
           "S": "Learn how to build effective observability dashboards using Grafana."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -480,7 +480,7 @@
           "S": "A comprehensive guide to implementing and managing SELinux on Linux servers."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -511,7 +511,7 @@
           "S": "Optimization techniques for Nginx to achieve high-performance web serving."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -542,7 +542,7 @@
           "S": "A comprehensive guide to managing the Linux firewall using Firewalld."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -573,7 +573,7 @@
           "S": "Understanding and implementing Logical Volume Management (LVM) in Linux."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -604,7 +604,7 @@
           "S": "Understanding the fundamentals of TCP/IP networking protocols."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -635,7 +635,7 @@
           "S": "An in-depth look at Border Gateway Protocol (BGP) routing for internet connectivity."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -666,7 +666,7 @@
           "S": "Best practices for implementing Network Address Translation (NAT) in network environments."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -697,7 +697,7 @@
           "S": "Advanced techniques for optimizing container deployments with Amazon ECS."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -728,7 +728,7 @@
           "S": "Best practices and techniques for optimizing Docker container images."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -759,7 +759,7 @@
           "S": "Advanced techniques for tuning Linux server performance."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }

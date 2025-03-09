@@ -297,7 +297,7 @@
           "S": "Learn about scalable computing with AWS EC2."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -328,7 +328,7 @@
           "S": "Automate your CI/CD pipeline with Jenkins."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -359,7 +359,7 @@
           "S": "Discover scalable storage solutions with Amazon S3."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -390,7 +390,7 @@
           "S": "Simplify containerization with Docker."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -421,7 +421,7 @@
           "S": "Explore serverless computing with AWS Lambda."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -452,7 +452,7 @@
           "S": "Manage containers efficiently with Kubernetes."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -483,7 +483,7 @@
           "S": "Learn about managed relational databases with Amazon RDS."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -514,7 +514,7 @@
           "S": "Implement infrastructure as code with Terraform."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -545,7 +545,7 @@
           "S": "Optimize content delivery with Amazon CloudFront."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -576,7 +576,7 @@
           "S": "Automate your infrastructure with Ansible."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -607,7 +607,7 @@
           "S": "Secure your AWS accounts with IAM policies."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -638,7 +638,7 @@
           "S": "Manage Kubernetes packages with Helm."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -669,7 +669,7 @@
           "S": "Improve web speed with content delivery networks."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -700,7 +700,7 @@
           "S": "Automate tasks with Bash scripts."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -731,7 +731,7 @@
           "S": "Learn secure storage strategies for Amazon S3."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -762,7 +762,7 @@
           "S": "Automate CI/CD processes with Jenkins pipelines."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -793,7 +793,7 @@
           "S": "Follow best practices for DNS configuration."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }
@@ -824,7 +824,7 @@
           "S": "Manage services with Systemd."
         },
         "Thumbnail": {
-          "S": "https://dev.prpblog.com/assets/thumbnail.png"
+          "S": "<thumbnail>"
         }
       }
     }

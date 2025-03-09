@@ -43,7 +43,7 @@ if [[ "$IS_PRODUCTION" == "true" ]]; then
 else
   # Run DynamoDB seeder
   pushd ../dynamodb > /dev/null 2>&1
-  bash seeder.sh
+  bash seeder.sh --region $TF_VAR_region
   popd > /dev/null 2>&1
 fi
 
