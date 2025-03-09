@@ -1,5 +1,5 @@
-name: "Destroy Terraform"
-description: "Destroy Terraform resources in AWS account"
+name: "Validate tag"
+description: "Verify whether tags assigned to the blog do exist or not"
 inputs:
   s3-bucket-name:
     description: "Terraform remote state S3 bucket name"
@@ -17,7 +17,7 @@ inputs:
   environment:
     description: "Environment of the application"
     required: true
-    default: "dev"
+    default: "prod"
 runs:
   using: "composite"
   steps:
@@ -26,9 +26,9 @@ runs:
       shell: bash
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Run destroy script
-      id: destroy
-      run: destroy.sh
+    - name: Run deploy script
+      id: deploy
+      run: validate.sh
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:

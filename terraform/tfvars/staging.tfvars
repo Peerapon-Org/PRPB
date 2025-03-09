@@ -21,4 +21,3 @@ api_gateway_cache_behavior = {
   cloudfront_cache_policy_name          = "Managed-CachingDisabled",
   cloudfront_origin_request_policy_name = "Managed-AllViewerExceptHostHeader"
 }
-hosted_zone_name = "prpblog.com"

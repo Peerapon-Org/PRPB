@@ -1,0 +1,36 @@
+[
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": {
+          "S": "null"
+        },
+        "Value": {
+          "S": "<category>"
+        }
+      },
+      "TableName": "<table>"
+    }
+  },
+  {
+    "ConditionCheck": {
+      "ConditionExpression": "attribute_exists(#V)",
+      "ExpressionAttributeNames": {
+        "#V": "Value"
+      },
+      "Key": {
+        "Category": {
+          "S": "<category>"
+        },
+        "Value": {
+          "S": "<subcategory>"
+        }
+      },
+      "TableName": "<table>"
+    }
+  }
+]

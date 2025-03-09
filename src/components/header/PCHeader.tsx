@@ -16,7 +16,7 @@ export function PCHeader() {
   ];
 
   return (
-    <div className="absolute h-full  w-full">
+    <div className="absolute h-full w-full overflow-hidden">
       <div className="sticky z-full top-0 px-44 h-[3.3rem] flex items-center justify-between backdrop-filter backdrop-blur-[20px] border-b">
         <a
           href="/"

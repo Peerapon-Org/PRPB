@@ -66,6 +66,20 @@ export default {
       zIndex: {
         full: "9999",
       },
+      animation: {
+        "stretch-x": "stretchX 0.8s ease-out 1 normal forwards",
+        "stretch-y": "stretchY 0.8s ease-out 1 normal forwards",
+      },
+      keyframes: {
+        stretchX: {
+          "0%": { transform: "scaleX(1)" },
+          "100%": { transform: "scaleX(4)" },
+        },
+        stretchY: {
+          "0%": { transform: "scaleY(1)" },
+          "100%": { transform: "scaleY(4)" },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -22,13 +22,21 @@ export function BlogItem({
   return (
     <div className="relative">
       <div className="flex absolute top-0 left-2">
-        <Tag key={slug + "category"} name={category} category={category} />
+        <div className="ml-1 mr-2">
+          <Tag
+            key={slug + "category"}
+            name={category}
+            category={category}
+            themeLock
+          />
+        </div>
         {subcategory && (
           <Tag
             key={slug + "subcategory"}
             name={subcategory}
             category={category}
             subcategory={subcategory}
+            themeLock
           />
         )}
       </div>

@@ -1,5 +1,5 @@
-name: "Destroy Terraform"
-description: "Destroy Terraform resources in AWS account"
+name: "Publish blog"
+description: "Put a new blog to the S3 bucket and create CloudFront cache invalidation"
 inputs:
   s3-bucket-name:
     description: "Terraform remote state S3 bucket name"
@@ -17,7 +17,11 @@ inputs:
   environment:
     description: "Environment of the application"
     required: true
-    default: "dev"
+    default: "prod"
+outputs:
+  blog-url:
+    description: "URL link of the published blog"
+    value: ${{ steps.deploy.outputs.blog-url }}
 runs:
   using: "composite"
   steps:
@@ -26,9 +30,9 @@ runs:
       shell: bash
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Run destroy script
-      id: destroy
-      run: destroy.sh
+    - name: Run deploy script
+      id: deploy
+      run: deploy.sh
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:
