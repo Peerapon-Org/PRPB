@@ -13,13 +13,12 @@ export TF_VAR_project=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '
 export TF_VAR_account=$ACCOUNT_ID
 export TF_VAR_is_production=$IS_PRODUCTION
 export TF_VAR_environment=${ENVIRONMENT,,}
+export TF_VAR_hosted_zone_name=$DOMAIN_NAME
 export TF_VAR_region=$AWS_REGION
 
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   export TF_VAR_branch="main"
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
-  export STAGING_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-  export STAGING_WORKSPACE="$TF_VAR_project-staging-$(echo $STAGING_BRANCH | tr '\[/*\]' '-')"
 else
   export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
@@ -40,7 +39,7 @@ terraform apply \
 
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   # Replace API endpoint from staging to production
-  sed -i "s/$STAGING_WORKSPACE\.prpblog\.com/prpblog\.com/g" "assets/dist/_astro/$(ls assets/dist/_astro/ | grep BlogList)"
+  sed -i "s/https:\/\/\(.*\)\/api/https:\/\/$TF_VAR_hosted_zone_name\/api/g" "assets/dist/_astro/$(ls assets/dist/_astro/ | grep BlogList)"
 else
   # Run DynamoDB seeder
   pushd ../dynamodb > /dev/null 2>&1

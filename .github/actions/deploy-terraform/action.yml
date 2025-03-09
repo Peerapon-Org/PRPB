@@ -18,14 +18,17 @@ inputs:
     description: "Environment of the application"
     required: true
     default: "dev"
+  domain-name:
+    description: "Domain name of the application"
+    required: true
   is-production:
     description: "Is this a production deployment?"
     required: false
     default: "false"
 outputs:
-  domain-name:
-    description: "Domain name of the deployed application"
-    value: ${{ steps.deploy.outputs.domain-name }}
+  app-url:
+    description: "URL link the deployed application"
+    value: ${{ steps.deploy.outputs.app-url }}
 runs:
   using: "composite"
   steps:
@@ -44,5 +47,6 @@ runs:
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
         ACCOUNT_ID: ${{ inputs.account-id }}
         AWS_REGION: ${{ inputs.aws-region }}
+        DOMAIN_NAME: ${{ inputs.domain-name }}
         ENVIRONMENT: ${{ inputs.environment }}
         IS_PRODUCTION: ${{ inputs.is-production }}
