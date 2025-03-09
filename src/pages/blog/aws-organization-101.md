@@ -6,7 +6,7 @@ date: "2025-01-18"
 category: "AWS"
 subcategory: "Organization"
 description: "วิธีการใช้งาน AWS Organizaiton สำหรับผู้เริ่มต้น"
-thumbnail: "<thumbnail>"
+thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.png"
 ---
 
 All frontmatter properties are available as props to an Astro layout component.
