@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "allow_logs_access" {
 
     principals {
       type        = "AWS"
-      identifiers = [tostring(var.global_variables.account)]
+      identifiers = [var.global_variables.account]
     }
   }
 }
