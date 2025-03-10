@@ -28,8 +28,8 @@ module "api" {
   source                 = "./modules/api"
   global_variables       = local.global_variables
   api_definition         = var.api_definition
-  blog_table_name        = module.db.blog_table_name
-  tag_ref_table_name     = module.db.tag_ref_table_name
+  dynamodb_blog_table    = module.db.dynamodb_blog_table
+  dynamodb_tag_ref_table = module.db.dynamodb_tag_ref_table
   enable_account_logging = var.enable_account_logging
 }
 

@@ -36,17 +36,17 @@ resource "aws_dynamodb_table" "blog_table" {
   }
 
   global_secondary_index {
-    name               = "CategoryIndex"
-    hash_key           = "Category"
-    range_key          = "PublishDate"
-    projection_type    = "ALL"
+    name            = "CategoryIndex"
+    hash_key        = "Category"
+    range_key       = "PublishDate"
+    projection_type = "ALL"
   }
 
   global_secondary_index {
-    name               = "SubcategoryIndex"
-    hash_key           = "Subcategory"
-    range_key          = "PublishDate"
-    projection_type    = "ALL"
+    name            = "SubcategoryIndex"
+    hash_key        = "Subcategory"
+    range_key       = "PublishDate"
+    projection_type = "ALL"
   }
 
   local_secondary_index {
