@@ -2,6 +2,7 @@ terraform {
   required_providers {
     aws = {
       source                = "hashicorp/aws"
+      version               = "~> 5.84.0"
       configuration_aliases = [aws.virginia]
     }
   }
@@ -83,11 +84,6 @@ data "aws_cloudfront_response_headers_policy" "response_header_policy" {
   name     = each.value
 }
 
-# data "aws_s3_bucket" "s3_bucket_endpoints" {
-#   for_each = local.s3_buckets
-#   bucket   = each.value.bucket
-# }
-
 resource "aws_cloudfront_origin_access_control" "s3_oac" {
   name                              = "${var.global_variables.prefix}-oac"
   origin_access_control_origin_type = "s3"
@@ -125,8 +121,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   aliases             = [local.app_domain_name, "www.${local.app_domain_name}"]
 
   origin {
-    domain_name = var.s3_origin_bucket.bucket_regional_domain_name
-    # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_origin_bucket"].bucket_regional_domain_name
+    domain_name              = var.s3_origin_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
     origin_id                = var.s3_origin_bucket.id
   }
@@ -147,8 +142,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   origin {
-    domain_name = var.s3_blog_assets_bucket.bucket_regional_domain_name
-    # domain_name              = data.aws_s3_bucket.s3_bucket_endpoints["s3_blog_assets_bucket"].bucket_regional_domain_name
+    domain_name              = var.s3_blog_assets_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
     origin_id                = var.s3_blog_assets_bucket.id
   }
@@ -242,7 +236,7 @@ data "aws_iam_policy_document" "allow_public_access" {
 
     principals {
       type        = "AWS"
-      identifiers = [tostring(var.global_variables.account)]
+      identifiers = [var.global_variables.account]
     }
   }
 }
