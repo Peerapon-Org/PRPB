@@ -13,9 +13,14 @@ data "aws_iam_policy_document" "api_gateway_assume_role" {
 
 data "aws_iam_policy_document" "api_execution_role_policy" {
   statement {
-    effect    = "Allow"
-    actions   = ["dynamodb:*"]
-    resources = [var.dynamodb_blog_table.arn, var.dynamodb_tag_ref_table.arn]
+    effect  = "Allow"
+    actions = ["dynamodb:*"]
+    resources = [
+      var.dynamodb_blog_table.arn,
+      var.dynamodb_tag_ref_table.arn,
+      "${var.dynamodb_blog_table.arn}/*",
+      "${var.dynamodb_tag_ref_table.arn}/*"
+    ]
   }
 }
 
