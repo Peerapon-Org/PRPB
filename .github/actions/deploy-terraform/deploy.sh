@@ -10,7 +10,7 @@ terraform init \
   -reconfigure
 
 export TF_VAR_project=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
-export TF_VAR_account=$ACCOUNT_ID
+export TF_VAR_account="$ACCOUNT_ID"
 export TF_VAR_is_production=$IS_PRODUCTION
 export TF_VAR_environment=${ENVIRONMENT,,}
 export TF_VAR_hosted_zone_name=$DOMAIN_NAME

@@ -18,7 +18,7 @@ variable "region" {
 }
 
 variable "account" {
-  type        = number
+  type        = string
   description = "(Required) ID of the AWS account to deploy the resources"
 
   validation {
