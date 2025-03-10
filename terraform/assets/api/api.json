@@ -38,7 +38,7 @@
         },
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "credentials": "arn:aws:iam::741448960615:role/api-gateway-test-rest-api-service-role",
+          "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Scan",
           "responses": {
@@ -89,7 +89,7 @@
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "credentials": "arn:aws:iam::741448960615:role/api-gateway-test-rest-api-service-role",
+          "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
           "responses": {
@@ -206,7 +206,7 @@
         "x-amazon-apigateway-request-validator": "Validate query string parameters and headers",
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "credentials": "arn:aws:iam::741448960615:role/api-gateway-test-rest-api-service-role",
+          "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Query",
           "responses": {
@@ -257,7 +257,7 @@
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "credentials": "arn:aws:iam::741448960615:role/api-gateway-test-rest-api-service-role",
+          "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
           "responses": {

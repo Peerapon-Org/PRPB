@@ -1,6 +1,4 @@
 data "aws_iam_policy_document" "api_gateway_assume_role" {
-  count = var.enable_account_logging ? 1 : 0
-
   statement {
     effect = "Allow"
 
@@ -13,13 +11,41 @@ data "aws_iam_policy_document" "api_gateway_assume_role" {
   }
 }
 
+data "aws_iam_policy_document" "api_execution_role_policy" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["apigateway.amazonaws.com"]
+    }
+
+    actions = ["dynamodb:*"]
+  }
+}
+
+resource "aws_iam_policy" "api_execution_role_policy" {
+  name        = "${var.global_variables.prefix}-api-execution-policy"
+  policy      = data.aws_iam_policy_document.api_execution_role_policy.json
+}
+
+resource "aws_iam_role" "api_execution_role" {
+  name               = "${var.global_variables.prefix}-api-execution-role"
+  assume_role_policy = data.aws_iam_policy_document.api_gateway_assume_role.json
+}
+
+resource "aws_iam_role_policy_attachment" "api_execution_role_attachment" {
+  role       = aws_iam_role.api_execution_role.name
+  policy_arn = aws_iam_policy.api_execution_role_policy.arn
+}
+
 resource "aws_iam_role" "api_account_role" {
   count              = var.enable_account_logging ? 1 : 0
   name               = "AWSAPIGatewayPushToCloudWatchLogsRole"
-  assume_role_policy = data.aws_iam_policy_document.api_gateway_assume_role.0.json
+  assume_role_policy = data.aws_iam_policy_document.api_gateway_assume_role.json
 }
 
-resource "aws_iam_role_policy_attachment" "main" {
+resource "aws_iam_role_policy_attachment" "api_account_role_attachment" {
   count      = var.enable_account_logging ? 1 : 0
   role       = aws_iam_role.api_account_role.0.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"

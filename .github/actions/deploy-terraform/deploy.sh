@@ -33,6 +33,8 @@ if ! terraform workspace list | grep -q "$TF_WORKSPACE"; then
   terraform workspace new "$TF_WORKSPACE"
 fi
 
+# replace <execution_role_arn> in the api.json with the actual value
+sed -i "s|<execution_role_arn>|arn:aws:iam::$TF_VAR_account:role/$TF_WORKSPACE-api-execution-role|g" assets/api/api.json
 terraform apply \
   -var-file "tfvars/$TF_VAR_environment.tfvars" \
   -auto-approve
