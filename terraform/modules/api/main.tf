@@ -64,6 +64,10 @@ resource "aws_api_gateway_rest_api" "api" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.api_execution_role_attachment
+  ]
 }
 
 resource "aws_api_gateway_deployment" "api_deployment" {
