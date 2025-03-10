@@ -26,10 +26,10 @@ output "distribution_id" {
 
 output "blog_table_name" {
   description = "DynamoDB blog table name"
-  value       = module.db.blog_table_name
+  value       = module.db.dynamodb_blog_table.name
 }
 
 output "tag_ref_table_name" {
   description = "DynamoDB tag reference table name"
-  value       = module.db.tag_ref_table_name
+  value       = module.db.dynamodb_tag_ref_table.name
 }

@@ -10,14 +10,20 @@ variable "global_variables" {
   description = "Global variables for sharing across modules"
 }
 
-variable "blog_table_name" {
-  type        = string
-  description = "DynamoDB blog table name"
+variable "dynamodb_blog_table" {
+  type = object({
+    name = string
+    arn  = string
+  })
+  description = "DynamoDB blog table attributes"
 }
 
-variable "tag_ref_table_name" {
-  type        = string
-  description = "DynamoDB tag reference table name"
+variable "dynamodb_tag_ref_table" {
+  type = object({
+    name = string
+    arn  = string
+  })
+  description = "DynamoDB tag reference table attributes"
 }
 
 variable "api_definition" {

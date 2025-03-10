@@ -13,20 +13,20 @@ data "aws_iam_policy_document" "api_gateway_assume_role" {
 
 data "aws_iam_policy_document" "api_execution_role_policy" {
   statement {
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["apigateway.amazonaws.com"]
-    }
-
+    effect  = "Allow"
     actions = ["dynamodb:*"]
+    resources = [
+      var.dynamodb_blog_table.arn,
+      var.dynamodb_tag_ref_table.arn,
+      "${var.dynamodb_blog_table.arn}/*",
+      "${var.dynamodb_tag_ref_table.arn}/*"
+    ]
   }
 }
 
 resource "aws_iam_policy" "api_execution_role_policy" {
-  name        = "${var.global_variables.prefix}-api-execution-policy"
-  policy      = data.aws_iam_policy_document.api_execution_role_policy.json
+  name   = "${var.global_variables.prefix}-api-execution-policy"
+  policy = data.aws_iam_policy_document.api_execution_role_policy.json
 }
 
 resource "aws_iam_role" "api_execution_role" {
@@ -94,8 +94,8 @@ resource "aws_api_gateway_stage" "api_stage" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
   deployment_id = aws_api_gateway_deployment.api_deployment.id
   variables = {
-    "dynamoDBMainTableName"   = var.blog_table_name
-    "dynamoDBTagRefTableName" = var.tag_ref_table_name
+    "dynamoDBMainTableName"   = var.dynamodb_blog_table.name
+    "dynamoDBTagRefTableName" = var.dynamodb_tag_ref_table.name
   }
 
   access_log_settings {
