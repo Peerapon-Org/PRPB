@@ -16,18 +16,14 @@ export function PCHeader() {
   ];
 
   return (
-    <div className="absolute h-full w-full overflow-hidden">
-      <div className="sticky z-full top-0 px-44 h-[3.3rem] flex items-center justify-between backdrop-filter backdrop-blur-[20px] border-b">
+    <div className="absolute h-full w-full">
+      <div className="sticky z-full top-0 px-48 h-[3.3rem] flex items-center justify-between backdrop-filter backdrop-blur-[20px] border-b">
         <a
           href="/"
           rel="noopener noreferrer nofollow"
-          className="flex items-center justify-center h-full shrink-0"
+          className="flex items-center justify-center h-full shrink-0 font-serif font-semibold select-none"
         >
-          <img
-            src={prpbIcon.src}
-            className="w-[3.5rem] select-none"
-            alt="PRPB Logo"
-          />
+          PRPB
         </a>
         <div className="flex h-full">
           {menus.map(({ menu, link }) => (
@@ -35,7 +31,7 @@ export function PCHeader() {
               key={menu}
               href={link}
               onClick={redirectHandler}
-              className="text-sm bg-transparent h-full px-[1.8rem] flex items-center justify-center hover:bg-secondary transition-all duration-500 ease-menu select-none"
+              className="text-md bg-transparent h-full px-8 flex items-center justify-center hover:bg-secondary transition-all duration-500 ease-menu select-none"
             >
               {menu}
             </a>

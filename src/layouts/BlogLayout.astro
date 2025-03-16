@@ -1,10 +1,12 @@
 ---
 import "@/styles/globals.css";
 import { Header } from "@/components/header/Header";
+import { Footer } from "@/components/footer/Footer";
 import { Tag } from "@/components/blogs/Tag";
+import { TOC } from "@/components/TOC";
 import { Image } from "astro:assets";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings } = Astro.props;
 ---
 
 <!doctype html>
@@ -56,7 +58,7 @@ const { frontmatter } = Astro.props;
       <div
         class="px-4 md:px-[15%] xl:px-[22.5%] flex justify-center break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
       >
-        <div class="py-4 md:py-6 max-w-[1440px]">
+        <div class="py-4 md:py-6 max-w-[1140px]">
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
               <div class="w-full border rounded-xl">
@@ -70,7 +72,9 @@ const { frontmatter } = Astro.props;
               </div>
             )
           }
-          <div class="text-4xl md:text-3xl font-bold py-6">
+          <div
+            class="text-4xl md:text-3xl font-bold py-6 leading-snug md:leading-relaxed"
+          >
             {frontmatter?.title}
           </div>
           <div class="flex pb-6 justify-between items-center">
@@ -100,21 +104,22 @@ const { frontmatter } = Astro.props;
           <slot />
         </div>
       </div>
+      <TOC client:load headings={headings} />
     </main>
     <footer>
-      <div class="h-[3rem]"></div>
+      <Footer />
     </footer>
   </body>
 </html>
 
-<style>
+<style is:global>
   html,
   body {
     margin: 0;
     min-height: 100vh;
     position: relative;
     box-sizing: border-box;
-    font-size: clamp(16px, 2.5vw, 20px);
+    font-size: clamp(16px, 2.5vw, 18px);
     font-family: "Bai Jamjuree", serif;
     font-weight: 500;
     font-optical-sizing: auto;
