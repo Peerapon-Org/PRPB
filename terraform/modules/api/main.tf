@@ -54,7 +54,6 @@ resource "aws_iam_role_policy_attachment" "api_account_role_attachment" {
 resource "aws_api_gateway_account" "api_account" {
   count               = var.enable_account_logging ? 1 : 0
   cloudwatch_role_arn = aws_iam_role.api_account_role.0.arn
-  reset_on_delete     = true
 }
 
 resource "aws_api_gateway_rest_api" "api" {

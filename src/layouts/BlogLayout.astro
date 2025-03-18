@@ -104,7 +104,7 @@ const { frontmatter, headings } = Astro.props;
           <slot />
         </div>
       </div>
-      <TOC client:load headings={headings} />
+      {headings.length > 0 && <TOC client:load headings={headings} />}
     </main>
     <footer>
       <Footer />
