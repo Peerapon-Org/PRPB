@@ -9,9 +9,11 @@ description: "วิธีการใช้งาน AWS Organizaiton สำห
 thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.png"
 ---
 
-***
-บทความนี้ได้รับการแปลมาจากบทความภาษาญี่ปุ่นที่มีชื่อว่า [AWS再入門ブログリレー2022 AWS CodeDeploy 編](https://dev.classmethod.jp/articles/re-introduction-2022-codedeploy/) โดยเจ้าของบทความนี้คือคุณ [masukawa-kentaro](https://dev.classmethod.jp/author/masukawa-kentaro/) ซึ่งเป็นชาวญี่ปุ่น และในบทความนี้จะมีการปรับสำนวนการเขียน รวมถึงมีการเรียบเรียงเนื้อหาใหม่ให้เข้าใจง่ายและมีความเหมาะสมมากยิ่งขึ้น
-***
+---
+
+บทความนี้ได้รับการแปลมาจากบทความภาษาญี่ปุ่นที่มีชื่อว่า [AWS 再入門ブログリレー 2022 AWS CodeDeploy 編](https://dev.classmethod.jp/articles/re-introduction-2022-codedeploy/) โดยเจ้าของบทความนี้คือคุณ [masukawa-kentaro](https://dev.classmethod.jp/author/masukawa-kentaro/) ซึ่งเป็นชาวญี่ปุ่น และในบทความนี้จะมีการปรับสำนวนการเขียน รวมถึงมีการเรียบเรียงเนื้อหาใหม่ให้เข้าใจง่ายและมีความเหมาะสมมากยิ่งขึ้น
+
+---
 
 ในบทความนี้เราจะนำเหล่าสมาชิกที่โดยปกติแล้วเขียนแต่บทความเกี่ยวกับเนื้อหาล่าสุดของ AWS แบบละเอียดลงลึก กลับมาเขียนบทความอธิบายเนื้อหาพื้นฐานต่าง ๆ แบบเบสิกกันอีกครั้งครับ
 
@@ -22,8 +24,9 @@ thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.pn
 ## เกี่ยวกับบทความนี้
 
 บทความนี้จะอธิบาย:
+
 - ในหัวข้อ [AWS CodeDeploy คืออะไร](#aws-codedeploy-%25E0%25B8%2584%25E0%25B8%25B7%25E0%25B8%25AD%25E0%25B8%25AD%25E0%25B8%25B0%25E0%25B9%2584%25E0%25B8%25A3) จะพูดถึงรายละเอียดคร่าว ๆ เกี่ยวกับ CodeDeploy รวมถึงส่วนประกอบหลัก ๆ ใน service นี้
-- หัวข้อ [วิธีใช้ CodeDeploy](#%25E0%25B8%25A7%25E0%25B8%25B4%25E0%25B8%2598%25E0%25B8%25B5%25E0%25B9%2583%25E0%25B8%258A%25E0%25B9%2589-codedeploy)  จะเป็นการลองสาธิตการใช้ CodeDeploy ในการ deploy application ไปยัง ECS 
+- หัวข้อ [วิธีใช้ CodeDeploy](#%25E0%25B8%25A7%25E0%25B8%25B4%25E0%25B8%2598%25E0%25B8%25B5%25E0%25B9%2583%25E0%25B8%258A%25E0%25B9%2589-codedeploy) จะเป็นการลองสาธิตการใช้ CodeDeploy ในการ deploy application ไปยัง ECS
 - หลังจากนั้นจะอธิบาย flow การทำงานของ CodeDeploy แบบคร่าว ๆ ที่หัวข้อ [Lifecycle Event](#lifecycle-event) ครับ
 
 ## AWS CodeDeploy คืออะไร
@@ -36,9 +39,9 @@ thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.pn
 
 ## องค์ประกอบต่าง ๆ ของ CodeDeploy
 
-โดยหลัก ๆ แล้ว CodeDeploy จะประกอบไปด้วย 4 ส่วน คือ __Application__, __Deployment__, __Deployment Configuration__, และ __Deploy__  
-__Application__ เป็นเหมือนหน่วยที่เอาไว้ใช้แยกเป้าหมายที่จะ deploy เฉย ๆ ครับ  
-ใน __Application__ ไม่ได้มีข้อมูลรายละเอียดเกี่ยวกับวิธีการ deploy เก็บบันทึกเอาไว้ จะมีก็แต่ประเภทของเป้าหมายการ deploy เท่านั้น  
+โดยหลัก ๆ แล้ว CodeDeploy จะประกอบไปด้วย 4 ส่วน คือ **Application**, **Deployment**, **Deployment Configuration**, และ **Deploy**  
+**Application** เป็นเหมือนหน่วยที่เอาไว้ใช้แยกเป้าหมายที่จะ deploy เฉย ๆ ครับ  
+ใน **Application** ไม่ได้มีข้อมูลรายละเอียดเกี่ยวกับวิธีการ deploy เก็บบันทึกเอาไว้ จะมีก็แต่ประเภทของเป้าหมายการ deploy เท่านั้น  
 ปัจจุบัน CodeDeploy รองรับเป้าหมายการ deploy (compute platform) ทั้งหมด 3 ประเภท
 
 - EC2/On-premises
@@ -47,14 +50,14 @@ __Application__ เป็นเหมือนหน่วยที่เอา�
 
 [![02](https://devio2024-media.developers.io/image/upload/v1730782508/2024/11/05/a4rfma4kmn691mxyay0g.png)](https://devio2024-media.developers.io/image/upload/v1730782508/2024/11/05/a4rfma4kmn691mxyay0g.png)
 
-ภายใน __Application__ เราสามารถสร้าง __Deployment Group__ หลายอันได้ ซึ่งใน __Deployment Group__ แต่ละอันจะมีข้อมูลของ target ที่จะ deploy เก็บไว้อยู่ นอกจากนี้ภายใน __Deployment Group__ จะมีการตั้งค่าที่เรียกว่า __Deployment Configurations__ ซึ่งใช้สำหรับกำหนดวิธีการสลับ traffic ในตอนที่ทำการ deploy ครับ
-ทาง AWS ได้เตรียมการตั้งค่าที่ใช้กันบ่อย ๆ เอาไว้ให้แล้วก็จริง แต่ถ้าอยากปรับแต่งการตั้งค่าแบบละเอียดด้วยตัวเองก็ได้เหมือนกันครับ ภาพรวมคร่าว ๆ ก็คือใน __Deployment Group__ 1 อัน เราสามารถทำการ deploy ได้หลายครั้ง โดยใช้ __Deployment Configurations__ อันเดิม
+ภายใน **Application** เราสามารถสร้าง **Deployment Group** หลายอันได้ ซึ่งใน **Deployment Group** แต่ละอันจะมีข้อมูลของ target ที่จะ deploy เก็บไว้อยู่ นอกจากนี้ภายใน **Deployment Group** จะมีการตั้งค่าที่เรียกว่า **Deployment Configurations** ซึ่งใช้สำหรับกำหนดวิธีการสลับ traffic ในตอนที่ทำการ deploy ครับ
+ทาง AWS ได้เตรียมการตั้งค่าที่ใช้กันบ่อย ๆ เอาไว้ให้แล้วก็จริง แต่ถ้าอยากปรับแต่งการตั้งค่าแบบละเอียดด้วยตัวเองก็ได้เหมือนกันครับ ภาพรวมคร่าว ๆ ก็คือใน **Deployment Group** 1 อัน เราสามารถทำการ deploy ได้หลายครั้ง โดยใช้ **Deployment Configurations** อันเดิม
 
 ถ้าให้ลองอธิบายเป็นแผนภาพก็น่าจะประมาณด้านล่างนี้ครับ
 
 [![03](https://devio2024-media.developers.io/image/upload/v1730782511/2024/11/05/j09qwz8mloysuxfgq2hu.png)](https://devio2024-media.developers.io/image/upload/v1730782511/2024/11/05/j09qwz8mloysuxfgq2hu.png)
 
-แต่ว่า __Deployment Group__ กับ __Deployment Configurations__ นั้นจะจัดการแยกกัน ทำให้เราสามารถใช้ __Deployment Configurations__ อันเดียวกับ __Deployment Group__ หลาย ๆ อันได้ แต่ว่า __Deployment Configurations__ จะแตกต่างกันขึ้นอยู่กับ platform ของ target ที่เราจะ deploy (EC2/Lambda/ECS) ครับ
+แต่ว่า **Deployment Group** กับ **Deployment Configurations** นั้นจะจัดการแยกกัน ทำให้เราสามารถใช้ **Deployment Configurations** อันเดียวกับ **Deployment Group** หลาย ๆ อันได้ แต่ว่า **Deployment Configurations** จะแตกต่างกันขึ้นอยู่กับ platform ของ target ที่เราจะ deploy (EC2/Lambda/ECS) ครับ
 อย่างเช่นในกรณีของ EC2 นั้น deployment type จะมีให้เลือกระหว่าง in-place กับ Blue/Green แต่ถ้าเป็น Lambda หรือ ECS จะมีแต่ Blue/Green อย่างเดียว
 
 [![04](https://devio2024-media.developers.io/image/upload/v1730782514/2024/11/05/znjoqzphede01blggmd8.png)](https://devio2024-media.developers.io/image/upload/v1730782514/2024/11/05/znjoqzphede01blggmd8.png)
@@ -219,11 +222,11 @@ CodeDeployDefault.ECSAllAtOnce
 
 หลังจากที่เรามี application ตั้งต้นแล้ว ต่อมาเราจะเริ่ม deploy application เวอร์ชันใหม่เข้าไปแทนที่ application เดิมครับ
 
-โดยในการ deploy เราจำเป็นต้องมีไฟล์ __appspec.yaml__ ก่อน
+โดยในการ deploy เราจำเป็นต้องมีไฟล์ **appspec.yaml** ก่อน
 
-ไฟล์ __appspec.yaml__ คือไฟล์ที่กำหนดการตั้งค่าของการ deploy (Deployment Configuration) เอาไว้ครับ
+ไฟล์ **appspec.yaml** คือไฟล์ที่กำหนดการตั้งค่าของการ deploy (Deployment Configuration) เอาไว้ครับ
 
-สำหรับไฟล์ __appspec.yaml__ ที่เราใช้ในครั้งนี้มีหน้าตาประมาณนี้
+สำหรับไฟล์ **appspec.yaml** ที่เราใช้ในครั้งนี้มีหน้าตาประมาณนี้
 ซึ่ง version คือเวอร์ชันของ AppSpec
 ณ ปัจจุบัน (2024/10) AppSpec มีแค่เวอร์ชันเดียวคือ 0.0 ครับ
 
@@ -240,7 +243,7 @@ Resources:
         PlatformVersion: LATEST
 ```
 
-ตรง __<TASK_DEFINITION>__ เราจะเอา ARN ของ task definition อีกอัน ซึ่งเป็น task definition ของ application เวอร์ชันใหม่มาใส่ครับ ซึ่งหมายความว่าเราจำเป็นต้องสร้าง task definition เพิ่มอีก 1 อัน
+ตรง **<TASK_DEFINITION>** เราจะเอา ARN ของ task definition อีกอัน ซึ่งเป็น task definition ของ application เวอร์ชันใหม่มาใส่ครับ ซึ่งหมายความว่าเราจำเป็นต้องสร้าง task definition เพิ่มอีก 1 อัน
 
 ในการใช้งานจริง การที่ต้องเข้าไปสร้าง task definition ใน console เองทุกครั้งก่อนเริ่มการ deploy คงไม่ใช่วิธีที่ดีนัก เพราะฉะนั้นครั้งนี้เราจะสร้าง task definition โดยใช้ AWS CLI และไฟล์ JSON ครับ
 
@@ -250,7 +253,7 @@ https://dev.classmethod.jp/articles/what-is-aws-cli-how-to-use-aws-cli-for-begin
 
 ก่อนอื่นให้สร้างไฟล์ชื่อ taskdef.json ที่มีเนื้อหาตามด้านล่างนี้ แล้ว save เก็บไว้ที่ไหนซักที่หนึ่ง
 
-__*Note:*__ &nbsp;ให้เปลี่ยน __<REGION>__ และ __<ACCOUNT_ID>__ ด้วย region และ AWS Account ID ที่ใช้งานอยู่ ตัวอย่างเช่น หากใช้งานใน Singapore region ให้เปลี่ยน __<REGION>__ เป็น ap-southeast-1 เป็นต้น
+**_Note:_** &nbsp;ให้เปลี่ยน **<REGION>** และ **<ACCOUNT_ID>** ด้วย region และ AWS Account ID ที่ใช้งานอยู่ ตัวอย่างเช่น หากใช้งานใน Singapore region ให้เปลี่ยน **<REGION>** เป็น ap-southeast-1 เป็นต้น
 
 ```json
 {
@@ -294,9 +297,7 @@ __*Note:*__ &nbsp;ให้เปลี่ยน __<REGION>__ และ __<ACCOU
   "networkMode": "awsvpc",
   "volumes": [],
   "placementConstraints": [],
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
+  "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "3072",
   "runtimePlatform": {
@@ -314,9 +315,9 @@ __*Note:*__ &nbsp;ให้เปลี่ยน __<REGION>__ และ __<ACCOU
 
 จากนั้น run คำสั่งด้านล่างด้วย AWS CLI
 
-__*Note:*__ &nbsp;ให้เปลี่ยน __<PATH_TO_taskdef.json_FILE>__ และ __<REGION>__ ด้วย path ไปยังไฟล์ taskdef.json และ region ที่ใช้งานอยู่
+**_Note:_** &nbsp;ให้เปลี่ยน **<PATH_TO_taskdef.json_FILE>** และ **<REGION>** ด้วย path ไปยังไฟล์ taskdef.json และ region ที่ใช้งานอยู่
 
-__*Note2:*__ &nbsp;เพื่อความง่าย ในครั้งนี้ผมจะใช้ policy `AmazonECS_FullAccess` ในการ run คำสั่ง CLI นี้ครับ
+**_Note2:_** &nbsp;เพื่อความง่าย ในครั้งนี้ผมจะใช้ policy `AmazonECS_FullAccess` ในการ run คำสั่ง CLI นี้ครับ
 
 ```bash
 aws ecs register-task-definition --cli-input-json file://<PATH_TO_taskdef.json_FILE>/taskdef.json --region <REGION>
@@ -389,9 +390,9 @@ task definition อันใหม่นี้จะ deploy container ชื่�
 
 [![36](https://devio2024-media.developers.io/image/upload/v1730782627/2024/11/05/lxuqpkv4thstigko4i6j.png)](https://devio2024-media.developers.io/image/upload/v1730782627/2024/11/05/lxuqpkv4thstigko4i6j.png)
 
-ที่ Revision type คือที่ที่เราจะใส่ไฟล์ __appspec.yaml__ เข้าไปครับ เราสามารถให้ CodeDeploy ไปดึงไฟล์มาจาก S3 bucket ก็ได้ แต่ในครั้งนี้เราจะใส่เนื้อหาในไฟล์เข้าไปใน CodeDeploy ตรง ๆ ครับ
+ที่ Revision type คือที่ที่เราจะใส่ไฟล์ **appspec.yaml** เข้าไปครับ เราสามารถให้ CodeDeploy ไปดึงไฟล์มาจาก S3 bucket ก็ได้ แต่ในครั้งนี้เราจะใส่เนื้อหาในไฟล์เข้าไปใน CodeDeploy ตรง ๆ ครับ
 
-ให้เลือก `Use AppSpec editor` เลือก `AppSpec language` เป็น YAML จากนั้น copy เนื้อหาในไฟล์ __appspec.yaml__ ใส่เข้าไป
+ให้เลือก `Use AppSpec editor` เลือก `AppSpec language` เป็น YAML จากนั้น copy เนื้อหาในไฟล์ **appspec.yaml** ใส่เข้าไป
 
 [![37](https://devio2024-media.developers.io/image/upload/v1730782630/2024/11/05/u2xxilj2f7tdtv1wn8gf.png)](https://devio2024-media.developers.io/image/upload/v1730782630/2024/11/05/u2xxilj2f7tdtv1wn8gf.png)
 
@@ -430,10 +431,10 @@ task definition อันใหม่นี้จะ deploy container ชื่�
 ในรูปด้านบน เราสามารถรัน Lambda function ได้เมื่อ lifecycle event เดินทางมาถึง event ในสี่เหลียมสีฟ้า ซึ่งแต่ละ event มีความหมายดังนี้
 
 > BeforeInstall – Use to run tasks before the replacement task set is created. One target group is associated with the original task set. If an optional test listener is specified, it is associated with the original task set. A rollback is not possible at this point.<br>
-AfterInstall – Use to run tasks after the replacement task set is created and one of the target groups is associated with it. If an optional test listener is specified, it is associated with the original task set. The results of a hook function at this lifecycle event can trigger a rollback.<br>
-AfterAllowTestTraffic – Use to run tasks after the test listener serves traffic to the replacement task set. The results of a hook function at this point can trigger a rollback.<br>
-BeforeAllowTraffic – Use to run tasks after the second target group is associated with the replacement task set, but before traffic is shifted to the replacement task set. The results of a hook function at this lifecycle event can trigger a rollback.<br>
-AfterAllowTraffic – Use to run tasks after the second target group serves traffic to the replacement task set. The results of a hook function at this lifecycle event can trigger a rollback.
+> AfterInstall – Use to run tasks after the replacement task set is created and one of the target groups is associated with it. If an optional test listener is specified, it is associated with the original task set. The results of a hook function at this lifecycle event can trigger a rollback.<br>
+> AfterAllowTestTraffic – Use to run tasks after the test listener serves traffic to the replacement task set. The results of a hook function at this point can trigger a rollback.<br>
+> BeforeAllowTraffic – Use to run tasks after the second target group is associated with the replacement task set, but before traffic is shifted to the replacement task set. The results of a hook function at this lifecycle event can trigger a rollback.<br>
+> AfterAllowTraffic – Use to run tasks after the second target group serves traffic to the replacement task set. The results of a hook function at this lifecycle event can trigger a rollback.
 
 ซึ่ง lifecycle event ของ EC2/On-prem, Lambda, ECS จะแตกต่างกันไป แต่ฟังก์ชันการใช่งาน (เรียก Lambda hook function) จะเหมือนกันครับ
 เราสามารถ hook event แล้วรัน Lambda function เพื่อรัน test หรือหยุด Auto Scaling Group ชั่วคราวก็ได้
@@ -449,7 +450,7 @@ Hooks:
 การใช้ Auto Scaling ร่วมกับ ECS Blue/Green Deployment จำเป็นต้องคำนึงถึงเหตุการณ์ด้านล่างนี้ด้วยครับ
 
 > If a service is scaling and a deployment starts, the green task set is created and CodeDeploy will wait up to an hour for the green task set to reach steady state and won't shift any traffic until it does.<br>
-If a service is in the process of a blue/green deployment and a scaling event occurs, traffic will continue to shift for 5 minutes. If the service doesn't reach steady state within 5 minutes, CodeDeploy will stop the deployment and mark it as failed.
+> If a service is in the process of a blue/green deployment and a scaling event occurs, traffic will continue to shift for 5 minutes. If the service doesn't reach steady state within 5 minutes, CodeDeploy will stop the deployment and mark it as failed.
 
 เนื่องจากเราสามารถกำหนดให้ Auto Scaling เป็น deployment target ได้ จึงจะมีบางกรณีที่ Auto Scaling เป็นต้นเหตุทำให้การ deploy ล้มเหลวอยู่ครับ
 จริง ๆ ถึงแม้ deployment จะล้มเหลว แค่ deploy ใหม่ก็พอ แต่การปิด Auto Scaling ชั่วคราวเพื่อลดโอกาสที่การ deploy จะล้มเหลวลงก็เป็นความคิดที่ดีเหมือนกันครับ
@@ -462,6 +463,6 @@ If a service is in the process of a blue/green deployment and a scaling event oc
 
 ## อ้างอิง
 
-1. [AWS再入門ブログリレー2022 AWS CodeDeploy 編](https://dev.classmethod.jp/articles/re-introduction-2022-codedeploy/) (บทความต้นฉบับ)
+1. [AWS 再入門ブログリレー 2022 AWS CodeDeploy 編](https://dev.classmethod.jp/articles/re-introduction-2022-codedeploy/) (บทความต้นฉบับ)
 2. [PowerPoint Presentation](https://d1.awsstatic.com/webinars/jp/pdf/services/20210126_BlackBelt_CodeDeploy.pdf) (ภาษาญี่ปุ่น)
 3. [AppSpec 'hooks' section - AWS CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html)

@@ -65,7 +65,7 @@ export function TOC({ headings }: { headings: Headings }) {
       </div>
       <div
         ref={navBar}
-        className="relative overflow-y-auto h-full pt-[3.3rem] bg-background flex flex-col items-center w-screen xs:w-[340px] border-l scrollbar-hide"
+        className="relative overflow-y-auto h-full pt-[3.3rem] bg-background flex flex-col items-center w-full xs:w-[340px] border-l scrollbar-hide"
       >
         <div className="py-6 text-lg font-semibold">Table of content</div>
         <div className="pr-8 py-6">
