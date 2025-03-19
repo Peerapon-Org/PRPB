@@ -65,8 +65,7 @@ export function TOC({ headings }: { headings: Headings }) {
       </div>
       <div
         ref={navBar}
-        className="overflow-y-auto h-full pt-[3.3rem] bg-background flex flex-col items-center w-screen xs:w-[340px] border-l"
-        // style={{ width: "clamp(100vw, 340px)" }}
+        className="relative overflow-y-auto h-full pt-[3.3rem] bg-background flex flex-col items-center w-screen xs:w-[340px] border-l scrollbar-hide"
       >
         <div className="py-6 text-lg font-semibold">Table of content</div>
         <div className="pr-8 py-6">
@@ -78,6 +77,22 @@ export function TOC({ headings }: { headings: Headings }) {
             }),
             floorDepth
           )}
+        </div>
+        <div
+          onClick={onClickHandler}
+          className="xs:hidden absolute w-7 right-3 top-1/2"
+        >
+          <svg
+            className="w-full h-full rotate-180"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
+              fill="currentColor"
+            />
+          </svg>
         </div>
       </div>
     </nav>
