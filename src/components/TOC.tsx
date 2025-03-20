@@ -12,9 +12,6 @@ export function TOC({ headings }: { headings: Headings }) {
   const floorDepth = headings[0].depth;
   const onClickHandler = () => {
     navBar.current?.classList.toggle("!w-0");
-    // window.innerWidth > 640
-    //   ? navBar.current?.classList.toggle("xs:w-[340px]")
-    //   : navBar.current?.classList.toggle("w-full");
     navBtn.current?.classList.toggle("hidden");
     navBtn.current?.firstElementChild?.classList.toggle("rotate-180");
   };

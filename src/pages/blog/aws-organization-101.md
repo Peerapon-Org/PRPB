@@ -39,7 +39,8 @@ thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.pn
 
 ## องค์ประกอบต่าง ๆ ของ CodeDeploy
 
-โดยหลัก ๆ แล้ว CodeDeploy จะประกอบไปด้วย 4 ส่วน คือ **Application**, **Deployment**, **Deployment Configuration**, และ **Deploy**  
+โดยหลัก ๆ แล้ว CodeDeploy จะประกอบไปด้วย 4 ส่วน คือ **Application**, **Deployment**, **Deployment Configuration**, และ **Deploy**
+
 **Application** เป็นเหมือนหน่วยที่เอาไว้ใช้แยกเป้าหมายที่จะ deploy เฉย ๆ ครับ  
 ใน **Application** ไม่ได้มีข้อมูลรายละเอียดเกี่ยวกับวิธีการ deploy เก็บบันทึกเอาไว้ จะมีก็แต่ประเภทของเป้าหมายการ deploy เท่านั้น  
 ปัจจุบัน CodeDeploy รองรับเป้าหมายการ deploy (compute platform) ทั้งหมด 3 ประเภท

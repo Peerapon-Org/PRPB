@@ -104,15 +104,24 @@
   }
 
   pre {
-    @apply rounded !bg-muted overflow-x-scroll w-[calc(100vw-2rem)] max-w-[1140px] px-[0.7rem] py-[1rem] font-mono font-semibold scrollbar-hide;
+    @apply rounded !bg-muted overflow-x-scroll px-[0.7rem] py-[1rem] font-mono font-semibold scrollbar-hide;
+  }
+
+  code {
+    @apply bg-muted px-1;
   }
 
   svg {
     @apply select-none;
   }
 
-  p:has(img) {
-    @apply flex justify-center;
+  p:has(img),
+  p > a:has(img) {
+    @apply flex justify-center py-4;
+  }
+
+  p:has(img) img {
+    @apply lg:w-[80%] 2xl:w-[70%];
   }
 }
 

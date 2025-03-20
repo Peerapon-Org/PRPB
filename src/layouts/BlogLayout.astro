@@ -56,12 +56,12 @@ const { frontmatter, headings } = Astro.props;
     </header>
     <main class="2xl:flex">
       <div
-        class="w-full 2xl:w-[85%] flex justify-center xl:justify-start break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
+        class="w-full 2xl:w-[80%] px-4 md:px-24 break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
       >
-        <div class="px-6 py-4 md:py-6">
+        <div class="py-4 md:py-6">
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
-              <div class="w-full border rounded-xl">
+              <div class="w-full lg:w-2/3 mx-auto border rounded-xl">
                 <Image
                   src={frontmatter?.thumbnail}
                   alt={frontmatter?.title + " thumbnail"}
@@ -107,7 +107,7 @@ const { frontmatter, headings } = Astro.props;
       {headings.length > 0 && <TOC client:load headings={headings} />}
     </main>
     <footer>
-      <Footer />
+      <!-- <Footer /> -->
     </footer>
   </body>
 </html>
