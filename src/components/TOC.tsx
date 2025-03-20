@@ -12,6 +12,9 @@ export function TOC({ headings }: { headings: Headings }) {
   const floorDepth = headings[0].depth;
   const onClickHandler = () => {
     navBar.current?.classList.toggle("!w-0");
+    // window.innerWidth > 640
+    //   ? navBar.current?.classList.toggle("xs:w-[340px]")
+    //   : navBar.current?.classList.toggle("w-full");
     navBtn.current?.classList.toggle("hidden");
     navBtn.current?.firstElementChild?.classList.toggle("rotate-180");
   };
@@ -45,14 +48,14 @@ export function TOC({ headings }: { headings: Headings }) {
   };
 
   return (
-    <nav className="fixed top-0 right-0 z-[999] h-full flex items-center text-sm">
+    <nav className="fixed 2xl:sticky top-0 right-0 z-[999] h-full 2xl:h-screen flex items-center text-sm">
       <div
         ref={navBtn}
         onClick={onClickHandler}
-        className="w-7 py-4 rounded-l-xl hover:cursor-pointer select-none border-y border-l border-r border-r-background bg-background relative left-[2px] hidden xs:block"
+        className="w-7 py-4 rounded-l-xl hover:cursor-pointer select-none border-y border-l border-r border-r-background bg-background relative left-[2px] xs:block 2xl:hidden"
       >
         <svg
-          className="w-full h-full rotate-180"
+          className="w-full h-full"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +68,7 @@ export function TOC({ headings }: { headings: Headings }) {
       </div>
       <div
         ref={navBar}
-        className="relative overflow-y-auto h-full pt-[3.3rem] bg-background flex flex-col items-center w-full xs:w-[340px] border-l scrollbar-hide"
+        className="relative overflow-y-scroll h-full pt-[3.3rem] bg-background flex flex-col items-center !w-0 w-full xs:w-[340px] 2xl:!w-[340px] border-l scrollbar-hide"
       >
         <div className="py-6 text-lg font-semibold">Table of content</div>
         <div className="pr-8 py-6">

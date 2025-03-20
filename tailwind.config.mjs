@@ -63,6 +63,7 @@ export default {
         xs: "640px",
         sm: "767px",
         md: "990px",
+        "3xl": "1880px",
       },
       zIndex: {
         full: "9999",

@@ -1,11 +1,6 @@
 "use client";
 
-// import ThemeToggleIcon from "@/components/ThemeToggleIcon.astro";
-// import { Input } from "@/components/ui/input";
-import prpbIcon from "@/assets/prpb.svg";
 import { ThemeToggleBtn } from "@/components/ui/themeToggleBtn";
-// import { buttonVariants } from "@/components/ui/button";
-// import { cn } from "@/lib/utils";
 import { redirectHandler } from "@/lib/redirectHandler";
 
 export function PCHeader() {
