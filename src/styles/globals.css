@@ -115,12 +115,12 @@
     @apply select-none;
   }
 
-  p:has(img),
-  p > a:has(img) {
-    @apply flex justify-center py-4;
+  p:has(img) {
+    @apply flex justify-center py-4 w-auto;
   }
 
-  p:has(img) img {
+  p:has(img) > img,
+  p > a:has(img) {
     @apply lg:w-[80%] 2xl:w-[70%];
   }
 }
