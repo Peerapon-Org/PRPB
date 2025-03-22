@@ -25,6 +25,7 @@ export function MobileHeader() {
       ) {
         e.preventDefault();
         menuContainer.current?.classList.add("active");
+        menuContainer.current?.firstElementChild?.classList.add("hidden");
         themeToggleBtn.current?.classList.add("active");
         menuOverlay.current?.classList.add("active");
         setTimeout(() => {
@@ -40,6 +41,7 @@ export function MobileHeader() {
         menuGroup.current?.classList.contains("active")
       ) {
         menuContainer.current.classList.remove("active");
+        menuContainer.current?.firstElementChild?.classList.remove("hidden");
         themeToggleBtn.current?.classList.remove("active");
         menuOverlay.current?.classList.remove("active");
         setTimeout(() => {
@@ -83,8 +85,9 @@ export function MobileHeader() {
         </div>
         <div
           ref={menuContainer}
-          className="menu-container circle backdrop-filter backdrop-blur-[6px]"
+          className="menu-container circle backdrop-filter backdrop-blur-[6px] relative"
         >
+          <div className="absolute w-full h-full opacity-0 z-full"></div>
           {menus.map(({ menu, link }) => (
             <a
               key={menu}

@@ -1,10 +1,12 @@
 ---
 import "@/styles/globals.css";
 import { Header } from "@/components/header/Header";
+import { Footer } from "@/components/footer/Footer";
 import { Tag } from "@/components/blogs/Tag";
+import { TOC } from "@/components/TOC";
 import { Image } from "astro:assets";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,7 +14,7 @@ const { frontmatter } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -52,14 +54,14 @@ const { frontmatter } = Astro.props;
     <header>
       <Header client:load />
     </header>
-    <main>
+    <main class="2xl:flex">
       <div
-        class="px-4 md:px-[15%] xl:px-[22.5%] flex justify-center break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
+        class="w-full 2xl:w-[80%] px-4 md:px-24 break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
       >
-        <div class="py-4 md:py-6 max-w-[1440px]">
+        <div class="py-4 md:py-6">
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
-              <div class="w-full border rounded-xl">
+              <div class="w-full lg:w-2/3 mx-auto border rounded-xl">
                 <Image
                   src={frontmatter?.thumbnail}
                   alt={frontmatter?.title + " thumbnail"}
@@ -70,7 +72,9 @@ const { frontmatter } = Astro.props;
               </div>
             )
           }
-          <div class="text-4xl md:text-3xl font-bold py-6">
+          <div
+            class="text-4xl md:text-3xl font-bold py-6 leading-snug md:leading-relaxed"
+          >
             {frontmatter?.title}
           </div>
           <div class="flex pb-6 justify-between items-center">
@@ -100,26 +104,32 @@ const { frontmatter } = Astro.props;
           <slot />
         </div>
       </div>
+      {headings.length > 0 && <TOC client:load headings={headings} />}
     </main>
     <footer>
-      <div class="h-[3rem]"></div>
+      <Footer />
     </footer>
   </body>
 </html>
 
-<style>
+<style is:global>
   html,
   body {
     margin: 0;
     min-height: 100vh;
     position: relative;
     box-sizing: border-box;
-    font-size: clamp(16px, 2.5vw, 20px);
+    font-size: clamp(16px, 2.5vw, 18px);
     font-family: "Bai Jamjuree", serif;
     font-weight: 500;
     font-optical-sizing: auto;
     font-style: normal;
     letter-spacing: 0.8px;
     line-height: 1.8;
+  }
+
+  p {
+    word-break: break-word;
+    white-space: normal;
   }
 </style>

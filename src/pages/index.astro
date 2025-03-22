@@ -1,18 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import "@/styles/globals.css";
+
+const pages = [
+  {
+    name: "BLOGS",
+    path: "/blogs",
+    description: "Explore all my archived knowledge",
+  },
+  {
+    name: "ABOUT",
+    path: "/about",
+    description: "Find out why I started this project",
+  },
+];
 ---
 
 <Layout title="Home">
-  <div
-    class="flex flex-col select-none md:overflow-hidden w-full h-screen md:h-[calc(100vh-(2*3.3rem)-0.1rem)]"
-  >
+  <div class="flex flex-col select-none md:overflow-hidden w-full">
     <div
-      class="flex flex-col md:flex-row justify-center items-center pt-20 pb-24 font-serif font-semibold"
+      class="flex flex-col md:flex-row justify-center items-center pt-24 md:pt-28 pb-28 md:pb-32 font-serif font-semibold"
     >
-      <div class="text-8xl left-text">PRPB</div>
+      <div class="text-[6.5rem] leading-none left-text">PRPB</div>
       <div
-        class="border border-foreground w-1/5 md:w-0 h-0 md:h-1/2 mx-8 animate-stretch-x md:animate-stretch-y"
+        class="border border-foreground w-1/5 md:w-0 h-0 md:h-14 mx-8 animate-stretch-x md:animate-stretch-y"
       >
       </div>
       <div class="text-4xl right-text">
@@ -20,60 +31,45 @@ import "@/styles/globals.css";
         <div>ARCHIVE</div>
       </div>
     </div>
-    <div class="font-serif text-center">
+    <div class="hidden md:block font-serif text-center text-lg">
       Archive what I learned, one blog at a time
     </div>
-    <div class="flex flex-col md:flex-row pt-16 justify-center items-center">
-      <a
-        href="/blogs"
-        class="flex justify-center border border-foreground bg-muted rounded-r-xl px-6 py-6 md:py-5 md:mr-12 mb-8 md:mb-0 w-5/6 md:w-auto hover:opacity-80"
-      >
-        <div class="flex flex-col">
-          <div class="text-lg font-semibold">BLOGS</div>
-          <div class="text-sm font-light">
-            Explore all my archived knowledge
-          </div>
-        </div>
-        <div class="w-4 flex items-center ml-5">
-          <svg
-            version="1.1"
-            class="!w-full !h-full"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 120.64 122.88"
-            ><g
-              ><path
-                d="M54.03,108.91c-1.55,1.63-2.31,3.74-2.28,5.85c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12c1.58,1.5,3.6,2.23,5.61,2.2 c2.01-0.03,4.01-0.82,5.55-2.37c17.66-17.66,35.13-35.61,52.68-53.4c0.07-0.05,0.13-0.1,0.19-0.16c1.55-1.63,2.31-3.76,2.28-5.87 c-0.03-2.11-0.85-4.21-2.45-5.8l-0.27-0.26C100.43,37.47,82.98,19.87,65.46,2.36C63.93,0.82,61.93,0.03,59.92,0 c-2.01-0.03-4.03,0.7-5.61,2.21l-0.15,0.15c-1.57,1.58-2.38,3.66-2.41,5.76c-0.03,2.1,0.73,4.22,2.28,5.85l47.22,47.27 L54.03,108.91L54.03,108.91z M2.26,106.91c-1.54,1.62-2.29,3.73-2.26,5.83c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12 c1.57,1.5,3.6,2.23,5.61,2.21c2.01-0.03,4.02-0.82,5.55-2.37C31.01,101.2,48.87,84.2,66.39,67.12c0.07-0.05,0.14-0.11,0.21-0.17 c1.55-1.63,2.31-3.76,2.28-5.87c-0.03-2.11-0.85-4.21-2.45-5.8C48.94,38.33,31.36,21.44,13.83,4.51l-0.12-0.13 c-1.53-1.54-3.53-2.32-5.54-2.35C6.16,2,4.14,2.73,2.56,4.23L2.41,4.38C0.84,5.96,0.03,8.05,0,10.14c-0.03,2.1,0.73,4.22,2.28,5.85 l47.18,45.24L2.26,106.91L2.26,106.91z"
-              ></path></g
-            ></svg
+    <div class="block md:hidden font-serif text-center text-lg">
+      <span>Archive what I learned</span>
+      <br />
+      <span>one blog at a time</span>
+    </div>
+    <div
+      class="flex flex-col md:flex-row pt-16 md:pt-24 justify-center items-center"
+    >
+      {
+        pages.map((page) => (
+          <a
+            href={page.path}
+            class:list={[
+              "flex justify-center border border-foreground bg-muted rounded-r-xl px-8 py-5 mx-4 md:mx-8 mb-8 md:mb-0 hover:opacity-80",
+            ]}
           >
-        </div>
-      </a>
-      <a
-        href="/about"
-        class="flex justify-center border border-foreground bg-muted rounded-r-xl px-6 py-6 md:py-5 w-5/6 md:w-auto hover:opacity-80"
-      >
-        <div class="flex flex-col">
-          <div class="text-lg font-semibold">ABOUT</div>
-          <div class="text-sm font-light">
-            Find out why I started this project
-          </div>
-        </div>
-        <div class="w-4 flex items-center ml-5">
-          <svg
-            version="1.1"
-            class="!w-full !h-full"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 120.64 122.88"
-            ><g
-              ><path
-                d="M54.03,108.91c-1.55,1.63-2.31,3.74-2.28,5.85c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12c1.58,1.5,3.6,2.23,5.61,2.2 c2.01-0.03,4.01-0.82,5.55-2.37c17.66-17.66,35.13-35.61,52.68-53.4c0.07-0.05,0.13-0.1,0.19-0.16c1.55-1.63,2.31-3.76,2.28-5.87 c-0.03-2.11-0.85-4.21-2.45-5.8l-0.27-0.26C100.43,37.47,82.98,19.87,65.46,2.36C63.93,0.82,61.93,0.03,59.92,0 c-2.01-0.03-4.03,0.7-5.61,2.21l-0.15,0.15c-1.57,1.58-2.38,3.66-2.41,5.76c-0.03,2.1,0.73,4.22,2.28,5.85l47.22,47.27 L54.03,108.91L54.03,108.91z M2.26,106.91c-1.54,1.62-2.29,3.73-2.26,5.83c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12 c1.57,1.5,3.6,2.23,5.61,2.21c2.01-0.03,4.02-0.82,5.55-2.37C31.01,101.2,48.87,84.2,66.39,67.12c0.07-0.05,0.14-0.11,0.21-0.17 c1.55-1.63,2.31-3.76,2.28-5.87c-0.03-2.11-0.85-4.21-2.45-5.8C48.94,38.33,31.36,21.44,13.83,4.51l-0.12-0.13 c-1.53-1.54-3.53-2.32-5.54-2.35C6.16,2,4.14,2.73,2.56,4.23L2.41,4.38C0.84,5.96,0.03,8.05,0,10.14c-0.03,2.1,0.73,4.22,2.28,5.85 l47.18,45.24L2.26,106.91L2.26,106.91z"
-              ></path></g
-            ></svg
-          >
-        </div>
-      </a>
+            <div class="flex flex-col">
+              <div class="text-xl font-semibold">{page.name}</div>
+              <div class="text-md font-light">{page.description}</div>
+            </div>
+            <div class="w-4 flex items-center ml-5">
+              <svg
+                version="1.1"
+                class="!w-full !h-full"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 120.64 122.88"
+              >
+                <g>
+                  <path d="M54.03,108.91c-1.55,1.63-2.31,3.74-2.28,5.85c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12c1.58,1.5,3.6,2.23,5.61,2.2 c2.01-0.03,4.01-0.82,5.55-2.37c17.66-17.66,35.13-35.61,52.68-53.4c0.07-0.05,0.13-0.1,0.19-0.16c1.55-1.63,2.31-3.76,2.28-5.87 c-0.03-2.11-0.85-4.21-2.45-5.8l-0.27-0.26C100.43,37.47,82.98,19.87,65.46,2.36C63.93,0.82,61.93,0.03,59.92,0 c-2.01-0.03-4.03,0.7-5.61,2.21l-0.15,0.15c-1.57,1.58-2.38,3.66-2.41,5.76c-0.03,2.1,0.73,4.22,2.28,5.85l47.22,47.27 L54.03,108.91L54.03,108.91z M2.26,106.91c-1.54,1.62-2.29,3.73-2.26,5.83c0.03,2.11,0.84,4.2,2.44,5.79l0.12,0.12 c1.57,1.5,3.6,2.23,5.61,2.21c2.01-0.03,4.02-0.82,5.55-2.37C31.01,101.2,48.87,84.2,66.39,67.12c0.07-0.05,0.14-0.11,0.21-0.17 c1.55-1.63,2.31-3.76,2.28-5.87c-0.03-2.11-0.85-4.21-2.45-5.8C48.94,38.33,31.36,21.44,13.83,4.51l-0.12-0.13 c-1.53-1.54-3.53-2.32-5.54-2.35C6.16,2,4.14,2.73,2.56,4.23L2.41,4.38C0.84,5.96,0.03,8.05,0,10.14c-0.03,2.1,0.73,4.22,2.28,5.85 l47.18,45.24L2.26,106.91L2.26,106.91z" />
+                </g>
+              </svg>
+            </div>
+          </a>
+        ))
+      }
     </div>
   </div>
 </Layout>
@@ -92,7 +88,7 @@ import "@/styles/globals.css";
       transform: translateY(0);
     }
     to {
-      transform: translateY(-2rem);
+      transform: translateY(-2.5rem);
     }
   }
 
@@ -101,7 +97,7 @@ import "@/styles/globals.css";
       transform: translateY(0);
     }
     to {
-      transform: translateY(2rem);
+      transform: translateY(2.5rem);
     }
   }
 </style>

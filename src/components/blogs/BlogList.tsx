@@ -121,17 +121,19 @@ export function BlogList() {
         ))}
       </div>
       {hasMore && (
-        <Button
-          onClick={() => {
-            fetchBlogs({
-              category,
-              subcategory,
-              lastBlog,
-            });
-          }}
-        >
-          More
-        </Button>
+        <div className="my-8">
+          <Button
+            onClick={() => {
+              fetchBlogs({
+                category,
+                subcategory,
+                lastBlog,
+              });
+            }}
+          >
+            More
+          </Button>
+        </div>
       )}
     </div>
   );
