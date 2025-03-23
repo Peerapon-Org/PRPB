@@ -115,6 +115,14 @@
     @apply select-none;
   }
 
+  details {
+    @apply border border-border rounded-lg;
+  }
+
+  summary {
+    @apply select-none cursor-pointer pl-2;
+  }
+
   p:has(img) {
     @apply flex justify-center py-4 w-auto;
   }
