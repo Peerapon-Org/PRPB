@@ -76,15 +76,23 @@
   }
 
   ul {
-    @apply list-disc pl-8 leading-tight;
+    @apply list-disc pl-8 leading-tight whitespace-normal;
   }
 
   ol {
-    @apply list-decimal pl-8 leading-tight;
+    @apply list-decimal pl-8 leading-tight whitespace-normal;
   }
 
   li {
-    @apply space-y-0;
+    @apply py-2;
+  }
+
+  li > ol, li > ul {
+    @apply pt-2;
+  }
+
+  li:has(ol), li:has(ul) {
+    @apply pb-0;
   }
 
   h1 {
