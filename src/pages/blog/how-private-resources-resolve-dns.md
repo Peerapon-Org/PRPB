@@ -26,11 +26,22 @@ mysql -h mysql-db-instance.cjwms4oogzwm.ap-southeast-1.rds.amazonaws.com -u admi
 
 ซึ่งผู้ที่ทำหน้าที่คอย resolve DNS ในครั้งนี้ก็คือ **Route 53 Resolver** นั่นเองครับ
 
-Route 53 Resolver ถ้าให้พูดง่าย ๆ ก็คือ DNS resolver ที่ AWS มอบให้เราเพื่อทำหน้าที่ resolve DNS ให้กับ resource ภายใน VPC โดยในตอนที่เราสร้าง VPC ขึ้นมา AWS จะมอบ endpoint ที่เอาไว้ใช้ในการเข้าถึง Route 53 Resolver ตัวนี้ให้เราโดยอัตโนมัติ
+## Route 53 Resolver
+
+Route 53 Resolver ถ้าให้พูดง่าย ๆ ก็คือ DNS resolver ที่ AWS เตรียมเอาไว้ให้ resource ที่อยู่ใน VPC ใช้ครับ ซึ่ง Route 53 Resolver นี้จะอยู่ข้างนอก VPC และไม่สามารถเข้าถึงได้โดยตรง แต่ตอนที่เราสร้าง VPC ขึ้นมา AWS จะมอบ endpoint ที่เอาไว้ใช้ในการเข้าถึง Route 53 Resolver ตัวนี้ให้เราโดยอัตโนมัติ
 
 ซึ่ง endpoint ที่ว่านี้ก็จะมี IP ของมันอยู่ โดยที่ IP ของ endpoint ก็คือ VPC+2 หรือถ้าอธิบายแบบภาษาคนหน่อยก็คือเอา IP แรกสุดของ CIDR block ของ VPC มา แล้วบวก 2 เข้าไปก็จะได้ IP ของ endpoint ของ VPC นั้น ๆ เช่น ถ้าเรามี VPC ที่มี CIDR block คือ 192.168.0.0/16 IP ของ endpoint ใน VPC นี้ก็จะเป็น 192.168.0.0 + 2 = 192.168.0.2 ครับ
 
-## Route 53 Resolver
+[03]
+
+ตัว Route 53 Resolver นี้สามารถทำหน้าที่ได้ไม่ต่างจาก DNS resolver ทั่ว ๆ ไปเลย จึงทำให้ resource ที่อยู่ใน VPC สามารถ resolve DNS ได้โดยไม่จำเป็นต้องเชื่อมต่อ internet เพื่อสื่อสารกับ DNS resolver ที่อยู่ข้างนอก VPC และนอกจากนี้ Route 53 Resolver ยังสามารถ resolve DNS ของ resource อื่น ๆ ใน VPC ที่ไม่สามารถมองเห็นจาก network ภายนอกได้ด้วย ไม่ว่าจะเป็น
+
+- private DNS name ของ EC2 instance หรือ resource อื่น ๆ ใน VPC ที่มี domain name ของ VPC อยู่
+- record ที่อยู่ใน Route 53 Private Hosted Zone
+
+แต่ว่า Route 53 Resolver ก็มีข้อจำกัดอยู่ นั่นคือเป็น VPC-specific service ทำให้สามารถใช้งานได้แค่ใน VPC ของตัวเองเท่านั้น ถ้า network ภายนอกต้องการ resolve DNS ของ resource ที่อยู่ใน VPC ก็จำเป็นจะต้องมีการตั้งค่าเพิ่มเติม ซึ่งเดี๋ยวจะพูดถึงในช่วงหลังของบทความนี้ครับ
+
+ด้วยอะไรหลาย ๆ อย่าง ที่เขียนมาด้านบน ผมเลยชอบคิดซะว่าเจ้าตัว endpoint VPC+2 เป็น DNS resolver ส่วนตัวประจำ VPC ของเราไปเลย ก็ทำให้ชีวิตง่ายขึ้นมานิดหน่อยครับ
 
 ตอนนี้ภาพของเราก็จะกลายเป็นประมาณนี้
 
@@ -43,4 +54,9 @@ Flow แบบคร่าว ๆ ก็คือ
 3. Route 53 Resolver ทำการ resolve DNS แล้วส่ง private IP ของ RDS กลับไปให้ EC2
 4. EC2 ได้ IP ของ RDS มา EC2 happy
 
-ซึ่งจะเห็นได้ว่า
+## ทดสอบดูซักหน่อย
+
+### Private EC2 → Private RDS
+
+ทีนี้เราจะลองมาดูของจริงเทียบกัน ผมมี VPC ที่มี CIDR เป็น 172.31.0.0/16 พร้อมกับ EC2 และ RDS อยู่ใน private subnet ตามภาพด้านบนเอาไว้ครับ
+
