@@ -25,7 +25,7 @@ export function TOC({ headings }: { headings: Headings }) {
           {headings.map(({ depth, slug, text }, idx) => {
             if (depth !== currentDepth) return;
             return (
-              <li key={slug + "list"} className="pt-2">
+              <li key={slug + "list"} className="py-1">
                 <a
                   key={slug + "anchor"}
                   href={"#" + slug}

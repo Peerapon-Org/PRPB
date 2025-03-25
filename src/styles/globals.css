@@ -6,6 +6,8 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --overlay: 0 0% 10%;
+    --table-odd: 220, 15%, 95%;
+    --table-even: 220, 30%, 90%;
     --tag: 0 0% 9%;
     --tag-foreground: 0 0% 98%;
     --card: 0 0% 100%;
@@ -38,6 +40,8 @@
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --overlay: 0 0% 45%;
+    --table-odd: 220, 20%, 20%;
+    --table-even: 220, 25%, 25%;
     --tag: 0 0% 9%;
     --tag-foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -140,6 +144,18 @@
   p:has(img) > img,
   p > a:has(img) {
     @apply lg:w-[80%] 2xl:w-[70%];
+  }
+
+  table {
+    @apply mx-auto table-auto bg-table-odd text-center;
+  }
+
+  tr:nth-child(even) {
+    @apply bg-table-even;
+  }
+
+  table td {
+    @apply px-4 py-2;
   }
 }
 
