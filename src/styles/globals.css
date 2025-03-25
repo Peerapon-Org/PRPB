@@ -87,11 +87,13 @@
     @apply py-2;
   }
 
-  li > ol, li > ul {
+  li > ol,
+  li > ul {
     @apply pt-2;
   }
 
-  li:has(ol), li:has(ul) {
+  li:has(ol),
+  li:has(ul) {
     @apply pb-0;
   }
 
