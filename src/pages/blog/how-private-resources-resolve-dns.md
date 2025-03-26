@@ -6,7 +6,7 @@ date: "2025-03-13"
 category: "AWS"
 subcategory: "VPC"
 description: ""
-thumbnail: "https://prpb-web-bucket.s3.ap-southeast-1.amazonaws.com/thumbnail.png"
+thumbnail: "https://prpblog.com/assets/how-private-resources-resolve-dns/thumbnail.png"
 ---
 
 ปกติแล้วเวลาเราจะเชื่อมต่อกับเว็บไซต์อะไรซักอย่างเราก็จะระบุ URL ของเว็บไซต์นั้นใช่ไหมครับ แล้วทีนี้ตัว URL ก็จะถูกแปลงเป็นเลข IP โดย DNS resolver ซึ่งโดยพื้นฐานแล้ว DNS resolver ที่เราใช้ ๆ กันก็มักจะเป็นของ ISP หรือของยอดนิยมอย่าง 8.8.8.8 (Google) หรือ 1.1.1.1 (Cloudflare) เป็นต้น
@@ -30,18 +30,7 @@ mysql -h mysql-db-instance.cjwms4oogzwm.ap-southeast-1.rds.amazonaws.com -u admi
 
 Route 53 Resolver ถ้าให้พูดง่าย ๆ ก็คือ DNS resolver ที่ AWS เตรียมเอาไว้ให้ resource ที่อยู่ใน VPC ใช้ครับ ซึ่ง Route 53 Resolver นี้จะอยู่ข้างนอก VPC และไม่สามารถเข้าถึงได้โดยตรง แต่ตอนที่เราสร้าง VPC ขึ้นมา AWS จะมอบ endpoint ที่เอาไว้ใช้ในการเข้าถึง Route 53 Resolver ตัวนี้ให้เราโดยอัตโนมัติ (แต่จริง ๆ เราเลือกว่าจะไม่เอาก็ได้นะ ถ้าอยากใช้ DNS resolver อันอื่นแทน)
 
-ซึ่ง endpoint ที่ว่านี้ก็จะมี IP ของมันอยู่ โดยที่ IP ของ endpoint ก็คือ VPC+2 หรือถ้าอธิบายแบบภาษาคนหน่อยก็คือเอา IP แรกสุดของ CIDR block ของ VPC มา แล้วบวก 2 เข้าไปก็จะได้ IP ของ endpoint ของ VPC นั้น ๆ เช่น ถ้าเรามี VPC ที่มี CIDR block คือ 192.168.0.0/16 IP ของ endpoint ใน VPC นี้ก็จะเป็น 192.168.0.0 + 2 = 192.168.0.2 ครับ
-
-![02.png](https://prpblog.com/assets/how-private-resources-resolve-dns/02.png)
-
-ตัว Route 53 Resolver นี้สามารถทำหน้าที่ได้ไม่ต่างจาก DNS resolver ทั่ว ๆ ไปเลย จึงทำให้ resource ที่อยู่ใน VPC สามารถ resolve DNS ได้โดยไม่จำเป็นต้องเชื่อมต่อ internet เพื่อสื่อสารกับ DNS resolver ที่อยู่ข้างนอก VPC และนอกจากนี้ Route 53 Resolver ยังสามารถ resolve DNS ของ resource อื่น ๆ ใน VPC ที่ไม่สามารถมองเห็นจาก network ภายนอกได้ด้วย ไม่ว่าจะเป็น
-
-- private DNS name ของ EC2 instance หรือ resource อื่น ๆ ใน VPC ที่มี domain name ของ VPC อยู่
-- record ที่อยู่ใน Route 53 Private Hosted Zone
-
-แต่ว่า Route 53 Resolver ก็มีข้อจำกัดอยู่ นั่นคือเป็น VPC-specific service ทำให้สามารถใช้งานได้แค่ใน VPC ของตัวเองเท่านั้น ถ้า network ภายนอกต้องการ resolve DNS ของ resource ที่อยู่ใน VPC ก็จำเป็นจะต้องมีการตั้งค่าเพิ่มเติม ซึ่งเดี๋ยวจะพูดถึงในช่วงหลังของบทความนี้ครับ
-
-ด้วยอะไรหลาย ๆ อย่าง ที่เขียนมาด้านบน ผมเลยชอบคิดซะว่าเจ้าตัว endpoint VPC+2 เป็น DNS resolver ส่วนตัวประจำ VPC ของเราไปเลย ก็ทำให้ชีวิตง่ายขึ้นมานิดหน่อยครับ
+ซึ่ง endpoint ที่ว่านี้ก็จะมี IP ของมันอยู่ โดยที่ IP ของ endpoint ก็คือ VPC+2 หรือถ้าอธิบายแบบภาษาคนหน่อยก็คือเอา IP แรกสุดของ CIDR block ของ VPC มา แล้วบวก 2 เข้าไปก็จะได้ IP ของ endpoint ของ VPC นั้น ๆ เช่น ถ้าเรามี VPC ที่มี CIDR block คือ 192.168.0.0/16 IP ของ endpoint ใน VPC นี้ก็จะเป็น 192.168.0.0 + 2 = 192.168.0.2 ครับ ซึ่งด้วยเหตุนี้ ทำให้ Route 53 Resolve มีชื่อเรียกอีกชื่อหนึงว่า ".2 Resolver" ครับ
 
 ตอนนี้ภาพของเราก็จะกลายเป็นประมาณนี้
 
@@ -53,6 +42,15 @@ Flow แบบคร่าว ๆ ก็คือ
 2. EC2 ส่ง DNS query ไปที่ Route 53 Resolver ผ่านทาง VPC+2 endpoint
 3. Route 53 Resolver ทำการ resolve DNS แล้วส่ง private IP ของ RDS กลับไปให้ EC2
 4. EC2 ได้ IP ของ RDS มา EC2 happy
+
+ตัว Route 53 Resolver นี้สามารถทำหน้าที่ได้ไม่ต่างจาก DNS resolver ทั่ว ๆ ไปเลย จึงทำให้ resource ที่อยู่ใน VPC สามารถ resolve DNS ได้โดยไม่จำเป็นต้องเชื่อมต่อ internet เพื่อสื่อสารกับ DNS resolver ที่อยู่ข้างนอก VPC และนอกจากนี้ Route 53 Resolver ยังสามารถ resolve DNS ของ resource อื่น ๆ ใน VPC ที่ไม่สามารถมองเห็นจาก network ภายนอกได้ด้วย ไม่ว่าจะเป็น
+
+- private DNS name ของ EC2 instance หรือ resource อื่น ๆ ใน VPC ที่มี domain name ของ VPC อยู่
+- record ที่อยู่ใน Route 53 Private Hosted Zone
+
+แต่ว่า Route 53 Resolver ก็มีข้อจำกัดอยู่ นั่นคือเป็น VPC-specific service ทำให้สามารถใช้งานได้แค่ใน VPC ของตัวเองเท่านั้น ถ้า network ภายนอกต้องการ resolve DNS ของ resource ที่อยู่ใน VPC ก็จำเป็นจะต้องมีการตั้งค่าเพิ่มเติม ซึ่งเดี๋ยวจะพูดถึงในช่วงหลังของบทความนี้ครับ
+
+ด้วยอะไรหลาย ๆ อย่าง ที่เขียนมาด้านบน ผมเลยชอบคิดซะว่าเจ้าตัว endpoint VPC+2 เป็น DNS resolver ส่วนตัวประจำ VPC ของเราไปเลย ก็ทำให้ชีวิตง่ายขึ้นมานิดหน่อยครับ
 
 ## ทดสอบดูซักหน่อย
 
@@ -103,6 +101,8 @@ Flow แบบคร่าว ๆ ก็คือ
 ถ้าเราอยากจะเรียกเจ้า endpoint ตัวนี้ เราจำเป็นต้องสร้างสิ่งที่เรียกว่า Route 53 Resolver Inbound Endpoint มาวางคั่นไว้ด้านหน้าอีกทีครับ
 
 โดยตัว Inbound Endpoint นี้จะมี private IP ให้เราเชื่อมต่อได้ และจะทำหน้าที่คอย forward DNS query request ที่เข้ามาไปยัง VPC+2 endpoint ให้เรา ตอนใช้งานเราก็แค่ระบุ DNS resolver เป็น IP ของ Inbound Endpoint เท่านี้ก็พอครับ
+
+![02.png](https://prpblog.com/assets/how-private-resources-resolve-dns/02.png)
 
 จริง ๆ ยังมี Outbound Endpoint อีกนะครับ ตรงส่วนนี้ถ้าอธิบายละเอียดจริง ๆ เนื้อหาจะค่อนข้างเยอะถึงขนาดเขียนเป็นบทความแยกได้เลย เพราะฉะนั้นผมขอจบไว้แค่ตรงนี้ก่อน ไว้มีโอกาสจะลองเขียนบทความเกี่ยวกับ Route 53 Resolver Inbound Endpoint และ Outbound Endpoint เพิ่มเติมครับ
 
