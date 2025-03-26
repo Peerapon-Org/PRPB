@@ -23,9 +23,9 @@ sed -e "s|<table>|$TABLE_NAME|g; s|<category>|$CATEGORY|g; s|<subcategory>|$SUBC
 cat $TEMP_B
 # temporarily disable 'set -e' to prevent the script from exiting upon transaction fails
 set +e
-aws dynamodb transact-get-items \
+aws dynamodb transact-write-items \
   --transact-items file://$TEMP_B
-# aws dynamodb transact-get-items \
+# aws dynamodb transact-write-items \
 #   --transact-items file://$TEMP_B > /dev/null 2>&1
 STATUS=$?
 set -e
