@@ -11,7 +11,7 @@ terraform init \
 
 export PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 export TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
-export SLUG=${GITHUB_HEAD_REF#blog/:-${GITHUB_REF#refs/heads/blog/}}
+export SLUG=${GITHUB_HEAD_REF#blog/}
 echo "SLUG: $SLUG"
 echo "$GITHUB_HEAD_REF ${GITHUB_HEAD_REF#blog/}"
 echo "$GITHUB_REF ${GITHUB_REF#refs/heads/blog/}"
