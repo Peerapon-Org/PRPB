@@ -20,10 +20,13 @@ TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 TEMP_B=$(mktemp)
 sed -e "s|<table>|$TABLE_NAME|g; s|<category>|$CATEGORY|g; s|<subcategory>|$SUBCATEGORY|g" ../.github/actions/validate-tag/transacItems.json | jq -r '.' > $TEMP_B
 
+cat $TEMP_B
 # temporarily disable 'set -e' to prevent the script from exiting upon transaction fails
 set +e
 aws dynamodb transact-get-items \
-  --transact-items file://$TEMP_B > /dev/null 2>&1
+  --transact-items file://$TEMP_B
+# aws dynamodb transact-get-items \
+#   --transact-items file://$TEMP_B > /dev/null 2>&1
 STATUS=$?
 set -e
 
