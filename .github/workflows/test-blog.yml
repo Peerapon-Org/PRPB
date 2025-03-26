@@ -20,6 +20,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Assume AWS role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
       - name: Validate tag
         uses: ./.github/actions/validate-tag
         with:
