@@ -12,10 +12,16 @@ terraform init \
 export PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 export TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
 export SLUG=${GITHUB_HEAD_REF#blog/:-${GITHUB_REF#refs/heads/blog/}}
+echo "SLUG: $SLUG"
+echo "$GITHUB_HEAD_REF ${GITHUB_HEAD_REF#blog/}"
+echo "$GITHUB_REF ${GITHUB_REF#refs/heads/blog/}"
 
 CATEGORY=$(cat "../src/pages/blog/$SLUG.md" | grep '^category' | awk -F ': ' '{print $NF}' | tr -d '"')
 SUBCATEGORY=$(cat "../src/pages/blog/$SLUG.md" | grep '^subcategory' | awk -F ': ' '{print $NF}' | tr -d '"')
 TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
+echo "CATEGORY: $CATEGORY"
+echo "SUBCATEGORY: $SUBCATEGORY"
+echo "TABLE_NAME: $TABLE_NAME"
 
 TEMP_B=$(mktemp)
 sed -e "s|<table>|$TABLE_NAME|g; s|<category>|$CATEGORY|g; s|<subcategory>|$SUBCATEGORY|g" ../.github/actions/validate-tag/transacItems.json | jq -r '.' > $TEMP_B
