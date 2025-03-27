@@ -9,8 +9,12 @@ terraform init \
   -backend-config "key=terraform.tfstate" \
   -reconfigure
 
-PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
-TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
+export PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
+export TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
+
+echo "TF_WORKSPACE: $TF_WORKSPACE"
+echo "ACCOUNT_ID: $ACCOUNT_ID"
+
 
 SLUG="${GITHUB_HEAD_REF#blog/}"
 METADATA=$(sed 10q "../src/pages/blog/$SLUG.md")
@@ -20,6 +24,17 @@ DATE=$(echo "$METADATA" | awk -F ': ' '/^date/ {print $NF}' | tr -d '"')
 TITLE=$(echo "$METADATA" | awk -F ': ' '/^title/ {print $NF}' | tr -d '"')
 DESCRIPTION=$(echo "$METADATA" | awk -F ': ' '/^description/ {print $NF}' | tr -d '"')
 THUMBNAIL=$(echo "$METADATA" | awk -F ': ' '/^thumbnail/ {print $NF}' | tr -d '"')
+
+echo "SLUG: $SLUG"
+echo "METADATA: $METADATA"
+echo "CATEGORY: $CATEGORY"
+echo "SUBCATEGORY: $SUBCATEGORY"
+echo "DATE: $DATE"
+echo "TITLE: $TITLE"
+echo "DESCRIPTION: $DESCRIPTION"
+echo "THUMBNAIL: $THUMBNAIL"
+
+echo "BUCKET: $(terraform output -raw s3_origin_bucket_name)"
 
 aws s3 cp assets/blog/ "s3://$(terraform output -raw s3_origin_bucket_name)/blog/"
 
