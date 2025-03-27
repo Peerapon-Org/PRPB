@@ -12,11 +12,11 @@ terraform init \
 PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
 
+SLUG="${GITHUB_HEAD_REF#blog/}"
 METADATA=$(sed 10q "../src/pages/blog/$SLUG.md")
 CATEGORY=$(echo "$METADATA" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
 SUBCATEGORY=$(echo "$METADATA" | awk -F ': ' '/^subcategory/ {print $NF}' | tr -d '"')
 DATE=$(echo "$METADATA" | awk -F ': ' '/^date/ {print $NF}' | tr -d '"')
-SLUG="${GITHUB_HEAD_REF#blog/}"
 TITLE=$(echo "$METADATA" | awk -F ': ' '/^title/ {print $NF}' | tr -d '"')
 DESCRIPTION=$(echo "$METADATA" | awk -F ': ' '/^description/ {print $NF}' | tr -d '"')
 THUMBNAIL=$(echo "$METADATA" | awk -F ': ' '/^thumbnail/ {print $NF}' | tr -d '"')
