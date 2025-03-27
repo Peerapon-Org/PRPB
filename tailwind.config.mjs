@@ -45,6 +45,10 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        table: {
+          odd: "hsl(var(--table-odd))",
+          even: "hsl(var(--table-even))",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

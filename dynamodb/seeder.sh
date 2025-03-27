@@ -94,8 +94,8 @@ else
 
   echo -e "\nWriting blogs to the $MAIN_TABLE_NAME table..."
   DATA_FILES=("blogs_1.json" "blogs_2.json" "blogs_3.json")
-  aws s3api put-object --bucket $BUCKET_NAME --key thumbnail.png --body thumbnail.png
-  sed -i "s|<thumbnail>|https://$BUCKET_NAME.s3.$REGION.amazonaws.com/thumbnail.png|g" blogs_*.json
+  aws s3api put-object --bucket $BUCKET_NAME --key thumbnail.png --body thumbnail.png --profile $PROFILE
+  sed -i "s|<thumbnail>|https://$APP_DOMAIN_NAME/assets/thumbnail.png|g" blogs_*.json
   for FILE in ${DATA_FILES[@]}; do
     echo $FILE
     TEMP_B=$(mktemp)
