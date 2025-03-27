@@ -30,9 +30,9 @@ runs:
       shell: bash
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Run deploy script
-      id: deploy
-      run: deploy.sh
+    - name: Run publish script
+      id: publish
+      run: publish.sh
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:
