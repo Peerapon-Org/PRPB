@@ -67,7 +67,7 @@ jobs:
       - name: Get slug
         id: get_slug
         run: |
-          echo "SLUG=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/blog/}}" >> "$GITHUB_OUTPUT"
+          echo "SLUG=${GITHUB_HEAD_REF#blog/}" >> "$GITHUB_OUTPUT"
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
