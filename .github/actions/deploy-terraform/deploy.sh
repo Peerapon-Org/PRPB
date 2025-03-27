@@ -41,7 +41,7 @@ terraform apply \
 
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   # Replace API endpoint from staging to production
-  sed -i "s/https:\/\/\(.*\)\/api/https:\/\/$TF_VAR_hosted_zone_name\/api/g" "assets/dist/_astro/$(ls assets/dist/_astro/ | grep BlogList)"
+  perl -i -pe "s|https://.*?/api|https://$TF_VAR_hosted_zone_name/api|g" "assets/dist/_astro/$(ls assets/dist/_astro/ | grep BlogList)"
 else
   # Run DynamoDB seeder
   pushd ../dynamodb > /dev/null 2>&1
