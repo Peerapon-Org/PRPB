@@ -12,10 +12,6 @@ terraform init \
 export PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 export TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
 
-echo "TF_WORKSPACE: $TF_WORKSPACE"
-echo "ACCOUNT_ID: $ACCOUNT_ID"
-
-
 SLUG="${GITHUB_HEAD_REF#blog/}"
 METADATA=$(sed 10q "../src/pages/blog/$SLUG.md")
 CATEGORY=$(echo "$METADATA" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
@@ -36,7 +32,9 @@ echo "THUMBNAIL: $THUMBNAIL"
 
 echo "BUCKET: $(terraform output -raw s3_origin_bucket_name)"
 
-aws s3 cp assets/blog/ "s3://$(terraform output -raw s3_origin_bucket_name)/blog/"
+aws --version
+
+aws s3 cp assets/blog/ "s3://$(terraform output -raw s3_origin_bucket_name)/blog/" --recursive
 
 # temporarily disable 'set -e' to prevent the script from exiting upon transaction fails
 set +e
