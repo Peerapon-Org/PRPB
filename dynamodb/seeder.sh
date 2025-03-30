@@ -3,7 +3,7 @@
 set -e
 
 if [[ "$(pwd)" != *dynamodb ]]; then
-  echo "Error: Please run this script from the dynamodb directory"
+  echo "Error: Please run this script from the 'dynamodb' directory"
   exit 1
 fi
 
