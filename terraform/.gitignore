@@ -37,7 +37,3 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-
-# Ignore internal tools
-deploy.sh
-docker-compose.yml
