@@ -24,7 +24,9 @@ jobs:
       - name: Get list of changed files
         id: changed-files
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- content/blogs/*.md
+          echo ${{ github.event.before }}
+          echo ${{ github.sha }}
+          echo "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- content/blogs/*.md)"
   #     - name: Setup Node.js
   #       uses: actions/setup-node@v4
   #       with:
