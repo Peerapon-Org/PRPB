@@ -7,7 +7,10 @@ on:
 
 jobs:
   terminate-staging:
-    if: startsWith(github.head_ref, 'blog/') == false
+    if: |
+      startsWith(github.head_ref, 'blog/') == false  &&
+      startsWith(github.head_ref, 'dependabot/') == false &&
+      contains(github.ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging
