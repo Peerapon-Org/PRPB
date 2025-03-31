@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check changed files
-        uses: ./.github/actions/deploy-terraform
+        uses: ./.github/actions/check-changed-files
         with:
           previous-commit: ${{ github.event.before }}
       - name: Setup Node.js
