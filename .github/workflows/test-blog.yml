@@ -26,7 +26,7 @@ jobs:
         run: |
           echo event before ${{ github.event.before }}
           echo sha ${{ github.sha }}
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+          git diff --name-only ${{ github.event.before }}
   #     - name: Setup Node.js
   #       uses: actions/setup-node@v4
   #       with:
