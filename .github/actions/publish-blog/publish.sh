@@ -21,7 +21,7 @@ TITLE=$(echo "$METADATA" | awk -F ': ' '/^title/ {print $NF}' | tr -d '"')
 DESCRIPTION=$(echo "$METADATA" | awk -F ': ' '/^description/ {print $NF}' | tr -d '"')
 THUMBNAIL=$(echo "$METADATA" | awk -F ': ' '/^thumbnail/ {print $NF}' | tr -d '"')
 
-aws s3 cp assets/blog/ "s3://$(terraform output -raw s3_origin_bucket_name)/blog/$SLUG/" --recursive
+aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/" --delete
 
 # temporarily disable 'set -e' to prevent the script from exiting upon transaction fails
 set +e
