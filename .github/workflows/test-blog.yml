@@ -19,12 +19,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Get list of changed files
         id: changed-files
         run: |
           echo event before ${{ github.event.before }}
           echo sha ${{ github.sha }}
-          echo diff "$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})"
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }}
   #     - name: Setup Node.js
   #       uses: actions/setup-node@v4
   #       with:
