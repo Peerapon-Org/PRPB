@@ -1,5 +1,5 @@
 name: Test Blog
-run-name: Check new blog post '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) 
+run-name: Check new blog post '${{ github.ref_name }}' (${{ github.sha }})
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
   test:
     if: |
       startsWith(github.head_ref, 'blog/') &&
-      contains(github.ref, '/skip-ci') == false
+      contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: prod

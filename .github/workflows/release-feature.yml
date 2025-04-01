@@ -1,18 +1,17 @@
 name: Deploy Feature
-run-name: Deploy new feature '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) to production environment
+run-name: Deploy new feature '${{ github.ref_name }}' (${{ github.sha }}) to production environment
 
 on:
   pull_request:
     branches: [main]
     types: [closed]
-  workflow_dispatch
 
 jobs:
   deploy-to-prod:
     if: |
       startsWith(github.head_ref, 'blog/') == false &&
       github.event.pull_request.merged == true &&
-      contains(github.ref, '/skip-ci') == false
+      contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: prod

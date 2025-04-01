@@ -1,5 +1,5 @@
 name: Test Feature
-run-name: Test, build, and deploy '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) to staging environment
+run-name: Test, build, and deploy '${{ github.ref_name }}' (${{ github.sha }}) to staging environment
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ jobs:
     if: |
       startsWith(github.head_ref, 'blog/') == false &&
       startsWith(github.head_ref, 'dependabot/') == false &&
-      contains(github.ref, '/skip-ci') == false
+      contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging
@@ -78,18 +78,9 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm ci
-      - name: Set Astro environment variable
-        id: set-astro-env-var
-        run: |
-          PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
-          STAGE=${{ vars.STAGE }}
-          BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-          PUBLIC_DOMAIN_NAME="$PROJECT-$STAGE-$(echo $BRANCH | tr '\[/*\]' '-').${{ vars.DOMAIN_NAME }}"
-          echo "$PUBLIC_DOMAIN_NAME"
-          echo "PUBLIC_DOMAIN_NAME=$PUBLIC_DOMAIN_NAME" >> "$GITHUB_OUTPUT"
       - name: Build
         env:
-          PUBLIC_DOMAIN_NAME: ${{ steps.set-astro-env-var.outputs.PUBLIC_DOMAIN_NAME }}
+          PUBLIC_CONFIGS: /configs.json
         run: npm run build
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
