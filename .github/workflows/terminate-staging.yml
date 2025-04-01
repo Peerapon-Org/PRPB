@@ -1,13 +1,22 @@
-name: Terminate branch's staging environment
+# This workflow is responsible for destroying the staging environment
+# Run when a PR is closed (either merged or not) or when the 'Test Feature' workflow fails
+
+name: Terminate Staging
+run-name: Terminate staging environment created from '${{ github.head_ref }}' (${{ github.sha }})
 
 on:
   pull_request:
     branches: [main]
     types: [closed]
+  workflow_run:
+    workflows: ["Test Feature"]
+    types: [completed]
 
 jobs:
   terminate-staging:
-    if: startsWith(github.head_ref, 'blog/') == false
+    if: |
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure') ||
+      (startsWith(github.head_ref, 'blog/') == false  && startsWith(github.head_ref, 'dependabot/') == false && contains(github.head_ref, '/skip-ci') == false)
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging

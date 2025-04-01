@@ -39,16 +39,18 @@ terraform apply \
   -var-file "tfvars/$TF_VAR_environment.tfvars" \
   -auto-approve
 
-if [[ "$IS_PRODUCTION" == "true" ]]; then
-  # Replace API endpoint from staging to production
-  perl -i -pe "s|https://.*?/api|https://$TF_VAR_hosted_zone_name/api|g" "assets/dist/_astro/$(ls assets/dist/_astro/ | grep BlogList)"
-else
+if [[ "$IS_PRODUCTION" != "true" ]]; then
   # Run DynamoDB seeder
   pushd ../dynamodb > /dev/null 2>&1
   bash seeder.sh --region $TF_VAR_region
   popd > /dev/null 2>&1
 fi
 
+cat > assets/dist/configs.json << EOF
+{
+  "API_Endpoint": "https://$TF_WORKSPACE.$TF_VAR_hosted_zone_name/api"
+}
+EOF
 aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/" --delete
 aws cloudfront create-invalidation --distribution-id "$(terraform output -raw distribution_id)" --paths "/*"
 

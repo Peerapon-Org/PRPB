@@ -1,4 +1,5 @@
-name: Publish new blog post
+name: Publish Blog
+run-name: Publish new blog post '${{ github.head_ref }}' (${{ github.sha }})
 
 on:
   pull_request:
@@ -7,7 +8,10 @@ on:
 
 jobs:
   deploy:
-    if: startsWith(github.head_ref, 'blog/') && github.event.pull_request.merged == true
+    if: |
+      startsWith(github.head_ref, 'blog/') &&
+      github.event.pull_request.merged == true &&
+      contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: prod
@@ -45,9 +49,9 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: astro-build
+          name: astro-build-blog
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: ${{ github.workspace }}/terraform/assets/dist
+          path: ${{ github.workspace }}/terraform/assets/blog
           run-id: ${{ steps.get-run-id.outputs.result }}
       - name: Publish blog post
         uses: ./.github/actions/publish-blog

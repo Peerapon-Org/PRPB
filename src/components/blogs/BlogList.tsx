@@ -80,15 +80,15 @@ export function BlogList() {
     if (!props.lastBlog && !filterChanged) return;
 
     const queryString = getQueryString(props);
-    const response = await fetch(
-      `https://${import.meta.env.PUBLIC_DOMAIN_NAME}/api/blogs${queryString}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const apiEndpoint = (
+      await (await fetch(import.meta.env.PUBLIC_CONFIGS)).json()
+    ).API_Endpoint;
+    const response = await fetch(`${apiEndpoint}/blogs${queryString}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const { blogs } = (await response.json()) as { blogs: BlogItemProps[] };
 
     filterChanged

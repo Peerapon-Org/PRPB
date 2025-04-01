@@ -56,15 +56,15 @@ export function TagFilter({
 
   useEffect(() => {
     async function fetchTags() {
-      const response = await fetch(
-        `https://${import.meta.env.PUBLIC_DOMAIN_NAME}/api/tags`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const apiEndpoint = (
+        await (await fetch(import.meta.env.PUBLIC_CONFIGS)).json()
+      ).API_Endpoint;
+      const response = await fetch(`${apiEndpoint}/tags`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const { category, subcategory } = (await response.json()) as Tags;
       setTags({ category, subcategory });
     }

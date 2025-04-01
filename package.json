@@ -3,10 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "export PUBLIC_DOMAIN_NAME=prpb.p-dev.click; astro dev",
-    "dev:2": "export PUBLIC_DOMAIN_NAME=prpb.p-dev.click; astro dev --port 43210",
+    "dev": "astro dev --port 43210",
     "build": "astro build",
-    "build:dev": "export PUBLIC_DOMAIN_NAME=prpb.p-dev.click; astro build",
     "test": "playwright test --fully-parallel",
     "lint": "eslint",
     "preview": "astro preview",

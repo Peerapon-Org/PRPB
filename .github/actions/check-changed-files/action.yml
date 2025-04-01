@@ -1,0 +1,19 @@
+name: "Check Changed Files"
+description: "Check whether there are any changes made to other files except the added Markdown blog file"
+inputs:
+  previous-commit:
+    description: "Previous commit SHA"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: Run changes check script
+      run: check.sh
+      shell: bash
+      env:
+        PREVIOUS_COMMIT: ${{ inputs.previous-commit }}
