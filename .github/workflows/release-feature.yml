@@ -1,9 +1,11 @@
-name: Deploy new feature to production environment
+name: Deploy Feature
+run-name: Deploy new feature '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) to production environment
 
 on:
   pull_request:
     branches: [main]
     types: [closed]
+  workflow_dispatch
 
 jobs:
   deploy-to-prod:

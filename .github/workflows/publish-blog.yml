@@ -1,4 +1,5 @@
-name: Publish new blog post
+name: Publish Blog
+run-name: Publish new blog post '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) 
 
 on:
   pull_request:

@@ -1,4 +1,5 @@
-name: Check new blog post
+name: Test Blog
+run-name: Check new blog post '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }}) 
 
 on:
   pull_request:

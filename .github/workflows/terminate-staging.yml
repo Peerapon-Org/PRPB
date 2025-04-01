@@ -1,4 +1,5 @@
-name: Terminate branch's staging environment
+name: Terminate Staging
+run-name: Terminate staging environment created from '${{ github.ref_name }}' (${{github.sha.substring(0, 7) }})
 
 on:
   pull_request:
