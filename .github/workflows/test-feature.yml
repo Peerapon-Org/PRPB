@@ -1,5 +1,5 @@
 name: Test Feature
-run-name: Test, build, and deploy '${{ github.ref_name }}' (${{ github.sha }}) to staging environment
+run-name: Test, build, and deploy '${{ github.head_ref }}' (${{ github.sha }}) to staging environment
 
 on:
   pull_request:

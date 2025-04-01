@@ -2,7 +2,7 @@
 # Run when a PR is closed (either merged or not) or when the 'Test Feature' workflow fails
 
 name: Terminate Staging
-run-name: Terminate staging environment created from '${{ github.ref_name }}' (${{ github.sha }})
+run-name: Terminate staging environment created from '${{ github.head_ref }}' (${{ github.sha }})
 
 on:
   pull_request:

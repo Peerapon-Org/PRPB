@@ -1,5 +1,5 @@
 name: Deploy Feature
-run-name: Deploy new feature '${{ github.ref_name }}' (${{ github.sha }}) to production environment
+run-name: Deploy new feature '${{ github.head_ref }}' (${{ github.sha }}) to production environment
 
 on:
   pull_request:
