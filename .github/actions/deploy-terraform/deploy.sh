@@ -48,7 +48,7 @@ fi
 
 cat > assets/dist/configs.json << EOF
 {
-  "API_Endpoint": "https://$TF_VAR_hosted_zone_name/api"
+  "API_Endpoint": "https://$TF_WORKSPACE.$TF_VAR_hosted_zone_name/api"
 }
 EOF
 aws s3 sync assets/dist/ "s3://$(terraform output -raw s3_origin_bucket_name)/" --delete
