@@ -35,6 +35,7 @@ fi
 
 # replace <execution_role_arn> in the api.json with the actual role ARN
 sed -i "s|<execution_role_arn>|arn:aws:iam::$TF_VAR_account:role/$TF_WORKSPACE-api-execution-role|g" assets/api/api.json
+terraform validate
 terraform apply \
   -var-file "tfvars/$TF_VAR_environment.tfvars" \
   -auto-approve

@@ -12,6 +12,10 @@ on:
     workflows: ["Test Feature"]
     types: [completed]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   terminate-staging:
     if: |
