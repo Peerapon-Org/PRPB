@@ -24,6 +24,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+    - name: Assume AWS role
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
     - name: Set GitHub Path
       run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
       shell: bash

@@ -1,0 +1,41 @@
+name: "Deploy Code"
+description: "Deploy code (build artifact) to S3 bucket and invalidate CloudFront distribution"
+inputs:
+  s3-bucket-name:
+    description: "S3 origin bucket name"
+    required: true
+  dynamodb-blog-table-name:
+    description: "DynamoDB table name for blog"
+    required: true
+  dynamodb-tag-table-name:
+    description: "DynamoDB table name for tag"
+    required: true
+  cloudfront-distribution-id:
+    description: "CloudFront distribution ID"
+    required: true
+  api-endpoint:
+    description: "API endpoint of the deployed application"
+    required: true
+  is-production:
+    description: "Is this a production deployment?"
+    required: false
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+    - name: Run code deploy script
+      id: deploy
+      run: deploy.sh
+      shell: bash
+      env:
+        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
+        DYNAMODB_BLOG_TABLE_NAME: ${{ inputs.dynamodb-blog-table-name }}
+        DYNAMODB_TAG_TABLE_NAME: ${{ inputs.dynamodb-tag-table-name }}
+        CLOUDFRONT_DISTRIBUTION_ID: ${{ inputs.cloudfront-distribution-id }}
+        API_ENDPOINT: ${{ inputs.api-endpoint }}
+        IS_PRODUCTION: ${{ inputs.is-production }}

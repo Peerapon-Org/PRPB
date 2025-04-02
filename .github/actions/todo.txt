@@ -1,0 +1,5 @@
+todo
+
+- move terminate-staging into destroy-terraform action
+- terminate-staging calls destroy-terraform only when a pr is closed
+- test-feature calls destroy-terraform when terraform deployment fails
