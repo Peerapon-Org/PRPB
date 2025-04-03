@@ -6,6 +6,10 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     if: |
@@ -124,12 +128,8 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: astro-build
-          path: ${{ github.workspace }}/terraform/assets/dist
       - name: Deploy Terraform
+        id: deploy-terraform
         uses: ./.github/actions/deploy-terraform
         with:
           s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
@@ -139,3 +139,55 @@ jobs:
           domain-name: ${{ vars.DOMAIN_NAME }}
           is-production: false
           environment: ${{ vars.STAGE }}
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: astro-build
+          path: ${{ github.workspace }}/dist
+      - name: Deploy build artifact
+        uses: ./.github/actions/deploy-code
+        with:
+          s3-origin-bucket-name: ${{ steps.deploy-terraform.outputs.s3-origin-bucket-name }}
+          dynamodb-blog-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-blog-table-name }}
+          dynamodb-tag-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-tag-table-name }}
+          cloudfront-distribution-id: ${{ steps.deploy-terraform.outputs.cloudfront-distribution-id }}
+          api-endpoint: ${{ steps.deploy-terraform.outputs.api-endpoint }}
+          is-production: false
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Staging deployed: ${{ steps.deploy-terraform.outputs.app-url }}`})
+  terminate-staging:
+    needs: deploy-to-staging
+    if: ${{ needs.deploy-to-staging.result == 'failure' }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    environment: staging
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Destroy Staging Terraform
+        uses: ./.github/actions/destroy-terraform
+        with:
+          s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
+          dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
+          account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-region: ${{ vars.AWS_REGION }}
+          domain-name: ${{ vars.DOMAIN_NAME }}
+          environment: ${{ vars.STAGE }}
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ Staging deployment failed and environment has been cleaned up. Please check the logs for details.`
+            })

@@ -26,6 +26,21 @@ inputs:
     required: false
     default: "false"
 outputs:
+  s3-origin-bucket-name:
+    description: "S3 origin bucket name"
+    value: ${{ steps.deploy.outputs.s3-bucket-name }}
+  dynamodb-blog-table-name:
+    description: "DynamoDB table name for blog"
+    value: ${{ steps.deploy.outputs.dynamodb-blog-table-name }}
+  dynamodb-tag-table-name:
+    description: "DynamoDB table name for tag"
+    value: ${{ steps.deploy.outputs.dynamodb-tag-table-name }}
+  cloudfront-distribution-id:
+    description: "CloudFront distribution ID"
+    value: ${{ steps.deploy.outputs.cloudfront-distribution-id }}
+  api-endpoint:
+    description: "API endpoint of the deployed application"
+    value: ${{ steps.deploy.outputs.api-endpoint }}
   app-url:
     description: "URL link the deployed application"
     value: ${{ steps.deploy.outputs.app-url }}
@@ -37,7 +52,7 @@ runs:
       shell: bash
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
-    - name: Run deploy script
+    - name: Run terraform deploy script
       id: deploy
       run: deploy.sh
       shell: bash
