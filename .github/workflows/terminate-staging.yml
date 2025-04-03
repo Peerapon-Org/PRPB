@@ -1,6 +1,3 @@
-# This workflow is responsible for destroying the staging environment
-# Run when a PR is closed (either merged or not) or when the 'Test Feature' workflow fails
-
 name: Terminate Staging
 run-name: Terminate staging environment created from '${{ github.head_ref }}' (${{ github.sha }})
 
@@ -8,9 +5,6 @@ on:
   pull_request:
     branches: [main]
     types: [closed]
-  workflow_run:
-    workflows: ["Test Feature"]
-    types: [completed]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -19,8 +13,9 @@ concurrency:
 jobs:
   terminate-staging:
     if: |
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure') ||
-      (startsWith(github.head_ref, 'blog/') == false  && startsWith(github.head_ref, 'dependabot/') == false && contains(github.head_ref, '/skip-ci') == false)
+      startsWith(github.head_ref, 'blog/') == false &&
+      startsWith(github.head_ref, 'dependabot/') == false &&
+      contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: staging
@@ -28,17 +23,6 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-      - name: Assume AWS role
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
       - name: Destroy Staging Terraform
         uses: ./.github/actions/destroy-terraform
         with:

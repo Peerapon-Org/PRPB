@@ -26,7 +26,7 @@ inputs:
     required: false
     default: "false"
 outputs:
-  s3-bucket-name:
+  s3-origin-bucket-name:
     description: "S3 origin bucket name"
     value: ${{ steps.deploy.outputs.s3-bucket-name }}
   dynamodb-blog-table-name:

@@ -1,7 +1,7 @@
 name: "Deploy Code"
 description: "Deploy code (build artifact) to S3 bucket and invalidate CloudFront distribution"
 inputs:
-  s3-bucket-name:
+  s3-origin-bucket-name:
     description: "S3 origin bucket name"
     required: true
   dynamodb-blog-table-name:
@@ -33,7 +33,7 @@ runs:
       run: deploy.sh
       shell: bash
       env:
-        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
+        S3_ORIGIN_BUCKET_NAME: ${{ inputs.s3-origin-bucket-name }}
         DYNAMODB_BLOG_TABLE_NAME: ${{ inputs.dynamodb-blog-table-name }}
         DYNAMODB_TAG_TABLE_NAME: ${{ inputs.dynamodb-tag-table-name }}
         CLOUDFRONT_DISTRIBUTION_ID: ${{ inputs.cloudfront-distribution-id }}

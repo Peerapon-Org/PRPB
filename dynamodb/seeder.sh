@@ -9,16 +9,11 @@ fi
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -r|--region)
-      REGION="$2"
-      shift 2
-      ;;
     -p|--profile)
       PROFILE="$2"
       shift 2
       ;;
     -h|--help)
-      echo "-r, --region      ... Region of the specified S3 bucket"
       echo "-p, --profile     ... (Optional) AWS profile to use when making API requests to AWS services"
       echo "-h, --help        ... Show this message"
       exit 0
@@ -29,11 +24,6 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-
-if [[ -z $REGION ]]; then
-  echo "Error: region is required. Run 'seeder.sh --help' for more details"
-  exit 1
-fi
 
 pushd ../terraform > /dev/null 2>&1
 

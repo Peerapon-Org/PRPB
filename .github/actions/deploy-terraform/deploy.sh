@@ -19,6 +19,7 @@ export TF_VAR_region=$AWS_REGION
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   export TF_VAR_branch="main"
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
+  export TF_VAR_app_sub_domain_name=''
 else
   export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
   export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
@@ -40,10 +41,11 @@ terraform apply \
   -var-file "tfvars/$TF_VAR_environment.tfvars" \
   -auto-approve
 
-echo "s3-bucket-name=$(terraform output -raw s3_origin_bucket_name)" >> "$GITHUB_OUTPUT"
+echo "s3-origin-bucket-name=$(terraform output -raw s3_origin_bucket_name)" >> "$GITHUB_OUTPUT"
 echo "dynamodb-blog-table-name=$(terraform output -raw blog_table_name)" >> "$GITHUB_OUTPUT"
 echo "dynamodb-tag-table-name=$(terraform output -raw tag_ref_table_name)" >> "$GITHUB_OUTPUT"
 echo "cloudfront-distribution-id=$(terraform output -raw distribution_id)" >> "$GITHUB_OUTPUT"
-echo "domain-name=$(terraform output -raw app_domain_name)" >> "$GITHUB_OUTPUT"
+echo "api-endpoint=https://$TF_VAR_app_sub_domain_name.$TF_VAR_hosted_zone_name/api" >> "$GITHUB_OUTPUT"
+echo "app-url=https://$(terraform output -raw app_domain_name)" >> "$GITHUB_OUTPUT"
 
 echo "Terraform apply complete!"

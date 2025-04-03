@@ -71,7 +71,7 @@ jobs:
       - name: Deploy build artifact
         uses: ./.github/actions/deploy-code
         with:
-          s3-bucket-name: ${{ steps.deploy-terraform.outputs.s3-bucket-name }}
+          s3-origin-bucket-name: ${{ steps.deploy-terraform.outputs.s3-origin-bucket-name }}
           dynamodb-blog-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-blog-table-name }}
           dynamodb-tag-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-tag-table-name }}
           cloudfront-distribution-id: ${{ steps.deploy-terraform.outputs.cloudfront-distribution-id }}
