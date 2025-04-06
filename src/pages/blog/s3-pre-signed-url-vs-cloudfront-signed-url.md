@@ -4,7 +4,7 @@ title: "S3 Pre-signed URL VS CloudFront Signed URL"
 author: "Peerapon Boonkaweenapanon"
 date: "2025-04-08"
 category: "AWS"
-subcategory: ["CloudFront", "S3"]
+subcategory: ["S3", "CloudFront"]
 description: "resource ใน private subnet ที่เชื่อมต่อ internet ไม่ได้ สามารถเข้าถึง DNS resolve ได้ยังไง บทความนี้มีคำตอบครับ"
 thumbnail: "https://prpblog.com/assets/how-private-resources-resolve-dns/thumbnail.png"
 ---
