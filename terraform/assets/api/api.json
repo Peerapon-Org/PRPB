@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "test-rest-api",
-    "version": "2025-03-02T15:20:04Z"
+    "version": "2025-04-07T18:35:11Z"
   },
   "servers": [
     {
@@ -37,7 +37,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Scan",
@@ -55,7 +54,8 @@
           "requestTemplates": {
             "application/json": "{\r\n    \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\",\r\n    \"Select\": \"SPECIFIC_ATTRIBUTES\",\r\n    \"ProjectionExpression\": \"#C, #V\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#C\": \"Category\",\r\n        \"#V\": \"Value\"\r\n    },\r\n    \"ReturnConsumedCapacity\": \"TOTAL\"\r\n}\r\n"
           },
-          "passthroughBehavior": "when_no_templates"
+          "passthroughBehavior": "when_no_templates",
+          "type": "aws"
         }
       },
       "post": {
@@ -88,7 +88,6 @@
         ],
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
@@ -100,7 +99,8 @@
           "requestTemplates": {
             "application/json": "#set($tags = $util.parseJson($input.body).tags)\n#set($categories = [])\n#foreach($tag in $tags)\n#if(!$categories.contains($tag.category) && $tag.category != 'null')\n#set($_ = $categories.add($tag.category))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n  #foreach($category in $categories)\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"null\" },\n            \"Value\": { \"S\": \"$category\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  },\n  #end\n  #foreach($tag in $tags)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Category\": { \"S\": \"$tag.category\" },\n            \"Value\": { \"S\": \"$tag.value\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         }
       },
       "options": {
@@ -134,7 +134,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "mock",
           "responses": {
             "default": {
               "statusCode": "200",
@@ -148,7 +147,8 @@
           "requestTemplates": {
             "application/json": "{\"statusCode\": 200}"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
         }
       }
     },
@@ -205,7 +205,6 @@
         },
         "x-amazon-apigateway-request-validator": "Validate query string parameters and headers",
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Query",
@@ -216,14 +215,15 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
-                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategory\": \"$item.Subcategory.S\",\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
+                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    #set($hasSubcategory = $item.containsKey(\"Subcategories\") && $item.Subcategories.S != \"\")\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategories\": #if($hasSubcategory)$item.Subcategories.S#{else}\"\"#end,\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
               }
             }
           },
           "requestTemplates": {
-            "application/json": "#set($category = $util.escapeJavaScript($input.params('cat')))\r\n#set($subcategory = $util.escapeJavaScript($input.params('sub_cat')))\r\n#set($hasFilter = $!{category}!=\"\" || $!{subcategory}!=\"\")\r\n#set($lastPublishDate = $util.escapeJavaScript($input.params('last_pub_date')))\r\n#set($lastSlug = $util.escapeJavaScript($input.params('last_slug')))\r\n{\r\n    \"TableName\": \"$stageVariables.dynamoDBMainTableName\",\r\n    \"IndexName\": #if(!$hasFilter)\"PublishDateIndex\"#{else}#if($!{subcategory}!=\"\")\"SubcategoryIndex\"#{else}\"CategoryIndex\"#end#end,\r\n    \"Select\": \"ALL_PROJECTED_ATTRIBUTES\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#K\": #if(!$hasFilter)\"Type\"#{else}#if($!{subcategory}!=\"\")\"Subcategory\"#{else}\"Category\"#end#end\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":v\": {\r\n            \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"$subcategory\"#{else}\"$category\"#end#end\r\n        }\r\n    },\r\n    \"KeyConditionExpression\": \"#K = :v\",\r\n    \"Limit\": 12,\r\n    #if($!{lastPublishDate}!=\"\" && $!{lastSlug}!=\"\")\r\n    \"ExclusiveStartKey\": {\r\n        \"Type\": { \"S\": \"blog\" },\r\n        #if($!{category}!=\"\")\"Category\": { \"S\": \"$category\" },#end\r\n        #if($!{subcategory}!=\"\")\"Subcategory\": { \"S\": \"$subcategory\" },#end\r\n        \"PublishDate\": { \"S\": \"$lastPublishDate\" },\r\n        \"Slug\": { \"S\": \"$lastSlug\" }\r\n    },\r\n    #end\r\n    \"ReturnConsumedCapacity\": \"TOTAL\",\r\n    \"ScanIndexForward\": false\r\n}\r\n"
+            "application/json": "#set($category = $util.escapeJavaScript($input.params('cat')).toLowerCase().replaceAll(\" \", \"_\"))\r\n#set($subcategory = $util.escapeJavaScript($input.params('sub_cat')).toLowerCase().replaceAll(\" \", \"_\"))\r\n#set($hasFilter = $!{category}!=\"\" || $!{subcategory}!=\"\")\r\n#set($lastPublishDate = $util.escapeJavaScript($input.params('last_pub_date')))\r\n#set($lastSlug = $util.escapeJavaScript($input.params('last_slug')))\r\n{\r\n    \"TableName\": \"$stageVariables.dynamoDBMainTableName\",\r\n    \"IndexName\": \"PublishDateIndex\",\r\n    \"Select\": \"ALL_PROJECTED_ATTRIBUTES\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#K\": \"Type\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":v\": {\r\n            \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"category#$category&subcategory#$subcategory\"#{else}\"category#$category\"#end#end\r\n        }\r\n    },\r\n    \"KeyConditionExpression\": \"#K = :v\",\r\n    \"Limit\": 12,\r\n    #if($!{lastPublishDate}!=\"\" && $!{lastSlug}!=\"\")\r\n    \"ExclusiveStartKey\": {\r\n        \"Type\": { \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"category#$category&subcategory#$subcategory\"#{else}\"category#$category\"#end#end },\r\n        \"PublishDate\": { \"S\": \"$lastPublishDate\" },\r\n        \"Slug\": { \"S\": \"$lastSlug\" }\r\n    },\r\n    #end\r\n    \"ReturnConsumedCapacity\": \"TOTAL\",\r\n    \"ScanIndexForward\": false\r\n}\r\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         }
       },
       "post": {
@@ -256,7 +256,6 @@
         ],
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
@@ -266,9 +265,10 @@
             }
           },
           "requestTemplates": {
-            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($tags = {})\n#foreach($blog in $blogs)\n#if(!$tags.containsKey($blog.category))\n#set($_ = $tags.put($blog.category, []))\n#end\n#if(!$tags[$blog.category].contains($blog.subcategory))\n#set($_ = $tags[$blog.category].add($blog.subcategory))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n#foreach($category in $tags.keySet())\n  #foreach($subcategory in $tags[$category])\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"$category\" },\n            \"Value\": { \"S\": \"$subcategory\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  },\n  #end\n#end\n  #foreach($blog in $blogs)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"blog\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            \"Subcategory\": { \"S\": \"$blog.subcategory\" },\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
+            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($tags = {})\n#foreach($blog in $blogs)\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\n    \n    #if(!$tags.containsKey($blog.category))\n        #set($_ = $tags.put($blog.category, []))\n    #end\n    \n    #if($hasSubcategory)\n        #foreach($subcategory in $blog.subcategories)\n            #if(!$tags[$blog.category].contains($subcategory))\n                #set($_ = $tags[$blog.category].add($subcategory))\n            #end\n        #end\n    #end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n    #foreach($category in $tags.keySet())\n        #set($hasSubcategory = !$tags[$category].isEmpty())\n        #if($hasSubcategory)\n            #foreach($subcategory in $tags[$category])\n            {\n                \"ConditionCheck\": {\n                    \"ConditionExpression\": \"attribute_exists(#V)\",\n                    \"ExpressionAttributeNames\": {\n                        \"#V\": \"Value\"\n                    },\n                    \"Key\": {\n                        \"Category\": { \"S\": \"$category\" },\n                        \"Value\": { \"S\": \"$subcategory\" }\n                    },\n                    \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n                }\n            },\n            #end\n        #end\n    #end\n    #foreach($blog in $blogs)\n    #set($category = $blog.category.toLowerCase().replaceAll(\" \", \"_\"))\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"blog\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    },\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"category#$category\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    }#if($hasSubcategory),\n    #foreach($subcategory in $blog.subcategories)\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"category#$category&subcategory#$subcategory.toLowerCase().replaceAll(' ', '_')\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    }#if($foreach.hasNext),#end\n    #end\n    #end#if($foreach.hasNext),#end\n    #end\n  ]\n}"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         }
       },
       "options": {
@@ -302,7 +302,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "mock",
           "responses": {
             "default": {
               "statusCode": "200",
@@ -316,7 +315,8 @@
           "requestTemplates": {
             "application/json": "{\"statusCode\": 200}"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "mock"
         }
       }
     }
@@ -368,22 +368,36 @@
               "required": [
                 "category",
                 "publish_date",
-                "slug",
-                "subcategory"
+                "slug"
               ],
               "type": "object",
               "properties": {
-                "category": {
+                "type": {
                   "type": "string"
                 },
-                "subcategory": {
+                "title": {
                   "type": "string"
                 },
-                "publish_date": {
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": {
+                  "type": "string"
+                },
+                "thumbnail": {
                   "type": "string"
                 },
                 "slug": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "subcategories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "publish_date": {
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
                   "type": "string"
                 }
               }
@@ -458,9 +472,9 @@
       "TagsResponseSchema": {
         "title": "Tags Response Schema",
         "required": [
-          "category",
+          "categories",
           "status",
-          "subcategory"
+          "subcategories"
         ],
         "type": "object",
         "properties": {
@@ -469,14 +483,14 @@
             "type": "integer",
             "description": "The HTTP status code of the response."
           },
-          "category": {
+          "categories": {
             "type": "array",
             "description": "A list of tag categories.",
             "items": {
               "type": "string"
             }
           },
-          "subcategory": {
+          "subcategories": {
             "type": "object",
             "additionalProperties": {
               "type": "array",
@@ -500,14 +514,14 @@
     }
   },
   "x-amazon-apigateway-gateway-responses": {
-    "DEFAULT_5XX": {
+    "DEFAULT_4XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
         "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       }
     },
-    "DEFAULT_4XX": {
+    "DEFAULT_5XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
