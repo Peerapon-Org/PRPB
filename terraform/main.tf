@@ -1,6 +1,5 @@
 locals {
   global_variables = {
-    project       = "${var.project}"
     region        = "${var.region}"
     account       = "${var.account}"
     is_production = var.is_production

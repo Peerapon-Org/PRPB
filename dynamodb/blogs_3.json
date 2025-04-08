@@ -250,8 +250,8 @@
         "PublishDate": {
           "S": "2023-09-19"
         },
-        "Subcategory": {
-          "S": "EKS"
+        "Subcategories": {
+          "S": "[\"EKS\", \"VPC\", \"CloudWatch\"]"
         },
         "Slug": {
           "S": "kubernetes-on-aws-with-eks"
@@ -263,7 +263,7 @@
           "S": "Learn how to deploy and manage Kubernetes clusters on AWS using EKS."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -281,8 +281,8 @@
         "PublishDate": {
           "S": "2023-09-18"
         },
-        "Subcategory": {
-          "S": "VPC"
+        "Subcategories": {
+          "S": "[\"VPC\", \"IAM\", \"EC2\"]"
         },
         "Slug": {
           "S": "designing-secure-networks-with-aws-vpc"
@@ -294,7 +294,7 @@
           "S": "Best practices for designing secure network architectures with AWS VPC."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -312,8 +312,8 @@
         "PublishDate": {
           "S": "2023-09-17"
         },
-        "Subcategory": {
-          "S": "API Gateway"
+        "Subcategories": {
+          "S": "[\"API Gateway\", \"Lambda\", \"CloudFront\"]"
         },
         "Slug": {
           "S": "building-serverless-apis-with-aws-api-gateway"
@@ -325,7 +325,7 @@
           "S": "A comprehensive guide to building and deploying serverless APIs with AWS API Gateway."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -343,8 +343,8 @@
         "PublishDate": {
           "S": "2023-09-16"
         },
-        "Subcategory": {
-          "S": "CloudWatch"
+        "Subcategories": {
+          "S": "[\"CloudWatch\", \"EC2\", \"RDS\"]"
         },
         "Slug": {
           "S": "monitoring-aws-resources-with-cloudwatch"
@@ -356,7 +356,7 @@
           "S": "Learn how to effectively monitor your AWS resources using CloudWatch."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -374,8 +374,8 @@
         "PublishDate": {
           "S": "2023-09-15"
         },
-        "Subcategory": {
-          "S": "GitOps"
+        "Subcategories": {
+          "S": "[\"GitOps\", \"Kubernetes\", \"ArgoCD\"]"
         },
         "Slug": {
           "S": "implementing-gitops-workflows-for-kubernetes"
@@ -387,7 +387,7 @@
           "S": "Best practices for implementing GitOps workflows in Kubernetes environments."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -405,8 +405,8 @@
         "PublishDate": {
           "S": "2023-09-14"
         },
-        "Subcategory": {
-          "S": "ArgoCD"
+        "Subcategories": {
+          "S": "[\"ArgoCD\", \"GitOps\", \"Kubernetes\"]"
         },
         "Slug": {
           "S": "continuous-delivery-with-argocd"
@@ -418,7 +418,7 @@
           "S": "Setting up continuous delivery pipelines for Kubernetes using ArgoCD."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -436,8 +436,8 @@
         "PublishDate": {
           "S": "2023-09-13"
         },
-        "Subcategory": {
-          "S": "Grafana"
+        "Subcategories": {
+          "S": "[\"Grafana\", \"Kubernetes\", \"Helm\"]"
         },
         "Slug": {
           "S": "building-observability-dashboards-with-grafana"
@@ -449,7 +449,7 @@
           "S": "Learn how to build effective observability dashboards using Grafana."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -467,8 +467,8 @@
         "PublishDate": {
           "S": "2023-09-12"
         },
-        "Subcategory": {
-          "S": "SELinux"
+        "Subcategories": {
+          "S": "[\"SELinux\", \"CentOS\", \"Firewalld\"]"
         },
         "Slug": {
           "S": "securing-linux-servers-with-selinux"
@@ -480,7 +480,7 @@
           "S": "A comprehensive guide to implementing and managing SELinux on Linux servers."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -498,8 +498,8 @@
         "PublishDate": {
           "S": "2023-09-11"
         },
-        "Subcategory": {
-          "S": "Nginx"
+        "Subcategories": {
+          "S": "[\"Nginx\", \"Ubuntu\", \"Systemd\"]"
         },
         "Slug": {
           "S": "configuring-nginx-for-high-performance-web-serving"
@@ -511,7 +511,7 @@
           "S": "Optimization techniques for Nginx to achieve high-performance web serving."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -529,8 +529,8 @@
         "PublishDate": {
           "S": "2023-09-10"
         },
-        "Subcategory": {
-          "S": "Firewalld"
+        "Subcategories": {
+          "S": "[\"Firewalld\", \"CentOS\", \"SELinux\"]"
         },
         "Slug": {
           "S": "managing-linux-firewall-with-firewalld"
@@ -542,7 +542,7 @@
           "S": "A comprehensive guide to managing the Linux firewall using Firewalld."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -560,8 +560,8 @@
         "PublishDate": {
           "S": "2023-09-09"
         },
-        "Subcategory": {
-          "S": "LVM"
+        "Subcategories": {
+          "S": "[\"LVM\", \"CentOS\", \"Bash Scripting\"]"
         },
         "Slug": {
           "S": "logical-volume-management-in-linux"
@@ -573,7 +573,7 @@
           "S": "Understanding and implementing Logical Volume Management (LVM) in Linux."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -591,8 +591,8 @@
         "PublishDate": {
           "S": "2023-09-08"
         },
-        "Subcategory": {
-          "S": "TCP/IP"
+        "Subcategories": {
+          "S": "[\"TCP/IP\", \"DNS\", \"NAT\"]"
         },
         "Slug": {
           "S": "fundamentals-of-tcp-ip-networking"
@@ -604,7 +604,7 @@
           "S": "Understanding the fundamentals of TCP/IP networking protocols."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -622,8 +622,8 @@
         "PublishDate": {
           "S": "2023-09-07"
         },
-        "Subcategory": {
-          "S": "BGP"
+        "Subcategories": {
+          "S": "[\"BGP\", \"TCP/IP\", \"VPN\"]"
         },
         "Slug": {
           "S": "border-gateway-protocol-bgp-routing"
@@ -635,7 +635,7 @@
           "S": "An in-depth look at Border Gateway Protocol (BGP) routing for internet connectivity."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -653,8 +653,8 @@
         "PublishDate": {
           "S": "2023-09-06"
         },
-        "Subcategory": {
-          "S": "NAT"
+        "Subcategories": {
+          "S": "[\"NAT\", \"Firewalls\", \"VPN\"]"
         },
         "Slug": {
           "S": "network-address-translation-implementation"
@@ -666,7 +666,7 @@
           "S": "Best practices for implementing Network Address Translation (NAT) in network environments."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -684,8 +684,8 @@
         "PublishDate": {
           "S": "2023-09-05"
         },
-        "Subcategory": {
-          "S": "ECS"
+        "Subcategories": {
+          "S": "[\"ECS\", \"CloudWatch\", \"VPC\"]"
         },
         "Slug": {
           "S": "optimizing-container-deployments-with-aws-ecs"
@@ -697,7 +697,7 @@
           "S": "Advanced techniques for optimizing container deployments with Amazon ECS."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -715,8 +715,8 @@
         "PublishDate": {
           "S": "2023-09-04"
         },
-        "Subcategory": {
-          "S": "Docker"
+        "Subcategories": {
+          "S": "[\"Docker\", \"Kubernetes\", \"Helm\"]"
         },
         "Slug": {
           "S": "optimizing-docker-container-images"
@@ -728,7 +728,7 @@
           "S": "Best practices and techniques for optimizing Docker container images."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -746,8 +746,8 @@
         "PublishDate": {
           "S": "2023-09-03"
         },
-        "Subcategory": {
-          "S": "Performance Tuning"
+        "Subcategories": {
+          "S": "[\"Performance Tuning\", \"Systemd\", \"Bash Scripting\"]"
         },
         "Slug": {
           "S": "linux-server-performance-tuning"
@@ -759,7 +759,7 @@
           "S": "Advanced techniques for tuning Linux server performance."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }

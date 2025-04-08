@@ -114,8 +114,8 @@
         "PublishDate": {
           "S": "2023-10-03"
         },
-        "Subcategory": {
-          "S": "Ubuntu"
+        "Subcategories": {
+          "S": "[\"Ubuntu\",\"Bash Scripting\",\"Nginx\"]"
         },
         "Slug": {
           "S": "getting-started-with-ubuntu-server-administration"
@@ -127,7 +127,7 @@
           "S": "A beginner's guide to Ubuntu server administration."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -145,8 +145,8 @@
         "PublishDate": {
           "S": "2023-10-02"
         },
-        "Subcategory": {
-          "S": "CentOS"
+        "Subcategories": {
+          "S": "[\"CentOS\",\"Systemd\",\"Firewalld\"]"
         },
         "Slug": {
           "S": "centos-administration-best-practices"
@@ -158,7 +158,7 @@
           "S": "Best practices for administering CentOS servers."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -176,8 +176,8 @@
         "PublishDate": {
           "S": "2023-10-01"
         },
-        "Subcategory": {
-          "S": "Cron Jobs"
+        "Subcategories": {
+          "S": "[\"Cron Jobs\",\"Bash Scripting\"]"
         },
         "Slug": {
           "S": "automating-tasks-with-cron-jobs"
@@ -189,7 +189,7 @@
           "S": "Learn how to schedule and automate tasks using cron jobs in Linux."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -207,8 +207,8 @@
         "PublishDate": {
           "S": "2023-09-30"
         },
-        "Subcategory": {
-          "S": "VPN"
+        "Subcategories": {
+          "S": "[\"VPN\",\"Firewalls\",\"TCP/IP\"]"
         },
         "Slug": {
           "S": "setting-up-a-secure-vpn-server"
@@ -220,7 +220,7 @@
           "S": "A step-by-step guide to setting up a secure VPN server."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -238,8 +238,8 @@
         "PublishDate": {
           "S": "2023-09-29"
         },
-        "Subcategory": {
-          "S": "Load Balancing"
+        "Subcategories": {
+          "S": "[\"Load Balancing\",\"TCP/IP\",\"NAT\"]"
         },
         "Slug": {
           "S": "implementing-load-balancing-for-high-availability"
@@ -251,7 +251,7 @@
           "S": "Learn how to implement load balancing for high availability applications."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -269,8 +269,8 @@
         "PublishDate": {
           "S": "2023-09-28"
         },
-        "Subcategory": {
-          "S": "Firewalls"
+        "Subcategories": {
+          "S": "[\"Firewalls\",\"NAT\",\"TCP/IP\"]"
         },
         "Slug": {
           "S": "configuring-firewalls-for-network-security"
@@ -282,7 +282,7 @@
           "S": "Best practices for configuring firewalls to enhance network security."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -300,8 +300,8 @@
         "PublishDate": {
           "S": "2023-09-27"
         },
-        "Subcategory": {
-          "S": "ECS"
+        "Subcategories": {
+          "S": "[\"ECS\",\"EC2\",\"CloudWatch\"]"
         },
         "Slug": {
           "S": "container-orchestration-with-amazon-ecs"
@@ -313,7 +313,7 @@
           "S": "Learn how to orchestrate containers using Amazon ECS."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -331,8 +331,8 @@
         "PublishDate": {
           "S": "2023-09-26"
         },
-        "Subcategory": {
-          "S": "DynamoDB"
+        "Subcategories": {
+          "S": "[\"DynamoDB\",\"API Gateway\",\"Lambda\"]"
         },
         "Slug": {
           "S": "building-scalable-applications-with-dynamodb"
@@ -344,7 +344,7 @@
           "S": "A guide to building scalable applications using Amazon DynamoDB."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -362,8 +362,8 @@
         "PublishDate": {
           "S": "2023-09-25"
         },
-        "Subcategory": {
-          "S": "GitLab CI"
+        "Subcategories": {
+          "S": "[\"GitLab CI\",\"Docker\",\"Jenkins\"]"
         },
         "Slug": {
           "S": "continuous-integration-with-gitlab-ci"
@@ -375,7 +375,7 @@
           "S": "Setting up and optimizing continuous integration pipelines with GitLab CI."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -393,8 +393,8 @@
         "PublishDate": {
           "S": "2023-09-24"
         },
-        "Subcategory": {
-          "S": "Prometheus"
+        "Subcategories": {
+          "S": "[\"Prometheus\",\"Grafana\",\"Kubernetes\"]"
         },
         "Slug": {
           "S": "monitoring-infrastructure-with-prometheus"
@@ -406,7 +406,7 @@
           "S": "Learn how to monitor your infrastructure effectively with Prometheus."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -424,8 +424,8 @@
         "PublishDate": {
           "S": "2023-09-22"
         },
-        "Subcategory": {
-          "S": "Shell Scripting"
+        "Subcategories": {
+          "S": "[\"Shell Scripting\",\"Bash Scripting\",\"Cron Jobs\"]"
         },
         "Slug": {
           "S": "advanced-shell-scripting-techniques"
@@ -437,7 +437,7 @@
           "S": "Take your shell scripting skills to the next level with these advanced techniques."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -455,8 +455,8 @@
         "PublishDate": {
           "S": "2023-09-21"
         },
-        "Subcategory": {
-          "S": "Route53"
+        "Subcategories": {
+          "S": "[\"Route53\",\"CloudFront\",\"S3\"]"
         },
         "Slug": {
           "S": "dns-management-with-amazon-route53"
@@ -468,7 +468,7 @@
           "S": "Learn how to manage DNS effectively with Amazon Route53."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -486,8 +486,8 @@
         "PublishDate": {
           "S": "2023-09-20"
         },
-        "Subcategory": {
-          "S": "HTTPS"
+        "Subcategories": {
+          "S": "[\"HTTPS\",\"Load Balancing\",\"CDN\"]"
         },
         "Slug": {
           "S": "securing-web-traffic-with-https"
@@ -499,7 +499,7 @@
           "S": "Best practices for implementing HTTPS to secure web traffic."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }

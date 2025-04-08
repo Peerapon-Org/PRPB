@@ -284,8 +284,8 @@
         "PublishDate": {
           "S": "2023-10-25"
         },
-        "Subcategory": {
-          "S": "EC2"
+        "Subcategories": {
+          "S": "[\"EC2\",\"VPC\",\"CloudWatch\"]"
         },
         "Slug": {
           "S": "elastic-compute-cloud-for-scalable-computing"
@@ -297,7 +297,7 @@
           "S": "Learn about scalable computing with AWS EC2."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -315,8 +315,8 @@
         "PublishDate": {
           "S": "2023-10-24"
         },
-        "Subcategory": {
-          "S": "Jenkins"
+        "Subcategories": {
+          "S": "[\"Jenkins\",\"GitOps\"]"
         },
         "Slug": {
           "S": "continuous-integration-and-delivery-with-jenkins"
@@ -328,7 +328,7 @@
           "S": "Automate your CI/CD pipeline with Jenkins."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -346,8 +346,8 @@
         "PublishDate": {
           "S": "2023-10-23"
         },
-        "Subcategory": {
-          "S": "S3"
+        "Subcategories": {
+          "S": "[\"S3\",\"CloudFront\",\"IAM\"]"
         },
         "Slug": {
           "S": "scalable-object-storage-with-amazon-s3"
@@ -359,7 +359,7 @@
           "S": "Discover scalable storage solutions with Amazon S3."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -377,8 +377,8 @@
         "PublishDate": {
           "S": "2023-10-22"
         },
-        "Subcategory": {
-          "S": "Docker"
+        "Subcategories": {
+          "S": "[\"Docker\",\"Kubernetes\"]"
         },
         "Slug": {
           "S": "containerization-made-easy-with-docker"
@@ -390,7 +390,7 @@
           "S": "Simplify containerization with Docker."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -408,8 +408,8 @@
         "PublishDate": {
           "S": "2023-10-21"
         },
-        "Subcategory": {
-          "S": "Lambda"
+        "Subcategories": {
+          "S": "[\"Lambda\",\"API Gateway\"]"
         },
         "Slug": {
           "S": "serverless-computing-with-aws-lambda"
@@ -421,7 +421,7 @@
           "S": "Explore serverless computing with AWS Lambda."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -439,8 +439,8 @@
         "PublishDate": {
           "S": "2023-10-20"
         },
-        "Subcategory": {
-          "S": "Kubernetes"
+        "Subcategories": {
+          "S": "[\"Kubernetes\",\"Helm\",\"ArgoCD\"]"
         },
         "Slug": {
           "S": "orchestrating-containers-with-kubernetes"
@@ -452,7 +452,7 @@
           "S": "Manage containers efficiently with Kubernetes."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -470,8 +470,8 @@
         "PublishDate": {
           "S": "2023-10-19"
         },
-        "Subcategory": {
-          "S": "RDS"
+        "Subcategories": {
+          "S": "[\"RDS\",\"VPC\"]"
         },
         "Slug": {
           "S": "managed-relational-databases-with-amazon-rds"
@@ -483,7 +483,7 @@
           "S": "Learn about managed relational databases with Amazon RDS."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -501,8 +501,8 @@
         "PublishDate": {
           "S": "2023-10-18"
         },
-        "Subcategory": {
-          "S": "Terraform"
+        "Subcategories": {
+          "S": "[\"Terraform\",\"Ansible\",\"GitOps\"]"
         },
         "Slug": {
           "S": "infrastructure-as-code-with-terraform"
@@ -514,7 +514,7 @@
           "S": "Implement infrastructure as code with Terraform."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -532,8 +532,8 @@
         "PublishDate": {
           "S": "2023-10-17"
         },
-        "Subcategory": {
-          "S": "CloudFront"
+        "Subcategories": {
+          "S": "[\"CloudFront\",\"S3\"]"
         },
         "Slug": {
           "S": "content-delivery-with-amazon-cloudfront"
@@ -545,7 +545,7 @@
           "S": "Optimize content delivery with Amazon CloudFront."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -563,8 +563,8 @@
         "PublishDate": {
           "S": "2023-10-16"
         },
-        "Subcategory": {
-          "S": "Ansible"
+        "Subcategories": {
+          "S": "[\"Ansible\",\"Terraform\"]"
         },
         "Slug": {
           "S": "automation-with-ansible"
@@ -576,7 +576,7 @@
           "S": "Automate your infrastructure with Ansible."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -594,8 +594,8 @@
         "PublishDate": {
           "S": "2023-10-15"
         },
-        "Subcategory": {
-          "S": "IAM"
+        "Subcategories": {
+          "S": "[\"IAM\",\"S3\",\"EC2\"]"
         },
         "Slug": {
           "S": "securing-aws-accounts-with-iam-policies"
@@ -607,7 +607,7 @@
           "S": "Secure your AWS accounts with IAM policies."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -625,8 +625,8 @@
         "PublishDate": {
           "S": "2023-10-14"
         },
-        "Subcategory": {
-          "S": "Helm"
+        "Subcategories": {
+          "S": "[\"Helm\",\"Kubernetes\",\"ArgoCD\"]"
         },
         "Slug": {
           "S": "managing-kubernetes-packages-with-helm"
@@ -638,7 +638,7 @@
           "S": "Manage Kubernetes packages with Helm."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -656,8 +656,8 @@
         "PublishDate": {
           "S": "2023-10-13"
         },
-        "Subcategory": {
-          "S": "CDN"
+        "Subcategories": {
+          "S": "[\"CDN\",\"Load Balancing\",\"TCP/IP\"]"
         },
         "Slug": {
           "S": "optimizing-web-speed-with-content-delivery-networks"
@@ -669,7 +669,7 @@
           "S": "Improve web speed with content delivery networks."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -687,8 +687,8 @@
         "PublishDate": {
           "S": "2023-10-12"
         },
-        "Subcategory": {
-          "S": "Bash Scripting"
+        "Subcategories": {
+          "S": "[\"Bash Scripting\",\"Cron Jobs\",\"Ubuntu\"]"
         },
         "Slug": {
           "S": "automation-with-bash-scripts"
@@ -700,7 +700,7 @@
           "S": "Automate tasks with Bash scripts."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -718,8 +718,8 @@
         "PublishDate": {
           "S": "2023-10-11"
         },
-        "Subcategory": {
-          "S": "S3"
+        "Subcategories": {
+          "S": "[\"S3\",\"IAM\",\"CloudFront\"]"
         },
         "Slug": {
           "S": "secure-storage-strategies-for-amazon-s3"
@@ -731,7 +731,7 @@
           "S": "Learn secure storage strategies for Amazon S3."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -749,8 +749,8 @@
         "PublishDate": {
           "S": "2023-10-10"
         },
-        "Subcategory": {
-          "S": "Jenkins"
+        "Subcategories": {
+          "S": "[\"Jenkins\",\"Docker\",\"GitOps\"]"
         },
         "Slug": {
           "S": "automating-ci-cd-with-jenkins-pipelines"
@@ -762,7 +762,7 @@
           "S": "Automate CI/CD processes with Jenkins pipelines."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -780,8 +780,8 @@
         "PublishDate": {
           "S": "2023-10-09"
         },
-        "Subcategory": {
-          "S": "DNS"
+        "Subcategories": {
+          "S": "[\"DNS\",\"BGP\",\"NAT\"]"
         },
         "Slug": {
           "S": "dns-configuration-best-practices"
@@ -793,7 +793,7 @@
           "S": "Follow best practices for DNS configuration."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }
@@ -811,8 +811,8 @@
         "PublishDate": {
           "S": "2023-10-08"
         },
-        "Subcategory": {
-          "S": "Systemd"
+        "Subcategories": {
+          "S": "[\"Systemd\",\"CentOS\",\"Nginx\"]"
         },
         "Slug": {
           "S": "service-management-with-systemd"
@@ -824,7 +824,7 @@
           "S": "Manage services with Systemd."
         },
         "Thumbnail": {
-          "S": "<thumbnail>"
+          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
         }
       }
     }

@@ -9,12 +9,11 @@ terraform init \
   -backend-config "key=terraform.tfstate" \
   -reconfigure
 
-export TF_VAR_project=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
 export TF_VAR_account=$ACCOUNT_ID
 export TF_VAR_environment=${ENVIRONMENT,,}
 export TF_VAR_region=$AWS_REGION
 export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-export TF_WORKSPACE="$TF_VAR_project-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
+export TF_WORKSPACE="prpb-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
 export TF_VAR_hosted_zone_name=$DOMAIN_NAME
 export TF_VAR_app_sub_domain_name=$TF_WORKSPACE
 

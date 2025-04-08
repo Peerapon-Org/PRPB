@@ -2,11 +2,6 @@
 # Global variables
 # ==========================================================================================
 
-variable "project" {
-  type        = string
-  description = "(Required) Name of the project"
-}
-
 variable "region" {
   type        = string
   description = "(Required) AWS region to deploy the resources"
@@ -41,22 +36,22 @@ variable "environment" {
 
 variable "branch" {
   type        = string
-  description = "(Optional) Name of the GitHub branch you are working on"
+  description = "(Required) Name of the GitHub branch you are working on"
 }
 
 # ==========================================================================================
 # module: api
 # ==========================================================================================
 
+variable "enable_account_logging" {
+  type        = bool
+  description = "(Required) Enable account logging for the API Gateway"
+}
+
 variable "api_definition" {
   type        = string
   description = "(Optional) Path to the API Gateway definition JSON file (relative to the Terraform root module directory)"
   default     = "assets/api/api.json"
-}
-
-variable "enable_account_logging" {
-  type        = bool
-  description = "(Optional) Enable account logging for the API Gateway"
 }
 
 # ==========================================================================================
