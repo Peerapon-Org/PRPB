@@ -4,7 +4,7 @@ title: "resource ที่อยู่ใน private subnet สามารถ r
 author: "Peerapon Boonkaweenapanon"
 date: "2025-03-13"
 category: "AWS"
-subcategory: ["VPC"]
+subcategories: ["VPC"]
 description: "resource ใน private subnet ที่เชื่อมต่อ internet ไม่ได้ สามารถเข้าถึง DNS resolve ได้ยังไง บทความนี้มีคำตอบครับ"
 thumbnail: "https://prpblog.com/assets/how-private-resources-resolve-dns/thumbnail.png"
 ---

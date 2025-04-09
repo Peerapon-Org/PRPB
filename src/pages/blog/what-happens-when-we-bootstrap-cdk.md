@@ -4,7 +4,7 @@ title: "เรารันคำสั่ง cdk bootstrap ไปทำไม"
 author: "Peerapon Boonkaweenapanon"
 date: "2025-03-31"
 category: "AWS"
-subcategory: ["CDK"]
+subcategories: ["CDK"]
 description: "เรารันคำสั่ง cdk bootstrap ไปทำไม รันแล้วเกิดอะไรขึ้น บทความนี้มีคำตอบครับ"
 thumbnail: "https://prpblog.com/assets/what-happens-when-we-bootstrap-cdk/thumbnail.png"
 ---

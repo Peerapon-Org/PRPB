@@ -14,6 +14,11 @@ output "api_key_id" {
   value       = module.api.api_key_id
 }
 
+output "api_invoke_url" {
+  description = "API Gateway API invoke URL"
+  value       = module.api.api_invoke_url
+}
+
 output "app_domain_name" {
   description = "Application domain name"
   value       = module.cdn.app_domain_name

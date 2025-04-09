@@ -18,6 +18,9 @@ inputs:
     description: "Environment of the application"
     required: true
     default: "prod"
+  api-key:
+    description: "API key for API Gateway REST API"
+    required: true
 outputs:
   blog-url:
     description: "URL link of the published blog"
@@ -41,3 +44,4 @@ runs:
         ACCOUNT_ID: ${{ inputs.account-id }}
         AWS_REGION: ${{ inputs.aws-region }}
         ENVIRONMENT: ${{ inputs.environment }}
+        API_KEY: ${{ inputs.api-key }}

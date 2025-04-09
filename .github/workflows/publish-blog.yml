@@ -65,3 +65,4 @@ jobs:
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           aws-region: ${{ vars.AWS_REGION }}
           environment: ${{ vars.STAGE }}
+          api-key: ${{ secrets.API_KEY }}

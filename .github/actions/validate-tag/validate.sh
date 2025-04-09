@@ -9,8 +9,7 @@ terraform init \
   -backend-config "key=terraform.tfstate" \
   -reconfigure
 
-export PROJECT=$(echo $GITHUB_REPOSITORY | awk -F '/' '{print $2}' | tr '[:upper:]' '[:lower:]')
-export TF_WORKSPACE="$PROJECT-${ENVIRONMENT,,}-main"
+export TF_WORKSPACE="prpb-${ENVIRONMENT,,}-main"
 export SLUG=${GITHUB_HEAD_REF#blog/}
 
 CATEGORY=$(cat "../src/pages/blog/$SLUG.md" | grep '^category' | awk -F ': ' '{print $NF}' | tr -d '"')
