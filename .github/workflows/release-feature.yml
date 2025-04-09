@@ -41,10 +41,8 @@ jobs:
           s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
           dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-          aws-region: ${{ vars.AWS_REGION }}
           domain-name: ${{ vars.DOMAIN_NAME }}
-          is-production: true
-          environment: ${{ vars.STAGE }}
+          tfvars-file: tfvars/prod.tfvars
       - name: Get target run ID
         id: get-run-id
         uses: actions/github-script@v7

@@ -2,6 +2,11 @@
 # Global variables
 # ==========================================================================================
 
+variable "project" {
+  type        = string
+  description = "(Required) Name of the project"
+}
+
 variable "region" {
   type        = string
   description = "(Required) AWS region to deploy the resources"
@@ -22,21 +27,33 @@ variable "account" {
   }
 }
 
+variable "environment" {
+  type        = string
+  description = "(Required) Name of the environment"
+}
+
 variable "is_production" {
   type        = bool
   description = "(Optional) Flag to determine if the environment is production or not"
   default     = false
 }
 
-variable "environment" {
+variable "include_branch_name_in_prefix" {
   type        = string
-  description = "(Optional) Name of the environment"
-  default     = "dev"
+  description = "(Optional) Include the GitHub branch name in the prefix of the resources"
+  default     = false
 }
 
 variable "branch" {
   type        = string
-  description = "(Required) Name of the GitHub branch you are working on"
+  description = "(Optional) Name of the GitHub branch you are working on"
+  default     = null
+}
+
+variable "profile" {
+  type        = string
+  description = "(Optional) AWS CLI profile to use for authentication"
+  default     = "default"
 }
 
 # ==========================================================================================

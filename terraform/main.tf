@@ -4,7 +4,7 @@ locals {
     account       = "${var.account}"
     is_production = var.is_production
     branch        = "${var.branch}"
-    prefix        = "${terraform.workspace}"
+    prefix        = var.include_branch_name_in_prefix ? "${var.project}-${var.environment}-${var.branch}" : "${var.project}-${var.environment}"
     environment   = "${var.environment}"
   }
 }
