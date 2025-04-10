@@ -2,31 +2,49 @@
 
 set -e
 
+PROJECT=$(awk -F' = ' '/^project/ {print $NF}' $TFVARS_FILE | tr -d '"')
+ENV=$(awk -F' = ' '/^environment/ {print $NF}' $TFVARS_FILE | tr -d '"')
+REGION=$(awk -F' = ' '/^region/ {print $NF}' $TFVARS_FILE | tr -d '"')
+BRANCH=$(awk -F' = ' '/^branch/ {print $NF}' $TFVARS_FILE | tr '\[/*\]' '-' | tr -d '"')
+IS_PRODUCTION=$(awk -F' = ' '/^is_production/ {print $NF}' $TFVARS_FILE | tr -d '"')
+
 terraform init \
   -backend-config "bucket=$S3_BUCKET_NAME" \
   -backend-config "dynamodb_table=$DYNAMODB_TABLE_NAME" \
-  -backend-config "region=$AWS_REGION" \
+  -backend-config "region=$REGION" \
   -backend-config "key=terraform.tfstate" \
   -reconfigure
 
 export TF_VAR_account=$ACCOUNT_ID
-export TF_VAR_environment=${ENVIRONMENT,,}
-export TF_VAR_region=$AWS_REGION
-export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
-export TF_WORKSPACE="prpb-$TF_VAR_environment-$(echo $TF_VAR_branch | tr '\[/*\]' '-')"
 export TF_VAR_hosted_zone_name=$DOMAIN_NAME
-export TF_VAR_app_sub_domain_name=$TF_WORKSPACE
+
+if [[ -z $BRANCH ]]; then
+  export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+  BRANCH=$(echo $TF_VAR_branch | tr '\[/*\]' '-')
+fi
+
+WORKSPACE="$PROJECT-$ENV-$BRANCH"
+
+if [[ "$IS_PRODUCTION" != "true" ]]; then
+  export TF_VAR_app_sub_domain_name=$WORKSPACE
+fi
 
 [[ "$(aws apigateway get-account | jq -r '.cloudwatchRoleArn')" == null ]] && \
   export TF_VAR_enable_account_logging="true" || \
   export TF_VAR_enable_account_logging="false"
 
+if ! terraform workspace list | grep -q "$WORKSPACE"; then
+  echo "Error: Workspace not found '$WORKSPACE', can't destroy non-existent workspace"
+  exit 1
+else
+  terraform workspace select "$WORKSPACE"
+fi
+
 terraform destroy \
-  -var-file "tfvars/$TF_VAR_environment.tfvars" \
+  -var-file "$TFVARS_FILE" \
   -auto-approve
 
-OLD_TF_WORKSPACE=$TF_WORKSPACE
-unset TF_WORKSPACE
-terraform workspace delete "$OLD_TF_WORKSPACE"
+terraform workspace select default
+terraform workspace delete "$WORKSPACE"
 
 echo "Terraform destroy complete!"
