@@ -150,7 +150,7 @@ jobs:
           dynamodb-tag-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-tag-table-name }}
           cloudfront-distribution-id: ${{ steps.deploy-terraform.outputs.cloudfront-distribution-id }}
           api-endpoint: ${{ steps.deploy-terraform.outputs.api-endpoint }}
-          is-production: false
+          tfvars-file: tfvars/staging.tfvars
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
@@ -176,9 +176,8 @@ jobs:
           s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
           dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-          aws-region: ${{ vars.AWS_REGION }}
           domain-name: ${{ vars.DOMAIN_NAME }}
-          environment: ${{ vars.STAGE }}
+          tfvars-file: tfvars/staging.tfvars
       - name: Comment on PR
         uses: actions/github-script@v7
         with:

@@ -1,2 +1,4 @@
+- fix publish-blog workflow and action
+- create /blogs delete method to remove added record when blog publishing fails
 - edit seeder.sh script to use api gateway for putting records instead of dynamodb cli
 - remove last subcategory from test data (too many tags now)

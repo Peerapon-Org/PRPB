@@ -16,10 +16,9 @@ inputs:
   api-endpoint:
     description: "API endpoint of the deployed application"
     required: true
-  is-production:
-    description: "Is this a production deployment?"
-    required: false
-    default: "false"
+  tfvars-file:
+    description: "Path to the tfvars file (relative to the terraform directory)"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -38,4 +37,4 @@ runs:
         DYNAMODB_TAG_TABLE_NAME: ${{ inputs.dynamodb-tag-table-name }}
         CLOUDFRONT_DISTRIBUTION_ID: ${{ inputs.cloudfront-distribution-id }}
         API_ENDPOINT: ${{ inputs.api-endpoint }}
-        IS_PRODUCTION: ${{ inputs.is-production }}
+        TFVARS_FILE: ${{ inputs.tfvars-file }}

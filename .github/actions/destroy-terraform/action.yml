@@ -7,18 +7,14 @@ inputs:
   dynamodb-table-name:
     description: "Terraform remote state DynamoDB table name"
     required: true
-  aws-region:
-    description: "AWS region where the application is"
-    required: true
-    default: "ap-southeast-1"
   account-id:
     description: "AWS account ID where the application is"
     required: true
+  tfvars-file:
+    description: "Path to the tfvars file (relative to the terraform directory)"
+    required: true
   domain-name:
     description: "Domain name of the application"
-    required: true
-  environment:
-    description: "Environment of the application"
     required: true
 runs:
   using: "composite"
@@ -46,6 +42,5 @@ runs:
         S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
         ACCOUNT_ID: ${{ inputs.account-id }}
-        AWS_REGION: ${{ inputs.aws-region }}
         DOMAIN_NAME: ${{ inputs.domain-name }}
-        ENVIRONMENT: ${{ inputs.environment }}
+        TFVARS_FILE: ${{ inputs.tfvars-file }}

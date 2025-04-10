@@ -2,12 +2,16 @@
 
 set -e
 
+pushd terraform > /dev/null 2>&1
+IS_PRODUCTION=$(awk -F' = ' '/^is_production/ {print $NF}' $TFVARS_FILE | tr -d '"')
+popd > /dev/null 2>&1
+
 if [[ "$IS_PRODUCTION" == "true" ]]; then
   echo production!
 else
   echo non-production!
   # Run DynamoDB seeder
-  pushd ../dynamodb > /dev/null 2>&1
+  pushd dynamodb > /dev/null 2>&1
   bash seeder.sh
   popd > /dev/null 2>&1
 fi

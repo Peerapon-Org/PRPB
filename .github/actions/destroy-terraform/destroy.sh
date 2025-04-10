@@ -34,7 +34,8 @@ fi
   export TF_VAR_enable_account_logging="false"
 
 if ! terraform workspace list | grep -q "$WORKSPACE"; then
-  echo "Error: Workspace not found '$WORKSPACE', can't destroy non-existent workspace"
+  echo "Error: Workspace not found '$WORKSPACE'"
+  echo "Can't destroy non-existent workspace"
   exit 1
 else
   terraform workspace select "$WORKSPACE"

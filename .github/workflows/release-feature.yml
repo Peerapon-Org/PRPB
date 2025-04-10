@@ -74,4 +74,4 @@ jobs:
           dynamodb-tag-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-tag-table-name }}
           cloudfront-distribution-id: ${{ steps.deploy-terraform.outputs.cloudfront-distribution-id }}
           api-endpoint: ${{ steps.deploy-terraform.outputs.api-endpoint }}
-          is-production: true
+          tfvars-file: tfvars/prod.tfvars
