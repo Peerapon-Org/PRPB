@@ -162,7 +162,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `Staging deployed: ${{ steps.deploy-terraform.outputs.app-url }}`})
-  terminate-staging:
+  rollback:
     needs: deploy-to-staging
     if: ${{ needs.deploy-to-staging.result == 'failure' }}
     timeout-minutes: 60
