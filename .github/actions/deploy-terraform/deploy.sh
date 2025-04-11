@@ -21,8 +21,6 @@ if [[ "$IS_PRODUCTION" != "true" ]]; then
   export TF_VAR_app_sub_domain_name=$WORKSPACE
 fi
 
-echo "(deploy) workspace = $WORKSPACE"
-
 # replace <execution_role_arn> in the api.json with the actual role ARN
 sed -i "s|<execution_role_arn>|arn:aws:iam::$ACCOUNT_ID:role/$WORKSPACE-api-execution-role|g" $API_DEFINITION
 terraform validate

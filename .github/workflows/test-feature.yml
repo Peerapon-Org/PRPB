@@ -144,6 +144,7 @@ jobs:
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           tfvars-file: ${{ steps.init-terraform.outputs.tfvars-file }}
           workspace: ${{ steps.init-terraform.outputs.workspace }}
+          domain-name: ${{ vars.DOMAIN_NAME }}
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -172,6 +173,10 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Destroy Staging Terraform
         uses: ./.github/actions/destroy-terraform
         with:

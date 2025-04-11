@@ -49,6 +49,7 @@ jobs:
           workspace: ${{ steps.init-terraform.outputs.workspace }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           tfvars-file: ${{ steps.init-terraform.outputs.tfvars-file }}
+          domain-name: ${{ vars.DOMAIN_NAME }}
       - name: Get target run ID
         id: get-run-id
         uses: actions/github-script@v7
