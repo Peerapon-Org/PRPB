@@ -34,5 +34,6 @@ jobs:
           dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
           role-arn: ${{ secrets.AWS_ROLE_ARN }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          region: ${{ vars.AWS_REGION }}
           domain-name: ${{ vars.DOMAIN_NAME }}
           tfvars-file: tfvars/staging.tfvars

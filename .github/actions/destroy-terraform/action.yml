@@ -13,6 +13,9 @@ inputs:
   account-id:
     description: "AWS account ID where the application is"
     required: true
+  region:
+    description: "AWS region where the application is"
+    required: true
   tfvars-file:
     description: "Path to the tfvars file (relative to the terraform directory)"
     required: true
@@ -28,7 +31,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{ inputs.role-arn }}
-        aws-region: ${{ inputs.aws-region }}
+        aws-region: ${{ inputs.region }}
     - name: Init Terraform
       id: init-terraform
       uses: ./.github/actions/init-terraform

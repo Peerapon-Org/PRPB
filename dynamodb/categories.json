@@ -1,19 +1,19 @@
 {
   "tags": [
     {
-      "type": "Category",
+      "category": "null",
       "value": "AWS"
     },
     {
-      "type": "Category",
+      "category": "null",
       "value": "DevOps"
     },
     {
-      "type": "Category",
+      "category": "null",
       "value": "Networking"
     },
     {
-      "type": "Category",
+      "category": "null",
       "value": "Linux"
     }
   ]

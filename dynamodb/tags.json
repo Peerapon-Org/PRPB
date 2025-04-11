@@ -1,147 +1,147 @@
 {
   "tags": [
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "EC2"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "Lambda"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "RDS"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "CloudFront"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "IAM"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "S3"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Docker"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Kubernetes"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Terraform"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Ansible"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Helm"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Jenkins"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "CDN"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "DNS"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Bash Scripting"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Systemd"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Ubuntu"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "CentOS"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Cron Jobs"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "VPN"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "Load Balancing"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "Firewalls"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "EKS"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "VPC"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "API Gateway"
     },
     {
-      "type": "AWS",
+      "category": "AWS",
       "value": "CloudWatch"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "GitOps"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "ArgoCD"
     },
     {
-      "type": "DevOps",
+      "category": "DevOps",
       "value": "Grafana"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "SELinux"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Nginx"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "Firewalld"
     },
     {
-      "type": "Linux",
+      "category": "Linux",
       "value": "LVM"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "TCP/IP"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "BGP"
     },
     {
-      "type": "Networking",
+      "category": "Networking",
       "value": "NAT"
     }
   ]
