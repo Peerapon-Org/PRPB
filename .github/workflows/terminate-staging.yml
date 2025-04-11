@@ -32,6 +32,7 @@ jobs:
         with:
           s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
           dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
+          role-arn: ${{ secrets.AWS_ROLE_ARN }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           domain-name: ${{ vars.DOMAIN_NAME }}
           tfvars-file: tfvars/staging.tfvars

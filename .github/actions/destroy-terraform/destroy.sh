@@ -13,7 +13,7 @@ export TF_VAR_hosted_zone_name=$DOMAIN_NAME
   export TF_VAR_enable_account_logging="false"
 
 if [[ -z $BRANCH ]]; then
-  export TF_VAR_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+  export TF_VAR_branch=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}} | tr '\[/*\]' '-')
 fi
 
 if [[ "$IS_PRODUCTION" != "true" ]]; then
