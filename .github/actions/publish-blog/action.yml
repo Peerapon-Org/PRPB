@@ -1,18 +1,6 @@
 name: "Publish blog"
 description: "Put a new blog to the S3 bucket and create CloudFront cache invalidation"
 inputs:
-  s3-bucket-name:
-    description: "Terraform remote state S3 bucket name"
-    required: true
-  dynamodb-table-name:
-    description: "Terraform remote state DynamoDB table name"
-    required: true
-  account-id:
-    description: "AWS account ID where the application is"
-    required: true
-  tfvars-file:
-    description: "Path to the tfvars file (relative to the terraform directory)"
-    required: true
   api-key:
     description: "API key for API Gateway REST API"
     required: true
@@ -34,8 +22,4 @@ runs:
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:
-        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
-        DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
-        ACCOUNT_ID: ${{ inputs.account-id }}
         API_KEY: ${{ inputs.api-key }}
-        TFVARS_FILE: ${{ inputs.tfvars-file }}

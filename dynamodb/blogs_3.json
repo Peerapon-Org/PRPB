@@ -1,767 +1,168 @@
-[
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "EKS"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
+{
+  "blogs": [
+    {
+      "title": "Monitoring AWS Resources with CloudWatch",
+      "description": "Learn how to effectively monitor your AWS resources using CloudWatch.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "monitoring-aws-resources-with-cloudwatch",
+      "category": "AWS",
+      "publish_date": "2023-09-16"
+    },
+    {
+      "title": "Implementing GitOps Workflows for Kubernetes",
+      "description": "Best practices for implementing GitOps workflows in Kubernetes environments.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "implementing-gitops-workflows-for-kubernetes",
+      "category": "DevOps",
+      "subcategories": [
+        "GitOps",
+        "Kubernetes"
+      ],
+      "publish_date": "2023-09-15"
+    },
+    {
+      "title": "Continuous Delivery with ArgoCD",
+      "description": "Setting up continuous delivery pipelines for Kubernetes using ArgoCD.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "continuous-delivery-with-argocd",
+      "category": "DevOps",
+      "subcategories": [
+        "ArgoCD",
+        "GitOps"
+      ],
+      "publish_date": "2023-09-14"
+    },
+    {
+      "title": "Building Observability Dashboards with Grafana",
+      "description": "Learn how to build effective observability dashboards using Grafana.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "building-observability-dashboards-with-grafana",
+      "category": "DevOps",
+      "subcategories": [
+        "Grafana",
+        "Kubernetes"
+      ],
+      "publish_date": "2023-09-13"
+    },
+    {
+      "title": "Securing Linux Servers with SELinux",
+      "description": "A comprehensive guide to implementing and managing SELinux on Linux servers.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "securing-linux-servers-with-selinux",
+      "category": "Linux",
+      "subcategories": [
+        "SELinux",
+        "CentOS"
+      ],
+      "publish_date": "2023-09-12"
+    },
+    {
+      "title": "Configuring Nginx for High-Performance Web Serving",
+      "description": "Optimization techniques for Nginx to achieve high-performance web serving.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "configuring-nginx-for-high-performance-web-serving",
+      "category": "Linux",
+      "subcategories": [
+        "Nginx",
+        "Ubuntu"
+      ],
+      "publish_date": "2023-09-11"
+    },
+    {
+      "title": "Managing Linux Firewall with Firewalld",
+      "description": "A comprehensive guide to managing the Linux firewall using Firewalld.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "managing-linux-firewall-with-firewalld",
+      "category": "Linux",
+      "subcategories": [
+        "Firewalld",
+        "CentOS"
+      ],
+      "publish_date": "2023-09-10"
+    },
+    {
+      "title": "Logical Volume Management in Linux",
+      "description": "Understanding and implementing Logical Volume Management (LVM) in Linux.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "logical-volume-management-in-linux",
+      "category": "Linux",
+      "subcategories": [
+        "LVM",
+        "CentOS"
+      ],
+      "publish_date": "2023-09-09"
+    },
+    {
+      "title": "Fundamentals of TCP/IP Networking",
+      "description": "Understanding the fundamentals of TCP/IP networking protocols.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "fundamentals-of-tcp-ip-networking",
+      "category": "Networking",
+      "subcategories": [
+        "TCP/IP",
+        "DNS"
+      ],
+      "publish_date": "2023-09-08"
+    },
+    {
+      "title": "Border Gateway Protocol (BGP) Routing",
+      "description": "An in-depth look at Border Gateway Protocol (BGP) routing for internet connectivity.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "border-gateway-protocol-bgp-routing",
+      "category": "Networking",
+      "subcategories": [
+        "BGP",
+        "TCP/IP"
+      ],
+      "publish_date": "2023-09-07"
+    },
+    {
+      "title": "Network Address Translation Implementation",
+      "description": "Best practices for implementing Network Address Translation (NAT) in network environments.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "network-address-translation-implementation",
+      "category": "Networking",
+      "subcategories": [
+        "NAT",
+        "Firewalls"
+      ],
+      "publish_date": "2023-09-06"
+    },
+    {
+      "title": "Optimizing Container Deployments with AWS ECS",
+      "description": "Advanced techniques for optimizing container deployments with Amazon ECS.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "optimizing-container-deployments-with-aws-ecs",
+      "category": "AWS",
+      "subcategories": [
+        "ECS",
+        "CloudWatch"
+      ],
+      "publish_date": "2023-09-05"
+    },
+    {
+      "title": "Optimizing Docker Container Images",
+      "description": "Best practices and techniques for optimizing Docker container images.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "optimizing-docker-container-images",
+      "category": "DevOps",
+      "subcategories": [
+        "Docker",
+        "Kubernetes"
+      ],
+      "publish_date": "2023-09-04"
+    },
+    {
+      "title": "Linux Server Performance Tuning",
+      "description": "Advanced techniques for tuning Linux server performance.",
+      "thumbnail": "https://prpb.p-dev.click/assets/thumbnail.png",
+      "slug": "linux-server-performance-tuning",
+      "category": "Linux",
+      "subcategories": [
+        "Performance Tuning",
+        "Systemd"
+      ],
+      "publish_date": "2023-09-03"
     }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "VPC"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "API Gateway"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "CloudWatch"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "GitOps"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "ArgoCD"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Grafana"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "SELinux"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Nginx"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Firewalld"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "LVM"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "TCP/IP"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "BGP"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "TableName": "tagRefTableName",
-      "Key": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "NAT"
-        }
-      },
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "ConditionExpression": "attribute_exists(#V)"
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "AWS"
-        },
-        "PublishDate": {
-          "S": "2023-09-19"
-        },
-        "Subcategories": {
-          "S": "[\"EKS\", \"VPC\", \"CloudWatch\"]"
-        },
-        "Slug": {
-          "S": "kubernetes-on-aws-with-eks"
-        },
-        "Title": {
-          "S": "Kubernetes on AWS with EKS"
-        },
-        "Description": {
-          "S": "Learn how to deploy and manage Kubernetes clusters on AWS using EKS."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "AWS"
-        },
-        "PublishDate": {
-          "S": "2023-09-18"
-        },
-        "Subcategories": {
-          "S": "[\"VPC\", \"IAM\", \"EC2\"]"
-        },
-        "Slug": {
-          "S": "designing-secure-networks-with-aws-vpc"
-        },
-        "Title": {
-          "S": "Designing Secure Networks with AWS VPC"
-        },
-        "Description": {
-          "S": "Best practices for designing secure network architectures with AWS VPC."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "AWS"
-        },
-        "PublishDate": {
-          "S": "2023-09-17"
-        },
-        "Subcategories": {
-          "S": "[\"API Gateway\", \"Lambda\", \"CloudFront\"]"
-        },
-        "Slug": {
-          "S": "building-serverless-apis-with-aws-api-gateway"
-        },
-        "Title": {
-          "S": "Building Serverless APIs with AWS API Gateway"
-        },
-        "Description": {
-          "S": "A comprehensive guide to building and deploying serverless APIs with AWS API Gateway."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "AWS"
-        },
-        "PublishDate": {
-          "S": "2023-09-16"
-        },
-        "Subcategories": {
-          "S": "[\"CloudWatch\", \"EC2\", \"RDS\"]"
-        },
-        "Slug": {
-          "S": "monitoring-aws-resources-with-cloudwatch"
-        },
-        "Title": {
-          "S": "Monitoring AWS Resources with CloudWatch"
-        },
-        "Description": {
-          "S": "Learn how to effectively monitor your AWS resources using CloudWatch."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "DevOps"
-        },
-        "PublishDate": {
-          "S": "2023-09-15"
-        },
-        "Subcategories": {
-          "S": "[\"GitOps\", \"Kubernetes\", \"ArgoCD\"]"
-        },
-        "Slug": {
-          "S": "implementing-gitops-workflows-for-kubernetes"
-        },
-        "Title": {
-          "S": "Implementing GitOps Workflows for Kubernetes"
-        },
-        "Description": {
-          "S": "Best practices for implementing GitOps workflows in Kubernetes environments."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "DevOps"
-        },
-        "PublishDate": {
-          "S": "2023-09-14"
-        },
-        "Subcategories": {
-          "S": "[\"ArgoCD\", \"GitOps\", \"Kubernetes\"]"
-        },
-        "Slug": {
-          "S": "continuous-delivery-with-argocd"
-        },
-        "Title": {
-          "S": "Continuous Delivery with ArgoCD"
-        },
-        "Description": {
-          "S": "Setting up continuous delivery pipelines for Kubernetes using ArgoCD."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "DevOps"
-        },
-        "PublishDate": {
-          "S": "2023-09-13"
-        },
-        "Subcategories": {
-          "S": "[\"Grafana\", \"Kubernetes\", \"Helm\"]"
-        },
-        "Slug": {
-          "S": "building-observability-dashboards-with-grafana"
-        },
-        "Title": {
-          "S": "Building Observability Dashboards with Grafana"
-        },
-        "Description": {
-          "S": "Learn how to build effective observability dashboards using Grafana."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Linux"
-        },
-        "PublishDate": {
-          "S": "2023-09-12"
-        },
-        "Subcategories": {
-          "S": "[\"SELinux\", \"CentOS\", \"Firewalld\"]"
-        },
-        "Slug": {
-          "S": "securing-linux-servers-with-selinux"
-        },
-        "Title": {
-          "S": "Securing Linux Servers with SELinux"
-        },
-        "Description": {
-          "S": "A comprehensive guide to implementing and managing SELinux on Linux servers."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Linux"
-        },
-        "PublishDate": {
-          "S": "2023-09-11"
-        },
-        "Subcategories": {
-          "S": "[\"Nginx\", \"Ubuntu\", \"Systemd\"]"
-        },
-        "Slug": {
-          "S": "configuring-nginx-for-high-performance-web-serving"
-        },
-        "Title": {
-          "S": "Configuring Nginx for High-Performance Web Serving"
-        },
-        "Description": {
-          "S": "Optimization techniques for Nginx to achieve high-performance web serving."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Linux"
-        },
-        "PublishDate": {
-          "S": "2023-09-10"
-        },
-        "Subcategories": {
-          "S": "[\"Firewalld\", \"CentOS\", \"SELinux\"]"
-        },
-        "Slug": {
-          "S": "managing-linux-firewall-with-firewalld"
-        },
-        "Title": {
-          "S": "Managing Linux Firewall with Firewalld"
-        },
-        "Description": {
-          "S": "A comprehensive guide to managing the Linux firewall using Firewalld."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Linux"
-        },
-        "PublishDate": {
-          "S": "2023-09-09"
-        },
-        "Subcategories": {
-          "S": "[\"LVM\", \"CentOS\", \"Bash Scripting\"]"
-        },
-        "Slug": {
-          "S": "logical-volume-management-in-linux"
-        },
-        "Title": {
-          "S": "Logical Volume Management in Linux"
-        },
-        "Description": {
-          "S": "Understanding and implementing Logical Volume Management (LVM) in Linux."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Networking"
-        },
-        "PublishDate": {
-          "S": "2023-09-08"
-        },
-        "Subcategories": {
-          "S": "[\"TCP/IP\", \"DNS\", \"NAT\"]"
-        },
-        "Slug": {
-          "S": "fundamentals-of-tcp-ip-networking"
-        },
-        "Title": {
-          "S": "Fundamentals of TCP/IP Networking"
-        },
-        "Description": {
-          "S": "Understanding the fundamentals of TCP/IP networking protocols."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Networking"
-        },
-        "PublishDate": {
-          "S": "2023-09-07"
-        },
-        "Subcategories": {
-          "S": "[\"BGP\", \"TCP/IP\", \"VPN\"]"
-        },
-        "Slug": {
-          "S": "border-gateway-protocol-bgp-routing"
-        },
-        "Title": {
-          "S": "Border Gateway Protocol (BGP) Routing"
-        },
-        "Description": {
-          "S": "An in-depth look at Border Gateway Protocol (BGP) routing for internet connectivity."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Networking"
-        },
-        "PublishDate": {
-          "S": "2023-09-06"
-        },
-        "Subcategories": {
-          "S": "[\"NAT\", \"Firewalls\", \"VPN\"]"
-        },
-        "Slug": {
-          "S": "network-address-translation-implementation"
-        },
-        "Title": {
-          "S": "Network Address Translation Implementation"
-        },
-        "Description": {
-          "S": "Best practices for implementing Network Address Translation (NAT) in network environments."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "AWS"
-        },
-        "PublishDate": {
-          "S": "2023-09-05"
-        },
-        "Subcategories": {
-          "S": "[\"ECS\", \"CloudWatch\", \"VPC\"]"
-        },
-        "Slug": {
-          "S": "optimizing-container-deployments-with-aws-ecs"
-        },
-        "Title": {
-          "S": "Optimizing Container Deployments with AWS ECS"
-        },
-        "Description": {
-          "S": "Advanced techniques for optimizing container deployments with Amazon ECS."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "DevOps"
-        },
-        "PublishDate": {
-          "S": "2023-09-04"
-        },
-        "Subcategories": {
-          "S": "[\"Docker\", \"Kubernetes\", \"Helm\"]"
-        },
-        "Slug": {
-          "S": "optimizing-docker-container-images"
-        },
-        "Title": {
-          "S": "Optimizing Docker Container Images"
-        },
-        "Description": {
-          "S": "Best practices and techniques for optimizing Docker container images."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  },
-  {
-    "Put": {
-      "TableName": "mainTableName",
-      "Item": {
-        "Type": {
-          "S": "blog"
-        },
-        "Category": {
-          "S": "Linux"
-        },
-        "PublishDate": {
-          "S": "2023-09-03"
-        },
-        "Subcategories": {
-          "S": "[\"Performance Tuning\", \"Systemd\", \"Bash Scripting\"]"
-        },
-        "Slug": {
-          "S": "linux-server-performance-tuning"
-        },
-        "Title": {
-          "S": "Linux Server Performance Tuning"
-        },
-        "Description": {
-          "S": "Advanced techniques for tuning Linux server performance."
-        },
-        "Thumbnail": {
-          "S": "https://prpb.p-dev.click/assets/thumbnail.png"
-        }
-      }
-    }
-  }
-]
+  ]
+}

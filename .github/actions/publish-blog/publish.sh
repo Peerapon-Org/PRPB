@@ -10,31 +10,9 @@ rollback () {
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
   -d @items.json \
-  "$(terraform output -raw api_invoke_url)"
+  "$(terraform output -raw api_invoke_url)"/blogs
   exit 1
 }
-
-PROJECT=$(awk -F' = ' '/^project/ {print $NF}' $TFVARS_FILE | tr -d '"')
-ENV=$(awk -F' = ' '/^environment/ {print $NF}' $TFVARS_FILE | tr -d '"')
-REGION=$(awk -F' = ' '/^region/ {print $NF}' $TFVARS_FILE | tr -d '"')
-BRANCH=$(awk -F' = ' '/^branch/ {print $NF}' $TFVARS_FILE | tr '\[/*\]' '-' | tr -d '"')
-IS_PRODUCTION=$(awk -F' = ' '/^is_production/ {print $NF}' $TFVARS_FILE | tr -d '"')
-
-terraform init \
-  -backend-config "bucket=$S3_BUCKET_NAME" \
-  -backend-config "dynamodb_table=$DYNAMODB_TABLE_NAME" \
-  -backend-config "region=$REGION" \
-  -backend-config "key=terraform.tfstate" \
-  -reconfigure
-
-WORKSPACE="$PROJECT-$ENV-$BRANCH"
-
-if ! terraform workspace list | grep -q "$WORKSPACE"; then
-  echo "Error: Workspace not found '$WORKSPACE'"
-  exit 1
-else
-  terraform workspace select "$WORKSPACE"
-fi
 
 SLUG=${GITHUB_HEAD_REF#blog/}
 METADATA=$(sed 10q "../src/pages/blog/$SLUG.md")
@@ -63,7 +41,7 @@ curl \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
   -d @items.json \
-  "$(terraform output -raw api_invoke_url)"
+  "$(terraform output -raw api_invoke_url)"/blogs
 
 aws cloudfront create-invalidation --distribution-id "$(terraform output -raw distribution_id)" --paths "/api/*"
 

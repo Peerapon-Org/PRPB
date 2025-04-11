@@ -1,39 +1,18 @@
 name: "Deploy Terraform"
 description: "Deploy Terraform code to AWS account"
 inputs:
-  s3-bucket-name:
-    description: "Terraform remote state S3 bucket name"
-    required: true
-  dynamodb-table-name:
-    description: "Terraform remote state DynamoDB table name"
-    required: true
-  account-id:
-    description: "AWS account ID to deploy to"
+  workspace:
+    description: "Terraform workspace name"
     required: true
   tfvars-file:
     description: "Path to the tfvars file (relative to the terraform directory)"
     required: true
-  domain-name:
-    description: "Domain name of the application"
+  account-id:
+    description: "AWS account ID to deploy to"
     required: true
 outputs:
-  s3-origin-bucket-name:
-    description: "S3 origin bucket name"
-    value: ${{ steps.deploy.outputs.s3-bucket-name }}
-  dynamodb-blog-table-name:
-    description: "DynamoDB table name for blog"
-    value: ${{ steps.deploy.outputs.dynamodb-blog-table-name }}
-  dynamodb-tag-table-name:
-    description: "DynamoDB table name for tag"
-    value: ${{ steps.deploy.outputs.dynamodb-tag-table-name }}
-  cloudfront-distribution-id:
-    description: "CloudFront distribution ID"
-    value: ${{ steps.deploy.outputs.cloudfront-distribution-id }}
-  api-endpoint:
-    description: "API endpoint of the deployed application"
-    value: ${{ steps.deploy.outputs.api-endpoint }}
   app-url:
-    description: "URL link the deployed application"
+    description: "URL of the deployed application"
     value: ${{ steps.deploy.outputs.app-url }}
 runs:
   using: "composite"
@@ -49,8 +28,6 @@ runs:
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:
-        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
-        DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
-        ACCOUNT_ID: ${{ inputs.account-id }}
-        DOMAIN_NAME: ${{ inputs.domain-name }}
+        WORKSPACE: ${{ inputs.workspace }}
         TFVARS_FILE: ${{ inputs.tfvars-file }}
+        ACCOUNT_ID: ${{ inputs.account-id }}

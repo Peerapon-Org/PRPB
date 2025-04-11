@@ -128,15 +128,22 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
-      - name: Deploy Terraform
-        id: deploy-terraform
-        uses: ./.github/actions/deploy-terraform
+      - name: Init Terraform
+        id: init-terraform
+        uses: ./.github/actions/init-terraform
         with:
           s3-bucket-name: ${{ vars.TF_REMOTE_STATE_S3_BUCKET }}
           dynamodb-table-name: ${{ vars.TF_REMOTE_STATE_DYNAMODB_TABLE }}
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           domain-name: ${{ vars.DOMAIN_NAME }}
           tfvars-file: tfvars/staging.tfvars
+      - name: Deploy Terraform
+        id: deploy-terraform
+        uses: ./.github/actions/deploy-terraform
+        with:
+          account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          tfvars-file: ${{ steps.init-terraform.outputs.tfvars-file }}
+          workspace: ${{ steps.init-terraform.outputs.workspace }}
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -145,12 +152,7 @@ jobs:
       - name: Deploy build artifact
         uses: ./.github/actions/deploy-code
         with:
-          s3-origin-bucket-name: ${{ steps.deploy-terraform.outputs.s3-origin-bucket-name }}
-          dynamodb-blog-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-blog-table-name }}
-          dynamodb-tag-table-name: ${{ steps.deploy-terraform.outputs.dynamodb-tag-table-name }}
-          cloudfront-distribution-id: ${{ steps.deploy-terraform.outputs.cloudfront-distribution-id }}
-          api-endpoint: ${{ steps.deploy-terraform.outputs.api-endpoint }}
-          tfvars-file: tfvars/staging.tfvars
+          tfvars-file: ${{ steps.init-terraform.outputs.tfvars-file }}
       - name: Comment on PR
         uses: actions/github-script@v7
         with:

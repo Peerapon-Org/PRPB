@@ -23,9 +23,8 @@ export function BlogItem({
         </div>
         {subcategories &&
           subcategories.map((subcategory) => (
-            <div className="mr-2">
+            <div key={slug + subcategory + "subcategory"} className="mr-2">
               <Tag
-                key={slug + subcategory + "subcategory"}
                 name={subcategory}
                 category={category}
                 subcategory={subcategory}

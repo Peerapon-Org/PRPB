@@ -67,8 +67,7 @@ variable "enable_account_logging" {
 
 variable "api_definition" {
   type        = string
-  description = "(Optional) Path to the API Gateway definition JSON file (relative to the Terraform root module directory)"
-  default     = "assets/api/api.json"
+  description = "(Required) Path to the API Gateway definition JSON file (relative to the Terraform root module directory)"
 }
 
 # ==========================================================================================
