@@ -53,7 +53,7 @@ variable "branch" {
 variable "profile" {
   type        = string
   description = "(Optional) AWS CLI profile to use for authentication"
-  default     = "default"
+  default     = null
 }
 
 # ==========================================================================================
