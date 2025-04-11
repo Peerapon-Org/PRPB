@@ -26,5 +26,7 @@ else
   terraform workspace select "$WORKSPACE"
 fi
 
+echo "(init) workspace = $WORKSPACE"
+
 echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
 echo "tfvars-file=$TFVARS_FILE" >> "$GITHUB_OUTPUT"

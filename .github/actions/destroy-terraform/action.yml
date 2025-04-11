@@ -36,7 +36,7 @@ runs:
       with:
         s3-bucket-name: ${{ inputs.s3-bucket-name }}
         dynamodb-table-name: ${{ inputs.dynamodb-table-name }}
-        account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+        account-id: ${{ inputs.account-id }}
         domain-name: ${{ inputs.domain-name }}
         tfvars-file: ${{ inputs.tfvars-file }}
     - name: Set GitHub Path

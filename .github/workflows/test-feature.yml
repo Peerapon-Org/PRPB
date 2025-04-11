@@ -98,6 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     if: ${{ needs.build.result == 'success' }}
+    continue-on-error: true
     environment: staging
     permissions:
       id-token: write
@@ -137,6 +138,7 @@ jobs:
           account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           domain-name: ${{ vars.DOMAIN_NAME }}
           tfvars-file: tfvars/staging.tfvars
+      - run: echo "(test-feature) workspace = ${{ steps.init-terraform.outputs.workspace }}"
       - name: Deploy Terraform
         id: deploy-terraform
         uses: ./.github/actions/deploy-terraform
