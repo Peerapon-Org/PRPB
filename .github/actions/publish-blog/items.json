@@ -1,7 +1,6 @@
 {
   "blogs": [
     {
-      "type": "blog",
       "title": "<title>",
       "description": "<description>",
       "thumbnail": "<thumbnail>",
