@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "test-rest-api",
-    "version": "2025-04-07T18:35:11Z"
+    "version": "2025-04-12T19:51:23Z"
   },
   "servers": [
     {
@@ -37,6 +37,7 @@
           }
         },
         "x-amazon-apigateway-integration": {
+          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Scan",
@@ -54,8 +55,7 @@
           "requestTemplates": {
             "application/json": "{\r\n    \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\",\r\n    \"Select\": \"SPECIFIC_ATTRIBUTES\",\r\n    \"ProjectionExpression\": \"#C, #V\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#C\": \"Category\",\r\n        \"#V\": \"Value\"\r\n    },\r\n    \"ReturnConsumedCapacity\": \"TOTAL\"\r\n}\r\n"
           },
-          "passthroughBehavior": "when_no_templates",
-          "type": "aws"
+          "passthroughBehavior": "when_no_templates"
         }
       },
       "post": {
@@ -88,6 +88,7 @@
         ],
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
+          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
@@ -97,10 +98,9 @@
             }
           },
           "requestTemplates": {
-            "application/json": "#set($tags = $util.parseJson($input.body).tags)\n#set($categories = [])\n#foreach($tag in $tags)\n#if(!$categories.contains($tag.category) && $tag.category != 'null')\n#set($_ = $categories.add($tag.category))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n  #foreach($category in $categories)\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"null\" },\n            \"Value\": { \"S\": \"$category\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  },\n  #end\n  #foreach($tag in $tags)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Category\": { \"S\": \"$tag.category\" },\n            \"Value\": { \"S\": \"$tag.value\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
+            "application/json": "#set($tags = $util.parseJson($input.body).tags)\n#set($tagRefTable = $stageVariables.dynamoDBTagRefTableName)\n#set($categories = [])\n#foreach($tag in $tags)\n#if(!$categories.contains($tag.category) && $tag.category != 'null')\n#set($_ = $categories.add($tag.category))\n#end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n  #foreach($category in $categories)\n  {\n     \"ConditionCheck\": {\n        \"ConditionExpression\": \"attribute_exists(#V)\",\n        \"ExpressionAttributeNames\": {\n            \"#V\": \"Value\"\n        },\n        \"Key\": {\n            \"Category\": { \"S\": \"null\" },\n            \"Value\": { \"S\": \"$category\" }\n        },\n        \"TableName\": \"$tagRefTable\"\n     }\n  },\n  #end\n  #foreach($tag in $tags)\n  {\n    \"Put\": {\n        \"Item\": {\n            \"Category\": { \"S\": \"$tag.category\" },\n            \"Value\": { \"S\": \"$tag.value\" }\n        },\n        \"TableName\": \"$tagRefTable\"\n     }\n  }#if($foreach.hasNext),#end\n  #end\n  ]\n}"
           },
-          "passthroughBehavior": "when_no_match",
-          "type": "aws"
+          "passthroughBehavior": "when_no_match"
         }
       },
       "options": {
@@ -134,6 +134,7 @@
           }
         },
         "x-amazon-apigateway-integration": {
+          "type": "mock",
           "responses": {
             "default": {
               "statusCode": "200",
@@ -147,8 +148,7 @@
           "requestTemplates": {
             "application/json": "{\"statusCode\": 200}"
           },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
+          "passthroughBehavior": "when_no_match"
         }
       }
     },
@@ -205,6 +205,7 @@
         },
         "x-amazon-apigateway-request-validator": "Validate query string parameters and headers",
         "x-amazon-apigateway-integration": {
+          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/Query",
@@ -215,15 +216,14 @@
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
-                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    #set($hasSubcategory = $item.containsKey(\"Subcategories\") && $item.Subcategories.S != \"\")\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategories\": #if($hasSubcategory)$item.Subcategories.S#{else}\"\"#end,\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
+                "application/json": "#set($items = $util.parseJson($input.json('Items')))\n{\n    \"status\": 200,\n    \"blogs\": [\n    #foreach($item in $items)\n    #set($hasSubcategory = $item.containsKey(\"Subcategories\") && $item.Subcategories.S != \"\")\n    {\n            \"title\": \"$item.Title.S\",\n            \"description\": \"$item.Description.S\",\n            \"category\": \"$item.Category.S\",\n            \"subcategories\": #if($hasSubcategory)$item.Subcategories.S#{else}[]#end,\n            \"publishDate\": \"$item.PublishDate.S\",\n            \"thumbnail\": \"$item.Thumbnail.S\",\n            \"slug\": \"$item.Slug.S\"\n        }#if($foreach.hasNext),\n#end\n    #end\n    \n    ]\n}"
               }
             }
           },
           "requestTemplates": {
             "application/json": "#set($category = $util.escapeJavaScript($input.params('cat')).toLowerCase().replaceAll(\" \", \"_\"))\r\n#set($subcategory = $util.escapeJavaScript($input.params('sub_cat')).toLowerCase().replaceAll(\" \", \"_\"))\r\n#set($hasFilter = $!{category}!=\"\" || $!{subcategory}!=\"\")\r\n#set($lastPublishDate = $util.escapeJavaScript($input.params('last_pub_date')))\r\n#set($lastSlug = $util.escapeJavaScript($input.params('last_slug')))\r\n{\r\n    \"TableName\": \"$stageVariables.dynamoDBMainTableName\",\r\n    \"IndexName\": \"PublishDateIndex\",\r\n    \"Select\": \"ALL_PROJECTED_ATTRIBUTES\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#K\": \"Type\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":v\": {\r\n            \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"category#$category&subcategory#$subcategory\"#{else}\"category#$category\"#end#end\r\n        }\r\n    },\r\n    \"KeyConditionExpression\": \"#K = :v\",\r\n    \"Limit\": 12,\r\n    #if($!{lastPublishDate}!=\"\" && $!{lastSlug}!=\"\")\r\n    \"ExclusiveStartKey\": {\r\n        \"Type\": { \"S\": #if(!$hasFilter)\"blog\"#{else}#if($!{subcategory}!=\"\")\"category#$category&subcategory#$subcategory\"#{else}\"category#$category\"#end#end },\r\n        \"PublishDate\": { \"S\": \"$lastPublishDate\" },\r\n        \"Slug\": { \"S\": \"$lastSlug\" }\r\n    },\r\n    #end\r\n    \"ReturnConsumedCapacity\": \"TOTAL\",\r\n    \"ScanIndexForward\": false\r\n}\r\n"
           },
-          "passthroughBehavior": "when_no_match",
-          "type": "aws"
+          "passthroughBehavior": "when_no_match"
         }
       },
       "post": {
@@ -231,7 +231,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BlogsRequestBodySchema"
+                "$ref": "#/components/schemas/BlogsPostRequestBodySchema"
               }
             }
           },
@@ -256,6 +256,7 @@
         ],
         "x-amazon-apigateway-request-validator": "Validate body, query string parameters, and headers",
         "x-amazon-apigateway-integration": {
+          "type": "aws",
           "credentials": "<execution_role_arn>",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
@@ -265,10 +266,48 @@
             }
           },
           "requestTemplates": {
-            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($tags = {})\n#foreach($blog in $blogs)\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\n    \n    #if(!$tags.containsKey($blog.category))\n        #set($_ = $tags.put($blog.category, []))\n    #end\n    \n    #if($hasSubcategory)\n        #foreach($subcategory in $blog.subcategories)\n            #if(!$tags[$blog.category].contains($subcategory))\n                #set($_ = $tags[$blog.category].add($subcategory))\n            #end\n        #end\n    #end\n#end\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n    #foreach($category in $tags.keySet())\n        #set($hasSubcategory = !$tags[$category].isEmpty())\n        #if($hasSubcategory)\n            #foreach($subcategory in $tags[$category])\n            {\n                \"ConditionCheck\": {\n                    \"ConditionExpression\": \"attribute_exists(#V)\",\n                    \"ExpressionAttributeNames\": {\n                        \"#V\": \"Value\"\n                    },\n                    \"Key\": {\n                        \"Category\": { \"S\": \"$category\" },\n                        \"Value\": { \"S\": \"$subcategory\" }\n                    },\n                    \"TableName\": \"$stageVariables.dynamoDBTagRefTableName\"\n                }\n            },\n            #end\n        #end\n    #end\n    #foreach($blog in $blogs)\n    #set($category = $blog.category.toLowerCase().replaceAll(\" \", \"_\"))\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"blog\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    },\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"category#$category\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    }#if($hasSubcategory),\n    #foreach($subcategory in $blog.subcategories)\n    {\n    \"Put\": {\n        \"Item\": {\n            \"Type\": { \"S\": \"category#$category&subcategory#$subcategory.toLowerCase().replaceAll(' ', '_')\" },\n            \"Title\": { \"S\": \"$blog.title\" },\n            \"Description\": { \"S\": \"$blog.description\" },\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\n            \"Slug\": { \"S\": \"$blog.slug\" },\n            \"Category\": { \"S\": \"$blog.category\" },\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$blog.subcategories\" },#end\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\n        },\n        \"TableName\": \"$stageVariables.dynamoDBMainTableName\"\n     }\n    }#if($foreach.hasNext),#end\n    #end\n    #end#if($foreach.hasNext),#end\n    #end\n  ]\n}"
+            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\r\n#set($tagRegTable = $stageVariables.dynamoDBTagRefTableName)\r\n#set($blogTable = $stageVariables.dynamoDBMainTableName)\r\n#set($tags = {})\r\n#foreach($blog in $blogs)\r\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\r\n    \r\n    #if(!$tags.containsKey($blog.category))\r\n        #set($_ = $tags.put($blog.category, []))\r\n    #end\r\n    \r\n    #if($hasSubcategory)\r\n        #foreach($subcategory in $blog.subcategories)\r\n            #if(!$tags[$blog.category].contains($subcategory))\r\n                #set($_ = $tags[$blog.category].add($subcategory))\r\n            #end\r\n        #end\r\n    #end\r\n#end\r\n{\r\n  \"ReturnConsumedCapacity\": \"TOTAL\",\r\n  \"TransactItems\": [\r\n    #foreach($category in $tags.keySet())\r\n        #set($hasSubcategory = !$tags[$category].isEmpty())\r\n        {\r\n            \"ConditionCheck\": {\r\n                \"ConditionExpression\": \"attribute_exists(#V)\",\r\n                \"ExpressionAttributeNames\": {\r\n                    \"#V\": \"Value\"\r\n                },\r\n                \"Key\": {\r\n                    \"Category\": { \"S\": \"null\" },\r\n                    \"Value\": { \"S\": \"$category\" }\r\n                },\r\n                \"TableName\": \"$tagRegTable\"\r\n            }\r\n        },\r\n        #if($hasSubcategory)\r\n            #foreach($subcategory in $tags[$category])\r\n            {\r\n                \"ConditionCheck\": {\r\n                    \"ConditionExpression\": \"attribute_exists(#V)\",\r\n                    \"ExpressionAttributeNames\": {\r\n                        \"#V\": \"Value\"\r\n                    },\r\n                    \"Key\": {\r\n                        \"Category\": { \"S\": \"$category\" },\r\n                        \"Value\": { \"S\": \"$subcategory\" }\r\n                    },\r\n                    \"TableName\": \"$tagRegTable\"\r\n                }\r\n            },\r\n            #end\r\n        #end\r\n    #end\r\n    #foreach($blog in $blogs)\r\n    #set($category = $blog.category.toLowerCase().replaceAll(\" \", \"_\"))\r\n    #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\r\n    #if($hasSubcategory)\r\n        #set($subcategories = \"[\")\r\n        #foreach($subcatetory in $blog.subcategories)\r\n            #set($subcategories = \"$subcategories'$subcatetory'\")\r\n            #if($foreach.hasNext)\r\n                #set($subcategories = \"$subcategories,\")\r\n            #end\r\n        #end\r\n        #set($subcategories = \"$subcategories]\")\r\n        #set($subcategories = $subcategories.replace(\"'\", '\\\"'))\r\n    #end\r\n    {\r\n    \"Put\": {\r\n        \"Item\": {\r\n            \"Type\": { \"S\": \"blog\" },\r\n            \"Title\": { \"S\": \"$blog.title\" },\r\n            \"Description\": { \"S\": \"$blog.description\" },\r\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\r\n            \"Slug\": { \"S\": \"$blog.slug\" },\r\n            \"Category\": { \"S\": \"$blog.category\" },\r\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$subcategories\" },#end\r\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\r\n        },\r\n        \"TableName\": \"$blogTable\"\r\n     }\r\n    },\r\n    {\r\n    \"Put\": {\r\n        \"Item\": {\r\n            \"Type\": { \"S\": \"category#$category\" },\r\n            \"Title\": { \"S\": \"$blog.title\" },\r\n            \"Description\": { \"S\": \"$blog.description\" },\r\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\r\n            \"Slug\": { \"S\": \"$blog.slug\" },\r\n            \"Category\": { \"S\": \"$blog.category\" },\r\n            #if($hasSubcategory)\"Subcategories\": { \"S\": \"$subcategories\" },#end\r\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\r\n        },\r\n        \"TableName\": \"$blogTable\"\r\n     }\r\n    }#if($hasSubcategory),\r\n    #foreach($subcategory in $blog.subcategories)\r\n    {\r\n    \"Put\": {\r\n        \"Item\": {\r\n            \"Type\": { \"S\": \"category#$category&subcategory#$subcategory.toLowerCase().replaceAll(' ', '_')\" },\r\n            \"Title\": { \"S\": \"$blog.title\" },\r\n            \"Description\": { \"S\": \"$blog.description\" },\r\n            \"Thumbnail\": { \"S\": \"$blog.thumbnail\" },\r\n            \"Slug\": { \"S\": \"$blog.slug\" },\r\n            \"Category\": { \"S\": \"$blog.category\" },\r\n            \"Subcategories\": { \"S\": \"$subcategories\" },\r\n            \"PublishDate\": { \"S\": \"$blog.publish_date\" }\r\n        },\r\n        \"TableName\": \"$blogTable\"\r\n     }\r\n    }#if($foreach.hasNext),#end\r\n    #end\r\n    #end#if($foreach.hasNext),#end\r\n    #end\r\n  ]\r\n}"
           },
-          "passthroughBehavior": "when_no_match",
-          "type": "aws"
+          "passthroughBehavior": "when_no_match"
+        }
+      },
+      "delete": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BlogsDeleteRequestBodySchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "credentials": "<execution_role_arn>",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:ap-southeast-1:dynamodb:action/TransactWriteItems",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "requestTemplates": {
+            "application/json": "#set($blogs = $util.parseJson($input.body).blogs)\n#set($mainTableName = $stageVariables.dynamoDBMainTableName)\n{\n  \"ReturnConsumedCapacity\": \"TOTAL\",\n  \"TransactItems\": [\n    #foreach($blog in $blogs)\n        #set($category = $blog.category.toLowerCase().replaceAll(\" \", \"_\"))\n        #set($hasSubcategory = $blog.containsKey(\"subcategories\") && !$blog.subcategories.isEmpty())\n        {\n            \"ConditionCheck\": {\n                \"ConditionExpression\": #if($hasSubcategory)\"#s = :s\"#{else}\"attribute_not_exists(#S)\"#end,\n                \"ExpressionAttributeNames\": {\n                    \"#S\": \"Subcategories\"\n                },\n                #if($hasSubcategory)\n                \"ExpressionAttributeValues\": {\n                    \":s\": \"$blog.subcategories\"\n                },\n                #end\n                \"Key\": {\n                    \"Type\": { \"S\": \"blog\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        },\n        {\n            \"ConditionCheck\": {\n                \"ConditionExpression\": #if($hasSubcategory)\"#s = :s\"#{else}\"attribute_not_exists(#S)\"#end,\n                \"ExpressionAttributeNames\": {\n                    \"#S\": \"Subcategories\"\n                },\n                #if($hasSubcategory)\n                \"ExpressionAttributeValues\": {\n                    \":s\": \"$blog.subcategories\"\n                },\n                #end\n                \"Key\": {\n                    \"Type\": { \"S\": \"category#$category\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        },\n        {\n            \"Delete\": {\n                \"Key\": {\n                    \"Type\": { \"S\": \"blog\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        },\n        {\n            \"Delete\": {\n                \"Key\": {\n                    \"Type\": { \"S\": \"category#$category\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        }#if($hasSubcategory),\n        #foreach($subcategory in $blog.subcategories)\n        {\n            \"ConditionCheck\": {\n                \"ConditionExpression\": \"#s = :s\",\n                \"ExpressionAttributeNames\": {\n                    \"#S\": \"Subcategories\"\n                },\n                \"ExpressionAttributeValues\": {\n                    \":s\": \"$blog.subcategories\"\n                },\n                \"Key\": {\n                    \"Type\": { \"S\": \"category#$category&subcategory#$subcategory.toLowerCase().replaceAll(' ', '_')\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        },\n        {\n            \"Delete\": {\n                \"Key\": {\n                    \"Type\": { \"S\": \"category#$category&subcategory#$subcategory.toLowerCase().replaceAll(' ', '_')\" },\n                    \"Slug\": { \"S\": \"$blog.slug\" }\n                },\n                \"TableName\": \"$mainTableName\"\n            }\n        }#if($foreach.hasNext),#end\n        #end\n        #end#if($foreach.hasNext),#end\n    #end\n  ]\n}"
+          },
+          "passthroughBehavior": "when_no_match"
         }
       },
       "options": {
@@ -302,6 +341,7 @@
           }
         },
         "x-amazon-apigateway-integration": {
+          "type": "mock",
           "responses": {
             "default": {
               "statusCode": "200",
@@ -315,8 +355,7 @@
           "requestTemplates": {
             "application/json": "{\"statusCode\": 200}"
           },
-          "passthroughBehavior": "when_no_match",
-          "type": "mock"
+          "passthroughBehavior": "when_no_match"
         }
       }
     }
@@ -347,57 +386,6 @@
                   "type": "string"
                 },
                 "value": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "BlogsRequestBodySchema": {
-        "title": "Blogs Request Body Schema",
-        "required": [
-          "blogs"
-        ],
-        "type": "object",
-        "properties": {
-          "blogs": {
-            "type": "array",
-            "items": {
-              "required": [
-                "category",
-                "publish_date",
-                "slug"
-              ],
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string"
-                },
-                "title": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "thumbnail": {
-                  "type": "string"
-                },
-                "slug": {
-                  "type": "string"
-                },
-                "category": {
-                  "type": "string"
-                },
-                "subcategories": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "publish_date": {
-                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
                   "type": "string"
                 }
               }
@@ -469,6 +457,40 @@
         "additionalProperties": false,
         "description": "A response containing a list of blogs with their categories, subcategories, publish dates, slugs, thumbnails, titles, and descriptions."
       },
+      "BlogsDeleteRequestBodySchema": {
+        "title": "Blogs Delete Request Body Schema",
+        "required": [
+          "blogs"
+        ],
+        "type": "object",
+        "properties": {
+          "blogs": {
+            "type": "array",
+            "items": {
+              "required": [
+                "category",
+                "slug"
+              ],
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "subcategories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
       "TagsResponseSchema": {
         "title": "Tags Response Schema",
         "required": [
@@ -503,6 +525,55 @@
         },
         "additionalProperties": false,
         "description": "A response containing a list of categories and their associated subcategories."
+      },
+      "BlogsPostRequestBodySchema": {
+        "title": "Blogs Request Body Schema",
+        "required": [
+          "blogs"
+        ],
+        "type": "object",
+        "properties": {
+          "blogs": {
+            "type": "array",
+            "items": {
+              "required": [
+                "category",
+                "publish_date",
+                "slug",
+                "title"
+              ],
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "thumbnail": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "subcategories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "publish_date": {
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
@@ -514,14 +585,14 @@
     }
   },
   "x-amazon-apigateway-gateway-responses": {
-    "DEFAULT_4XX": {
+    "DEFAULT_5XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
         "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       }
     },
-    "DEFAULT_5XX": {
+    "DEFAULT_4XX": {
       "responseParameters": {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
         "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",

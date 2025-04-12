@@ -30,7 +30,7 @@ pushd ../terraform > /dev/null 2>&1
 BUCKET_NAME=$(terraform output -raw s3_blog_assets_bucket_name)
 BLOG_TABLE_NAME=$(terraform output -raw blog_table_name)
 TAG_REF_TABLE_NAME=$(terraform output -raw tag_ref_table_name)
-API_BLOG_ENDPOINT="$(terraform output -raw api_invoke_url)"
+API_BLOG_ENDPOINT=$(terraform output -raw api_invoke_url)
 
 popd > /dev/null 2>&1
 
@@ -54,7 +54,7 @@ echo -e "\nWriting blogs to the $BLOG_TABLE_NAME table..."
 DATA_FILES=("blogs_1.json" "blogs_2.json" "blogs_3.json")
 aws s3api put-object --bucket $BUCKET_NAME --key thumbnail.png --body thumbnail.png
 for FILE in ${DATA_FILES[@]}; do
-  echo -e "\n$FILE"
+  echo -e "\nWriting $FILE to the $BLOG_TABLE_NAME table..."
   curl \
     -X POST \
     -H "Content-Type: application/json" \

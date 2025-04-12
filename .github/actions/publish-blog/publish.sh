@@ -23,7 +23,7 @@ TITLE=$(echo "$METADATA" | awk -F ': ' '/^title/ {print $NF}' | tr -d '"')
 DESCRIPTION=$(echo "$METADATA" | awk -F ': ' '/^description/ {print $NF}' | tr -d '"')
 THUMBNAIL=$(echo "$METADATA" | awk -F ': ' '/^thumbnail/ {print $NF}' | tr -d '"')
 
-trap rollback EXIT
+trap rollback ERR
 
 aws s3 cp assets/blog/ "s3://$(terraform output -raw s3_origin_bucket_name)/blog/$SLUG/" --recursive
 sed \

@@ -3,7 +3,7 @@
 set -e
 
 cleanup () {
-  git restore assets/api/api.json
+  mv assets/api/api.json.bak assets/api/api.json
   popd > /dev/null 2>&1
 }
 
@@ -79,7 +79,7 @@ if [[ -z "$OPTION" ]]; then
   exit 1
 fi
 
-trap cleanup EXIT
+trap cleanup ERR
 pushd terraform > /dev/null 2>&1
 
 PROJECT=$(awk -F' = ' '/^project/ {print $NF}' $TFVARS_FILE | tr -d '"')
