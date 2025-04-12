@@ -1,26 +1,13 @@
 {
-  "Type": {
-    "S": "blog"
-  },
-  "Category": {
-    "S": "<category>"
-  },
-  "PublishDate": {
-    "S": "<date>"
-  },
-  "Subcategory": {
-    "S": "<subcategory>"
-  },
-  "Slug": {
-    "S": "<slug>"
-  },
-  "Title": {
-    "S": "<title>"
-  },
-  "Description": {
-    "S": "<description>"
-  },
-  "Thumbnail": {
-    "S": "<thumbnail>"
-  }
+  "blogs": [
+    {
+      "title": "<title>",
+      "description": "<description>",
+      "thumbnail": "<thumbnail>",
+      "slug": "<slug>",
+      "category": "<category>",
+      "subcategories": "<subcategories>",
+      "publishDate": "<date>"
+    }
+  ]
 }

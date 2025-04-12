@@ -3,10 +3,20 @@
 import { useState, useRef } from "react";
 
 import { TagFilter } from "@/components/blogs/TagFilter";
-import { BlogItem, type BlogItemProps } from "@/components/blogs/BlogItem";
+import { BlogItem } from "@/components/blogs/BlogItem";
 import { Button } from "../ui/button";
 
 const BLOG_PER_REQUEST = 12;
+
+export type BlogItemProps = {
+  title: string;
+  description?: string;
+  publishDate: string;
+  category: string;
+  subcategories?: string[];
+  slug: string;
+  thumbnail: string;
+};
 
 export type FetchBlogsProps = {
   category: string;
@@ -14,34 +24,14 @@ export type FetchBlogsProps = {
   lastBlog?: BlogItemProps;
 };
 
-export type Categories = string[];
-export type Subcategories = {
-  [K in Categories[number]]: string[];
-};
-
-export type Tags = {
-  category: Categories;
-  subcategory: Subcategories;
-};
-
-export type TagFilterProps = {
-  category: Categories[number];
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSubcategory: React.Dispatch<React.SetStateAction<string>>;
-  fetchBlogs: (props: FetchBlogsProps) => void;
-};
-
 export function BlogList() {
   const [blogs, setBlogs] = useState<BlogItemProps[]>([]);
   const [lastBlog, setLastBlog] = useState<BlogItemProps>();
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const [category, setCategory] = useState<Categories[number]>("");
-  const [subcategory, setSubcategory] =
-    useState<Subcategories[Categories[number]][number]>("");
-  const prevCategory = useRef<Categories[number] | null>(null);
-  const prevSubcategory = useRef<
-    Subcategories[Categories[number]][number] | null
-  >(null);
+  const [category, setCategory] = useState<string>("");
+  const [subcategory, setSubcategory] = useState<string>("");
+  const prevCategory = useRef<string | null>(null);
+  const prevSubcategory = useRef<string | null>(null);
 
   /* eslint-disable react/prop-types */
   /* eslint-disable @typescript-eslint/no-unused-expressions */

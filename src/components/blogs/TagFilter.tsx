@@ -20,12 +20,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  type Categories,
-  type Subcategories,
-  type Tags,
-  type TagFilterProps,
-} from "./BlogList";
+import { type FetchBlogsProps } from "./BlogList";
+
+type Tags = {
+  categories: string[];
+  subcategories: Record<string, string[]>;
+};
+
+type TagFilterProps = {
+  category: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSubcategory: React.Dispatch<React.SetStateAction<string>>;
+  fetchBlogs: (props: FetchBlogsProps) => void;
+};
 
 const FormSchema = z.object({
   category: z.string(),
@@ -65,8 +72,8 @@ export function TagFilter({
           "Content-Type": "application/json",
         },
       });
-      const { category, subcategory } = (await response.json()) as Tags;
-      setTags({ category, subcategory });
+      const { categories, subcategories } = (await response.json()) as Tags;
+      setTags({ categories, subcategories });
     }
     fetchTags();
   }, []);
@@ -75,17 +82,15 @@ export function TagFilter({
     const urlSearchParams = new URLSearchParams(window.location.search);
     const category = urlSearchParams.get("category") ?? "";
     const subcategory = urlSearchParams.get("subcategory") ?? "";
-    const isValidCategory = ((
-      category: string
-    ): category is Categories[number] => {
-      return tags?.category.includes(category) || category === ""
+    const isValidCategory = ((category: string): category is string => {
+      return tags?.categories.includes(category) || category === ""
         ? true
         : false;
     })(category);
     const isValidSubcategory = ((
       subcategory: string
-    ): subcategory is Subcategories[Categories[number]][number] => {
-      return (tags?.subcategory[category] ?? []).includes(subcategory) ||
+    ): subcategory is string => {
+      return (tags?.subcategories[category] ?? []).includes(subcategory) ||
         (category && !subcategory)
         ? true
         : false;
@@ -132,7 +137,7 @@ export function TagFilter({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {tags?.category.map((category) => (
+                  {tags?.categories.map((category) => (
                     <SelectItem key={category} value={category}>
                       {category}
                     </SelectItem>
@@ -160,7 +165,7 @@ export function TagFilter({
                 </FormControl>
                 <SelectContent>
                   {category !== "" &&
-                    tags?.subcategory[category].map((subcategory) => (
+                    tags?.subcategories[category].map((subcategory) => (
                       <SelectItem key={subcategory} value={subcategory}>
                         {subcategory}
                       </SelectItem>

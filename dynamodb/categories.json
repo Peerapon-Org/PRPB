@@ -1,38 +1,20 @@
-[
-  {
-    "Put": {
-      "Item": {
-        "Category": { "S": "null" },
-        "Value": { "S": "AWS" }
-      },
-      "TableName": "tagRefTableName"
+{
+  "tags": [
+    {
+      "category": "null",
+      "value": "AWS"
+    },
+    {
+      "category": "null",
+      "value": "DevOps"
+    },
+    {
+      "category": "null",
+      "value": "Networking"
+    },
+    {
+      "category": "null",
+      "value": "Linux"
     }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": { "S": "null" },
-        "Value": { "S": "DevOps" }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": { "S": "null" },
-        "Value": { "S": "Networking" }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": { "S": "null" },
-        "Value": { "S": "Linux" }
-      },
-      "TableName": "tagRefTableName"
-    }
-  }
-]
+  ]
+}

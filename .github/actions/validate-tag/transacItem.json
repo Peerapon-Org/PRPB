@@ -1,0 +1,17 @@
+{
+  "ConditionCheck": {
+    "ConditionExpression": "attribute_exists(#V)",
+    "ExpressionAttributeNames": {
+      "#V": "Value"
+    },
+    "Key": {
+      "Category": {
+        "S": "<category>"
+      },
+      "Value": {
+        "S": "<value>"
+      }
+    },
+    "TableName": "<table>"
+  }
+}

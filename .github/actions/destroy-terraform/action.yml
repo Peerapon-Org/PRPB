@@ -7,33 +7,40 @@ inputs:
   dynamodb-table-name:
     description: "Terraform remote state DynamoDB table name"
     required: true
-  aws-region:
-    description: "AWS region where the application is"
+  role-arn:
+    description: "AWS role to assume for destroying resources"
     required: true
-    default: "ap-southeast-1"
   account-id:
     description: "AWS account ID where the application is"
+    required: true
+  region:
+    description: "AWS region where the application is"
+    required: true
+  tfvars-file:
+    description: "Path to the tfvars file (relative to the terraform directory)"
     required: true
   domain-name:
     description: "Domain name of the application"
     required: true
-  environment:
-    description: "Environment of the application"
-    required: true
 runs:
   using: "composite"
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
     - name: Assume AWS role
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        aws-region: ${{ inputs.aws-region }}
+        role-to-assume: ${{ inputs.role-arn }}
+        aws-region: ${{ inputs.region }}
+    - name: Init Terraform
+      id: init-terraform
+      uses: ./.github/actions/init-terraform
+      with:
+        s3-bucket-name: ${{ inputs.s3-bucket-name }}
+        dynamodb-table-name: ${{ inputs.dynamodb-table-name }}
+        account-id: ${{ inputs.account-id }}
+        domain-name: ${{ inputs.domain-name }}
+        tfvars-file: ${{ inputs.tfvars-file }}
     - name: Set GitHub Path
       run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
@@ -46,6 +53,6 @@ runs:
         S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
         ACCOUNT_ID: ${{ inputs.account-id }}
-        AWS_REGION: ${{ inputs.aws-region }}
         DOMAIN_NAME: ${{ inputs.domain-name }}
-        ENVIRONMENT: ${{ inputs.environment }}
+        WORKSPACE: ${{ steps.init-terraform.outputs.workspace }}
+        TFVARS_FILE: ${{ steps.init-terraform.outputs.tfvars-file }}

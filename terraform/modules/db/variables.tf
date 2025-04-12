@@ -1,6 +1,5 @@
 variable "global_variables" {
   type = object({
-    project       = string
     region        = string
     account       = string
     is_production = bool
