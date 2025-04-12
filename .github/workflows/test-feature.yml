@@ -17,9 +17,23 @@ jobs:
       startsWith(github.head_ref, 'dependabot/') == false &&
       contains(github.head_ref, '/skip-ci') == false
     timeout-minutes: 60
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     runs-on: ubuntu-latest
     environment: staging
     steps:
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ Staging deployment failed and environment has been cleaned up. Please check the logs for details.`
+            })
       - name: Checkout code
         uses: actions/checkout@v4
         with:

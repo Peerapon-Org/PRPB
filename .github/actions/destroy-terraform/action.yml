@@ -54,4 +54,5 @@ runs:
         DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
         ACCOUNT_ID: ${{ inputs.account-id }}
         DOMAIN_NAME: ${{ inputs.domain-name }}
+        WORKSPACE: ${{ steps.init-terraform.outputs.workspace }}
         TFVARS_FILE: ${{ steps.init-terraform.outputs.tfvars-file }}
