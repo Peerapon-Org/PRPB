@@ -10,6 +10,10 @@
     },
     {
       "category": "AWS",
+      "value": "ECS"
+    },
+    {
+      "category": "AWS",
       "value": "RDS"
     },
     {
@@ -143,6 +147,34 @@
     {
       "category": "Networking",
       "value": "NAT"
+    },
+    {
+      "category": "AWS",
+      "value": "DynamoDB"
+    },
+    {
+      "category": "AWS",
+      "value": "Route53"
+    },
+    {
+      "category": "DevOps",
+      "value": "GitLab CI"
+    },
+    {
+      "category": "DevOps",
+      "value": "Prometheus"
+    },
+    {
+      "category": "Linux",
+      "value": "Shell Scripting"
+    },
+    {
+      "category": "Networking",
+      "value": "HTTPS"
+    },
+    {
+      "category": "Linux",
+      "value": "Performance Tuning"
     }
   ]
 }

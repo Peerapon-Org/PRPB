@@ -28,7 +28,9 @@ done
 pushd ../terraform > /dev/null 2>&1
 
 BUCKET_NAME=$(terraform output -raw s3_blog_assets_bucket_name)
-API_BLOG_ENDPOINT="$(terraform output -raw api_invoke_url)/blogs"
+BLOG_TABLE_NAME=$(terraform output -raw blog_table_name)
+TAG_REF_TABLE_NAME=$(terraform output -raw tag_ref_table_name)
+API_BLOG_ENDPOINT="$(terraform output -raw api_invoke_url)"
 
 popd > /dev/null 2>&1
 
@@ -37,8 +39,8 @@ curl \
   -X POST \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
-  -d @categories.json \
-  $API_BLOG_ENDPOINT
+  -d "@categories.json" \
+  "$API_BLOG_ENDPOINT/tags"
 
 echo -e "\nWriting tags to the $TAG_REF_TABLE_NAME table..."
 curl \
@@ -46,18 +48,19 @@ curl \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY" \
   -d @tags.json \
-  $API_BLOG_ENDPOINT
+  "$API_BLOG_ENDPOINT/tags"
 
-echo -e "\nWriting blogs to the $MAIN_TABLE_NAME table..."
+echo -e "\nWriting blogs to the $BLOG_TABLE_NAME table..."
 DATA_FILES=("blogs_1.json" "blogs_2.json" "blogs_3.json")
 aws s3api put-object --bucket $BUCKET_NAME --key thumbnail.png --body thumbnail.png
 for FILE in ${DATA_FILES[@]}; do
+  echo -e "\n$FILE"
   curl \
     -X POST \
     -H "Content-Type: application/json" \
     -H "X-API-Key: $API_KEY" \
     -d @$FILE \
-    $API_BLOG_ENDPOINT
+    "$API_BLOG_ENDPOINT/blogs"
 done
 
 echo -e "\nSeeding completed"
