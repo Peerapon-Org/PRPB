@@ -1,6 +1,5 @@
 variable "global_variables" {
   type = object({
-    project       = string
     region        = string
     account       = string
     is_production = bool
@@ -34,5 +33,5 @@ variable "api_definition" {
 
 variable "enable_account_logging" {
   type        = bool
-  description = "(Optional) Enable account logging for the API Gateway"
+  description = "Enable account logging for the API Gateway"
 }

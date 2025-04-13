@@ -1,538 +1,180 @@
-[
-  {
-    "ConditionCheck": {
-      "ConditionExpression": "attribute_exists(#V)",
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "Key": {
-        "Category": {
-          "S": "null"
-        },
-        "Value": {
-          "S": "AWS"
-        }
-      },
-      "TableName": "tagRefTableName"
+{
+  "tags": [
+    {
+      "category": "AWS",
+      "value": "EC2"
+    },
+    {
+      "category": "AWS",
+      "value": "Lambda"
+    },
+    {
+      "category": "AWS",
+      "value": "ECS"
+    },
+    {
+      "category": "AWS",
+      "value": "RDS"
+    },
+    {
+      "category": "AWS",
+      "value": "CloudFront"
+    },
+    {
+      "category": "AWS",
+      "value": "IAM"
+    },
+    {
+      "category": "AWS",
+      "value": "S3"
+    },
+    {
+      "category": "DevOps",
+      "value": "Docker"
+    },
+    {
+      "category": "DevOps",
+      "value": "Kubernetes"
+    },
+    {
+      "category": "DevOps",
+      "value": "Terraform"
+    },
+    {
+      "category": "DevOps",
+      "value": "Ansible"
+    },
+    {
+      "category": "DevOps",
+      "value": "Helm"
+    },
+    {
+      "category": "DevOps",
+      "value": "Jenkins"
+    },
+    {
+      "category": "Networking",
+      "value": "CDN"
+    },
+    {
+      "category": "Networking",
+      "value": "DNS"
+    },
+    {
+      "category": "Linux",
+      "value": "Bash Scripting"
+    },
+    {
+      "category": "Linux",
+      "value": "Systemd"
+    },
+    {
+      "category": "Linux",
+      "value": "Ubuntu"
+    },
+    {
+      "category": "Linux",
+      "value": "CentOS"
+    },
+    {
+      "category": "Linux",
+      "value": "Cron Jobs"
+    },
+    {
+      "category": "Networking",
+      "value": "VPN"
+    },
+    {
+      "category": "Networking",
+      "value": "Load Balancing"
+    },
+    {
+      "category": "Networking",
+      "value": "Firewalls"
+    },
+    {
+      "category": "AWS",
+      "value": "EKS"
+    },
+    {
+      "category": "AWS",
+      "value": "VPC"
+    },
+    {
+      "category": "AWS",
+      "value": "API Gateway"
+    },
+    {
+      "category": "AWS",
+      "value": "CloudWatch"
+    },
+    {
+      "category": "DevOps",
+      "value": "GitOps"
+    },
+    {
+      "category": "DevOps",
+      "value": "ArgoCD"
+    },
+    {
+      "category": "DevOps",
+      "value": "Grafana"
+    },
+    {
+      "category": "Linux",
+      "value": "SELinux"
+    },
+    {
+      "category": "Linux",
+      "value": "Nginx"
+    },
+    {
+      "category": "Linux",
+      "value": "Firewalld"
+    },
+    {
+      "category": "Linux",
+      "value": "LVM"
+    },
+    {
+      "category": "Networking",
+      "value": "TCP/IP"
+    },
+    {
+      "category": "Networking",
+      "value": "BGP"
+    },
+    {
+      "category": "Networking",
+      "value": "NAT"
+    },
+    {
+      "category": "AWS",
+      "value": "DynamoDB"
+    },
+    {
+      "category": "AWS",
+      "value": "Route53"
+    },
+    {
+      "category": "DevOps",
+      "value": "GitLab CI"
+    },
+    {
+      "category": "DevOps",
+      "value": "Prometheus"
+    },
+    {
+      "category": "Linux",
+      "value": "Shell Scripting"
+    },
+    {
+      "category": "Networking",
+      "value": "HTTPS"
+    },
+    {
+      "category": "Linux",
+      "value": "Performance Tuning"
     }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "EC2"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "Lambda"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "RDS"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "CloudFront"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "IAM"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "S3"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "ConditionExpression": "attribute_exists(#V)",
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "Key": {
-        "Category": {
-          "S": "null"
-        },
-        "Value": {
-          "S": "DevOps"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Docker"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Kubernetes"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Terraform"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Ansible"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Helm"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Jenkins"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "ConditionExpression": "attribute_exists(#V)",
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "Key": {
-        "Category": {
-          "S": "null"
-        },
-        "Value": {
-          "S": "Networking"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "CDN"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "DNS"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "ConditionCheck": {
-      "ConditionExpression": "attribute_exists(#V)",
-      "ExpressionAttributeNames": {
-        "#V": "Value"
-      },
-      "Key": {
-        "Category": {
-          "S": "null"
-        },
-        "Value": {
-          "S": "Linux"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Bash Scripting"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Systemd"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Ubuntu"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "CentOS"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Cron Jobs"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "VPN"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "Load Balancing"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "Firewalls"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "EKS"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "VPC"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "API Gateway"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "AWS"
-        },
-        "Value": {
-          "S": "CloudWatch"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "GitOps"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "ArgoCD"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "DevOps"
-        },
-        "Value": {
-          "S": "Grafana"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "SELinux"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Nginx"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "Firewalld"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Linux"
-        },
-        "Value": {
-          "S": "LVM"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "TCP/IP"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "BGP"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  },
-  {
-    "Put": {
-      "Item": {
-        "Category": {
-          "S": "Networking"
-        },
-        "Value": {
-          "S": "NAT"
-        }
-      },
-      "TableName": "tagRefTableName"
-    }
-  }
-]
+  ]
+}

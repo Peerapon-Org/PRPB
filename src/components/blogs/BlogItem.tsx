@@ -1,27 +1,18 @@
 import { Tag } from "./Tag";
-
-export type BlogItemProps = {
-  title: string;
-  description?: string;
-  publishDate: string;
-  category: string;
-  subcategory?: string;
-  slug: string;
-  thumbnail: string;
-};
+import { type BlogItemProps } from "./BlogList";
 
 export function BlogItem({
   title,
   description,
   publishDate,
   category,
-  subcategory,
+  subcategories,
   slug,
   thumbnail,
 }: BlogItemProps) {
   return (
     <div className="relative">
-      <div className="flex absolute top-0 left-2">
+      <div className="flex absolute top-0 left-2 mt-1">
         <div className="ml-1 mr-2">
           <Tag
             key={slug + "category"}
@@ -30,15 +21,17 @@ export function BlogItem({
             themeLock
           />
         </div>
-        {subcategory && (
-          <Tag
-            key={slug + "subcategory"}
-            name={subcategory}
-            category={category}
-            subcategory={subcategory}
-            themeLock
-          />
-        )}
+        {subcategories &&
+          subcategories.map((subcategory) => (
+            <div key={slug + subcategory + "subcategory"} className="mr-2">
+              <Tag
+                name={subcategory}
+                category={category}
+                subcategory={subcategory}
+                themeLock
+              />
+            </div>
+          ))}
       </div>
       <a href={`/blog/${slug}`}>
         <div>

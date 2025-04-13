@@ -90,13 +90,17 @@ const { frontmatter, headings } = Astro.props;
                 )
               }
               {
-                frontmatter?.category && frontmatter?.subcategory && (
-                  <Tag
-                    name={frontmatter.subcategory}
-                    category={frontmatter.category}
-                    subcategory={frontmatter.subcategory}
-                  />
-                )
+                frontmatter?.category &&
+                  frontmatter?.subcategory &&
+                  frontmatter.subcategory.map((subcategory: string) => (
+                    <div class="mr-2">
+                      <Tag
+                        name={subcategory}
+                        category={frontmatter.category}
+                        subcategory={subcategory}
+                      />
+                    </div>
+                  ))
               }
             </div>
             <p class="text-xs opacity-70">{frontmatter?.date}</p>

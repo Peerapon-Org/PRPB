@@ -1,23 +1,9 @@
 name: "Publish blog"
 description: "Put a new blog to the S3 bucket and create CloudFront cache invalidation"
 inputs:
-  s3-bucket-name:
-    description: "Terraform remote state S3 bucket name"
+  api-key:
+    description: "API key for API Gateway REST API"
     required: true
-  dynamodb-table-name:
-    description: "Terraform remote state DynamoDB table name"
-    required: true
-  aws-region:
-    description: "AWS region where the application is"
-    required: true
-    default: "ap-southeast-1"
-  account-id:
-    description: "AWS account ID where the application is"
-    required: true
-  environment:
-    description: "Environment of the application"
-    required: true
-    default: "prod"
 outputs:
   blog-url:
     description: "URL link of the published blog"
@@ -36,8 +22,4 @@ runs:
       shell: bash
       working-directory: ${{ github.workspace }}/terraform
       env:
-        S3_BUCKET_NAME: ${{ inputs.s3-bucket-name }}
-        DYNAMODB_TABLE_NAME: ${{ inputs.dynamodb-table-name }}
-        ACCOUNT_ID: ${{ inputs.account-id }}
-        AWS_REGION: ${{ inputs.aws-region }}
-        ENVIRONMENT: ${{ inputs.environment }}
+        API_KEY: ${{ inputs.api-key }}
