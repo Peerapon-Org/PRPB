@@ -146,7 +146,8 @@
     @apply lg:w-[80%] 2xl:w-[70%];
   }
 
-  table {
+  table,
+  th {
     @apply mx-auto table-auto bg-table-odd text-center;
   }
 
@@ -156,6 +157,13 @@
 
   table td {
     @apply px-4 py-2;
+  }
+
+  table,
+  th,
+  tr,
+  td {
+    @apply border border-border;
   }
 }
 
