@@ -40,10 +40,10 @@ jq \
   --arg thumbnail "$THUMBNAIL" \
   --arg slug "$SLUG" \
   --arg category "$CATEGORY" \
-  --arg subcategories "$SUBCATEGORIES" \
+  --argjson subcategories "$SUBCATEGORIES" \
   --arg date "$DATE" \
-  '.blogs[0] | .title = $title | .description = $description | .thumbnail = $thumbnail | .slug = $slug | .category = $category | .subcategories = $subcategories | .date = $date' \
-  items.json > items.json.tmp
+  '.blogs[0] | .title = $title | .description = $description | .thumbnail = $thumbnail | .slug = $slug | .category = $category | .subcategories = $subcategories | .publishDate = $date' \
+  .github/actions/publish-blog/items.json > items.json.tmp
 mv items.json.tmp items.json
 
 cat items.json
