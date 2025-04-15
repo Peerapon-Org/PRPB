@@ -19,25 +19,34 @@ export function TOC({ headings }: { headings: Headings }) {
     headings: Headings,
     currentDepth: number
   ): JSX.Element => {
+    let exhausted = false;
     return (
       <>
         <ul className="list-none">
           {headings.map(({ depth, slug, text }, idx) => {
-            if (depth !== currentDepth) return;
-            return (
-              <li key={slug + "list"} className="py-1">
-                <a
-                  key={slug + "anchor"}
-                  href={"#" + slug}
-                  className="text-wrap block bg-background hover:bg-muted px-2 py-1"
-                  onClick={onClickHandler}
-                >
-                  {text}
-                </a>
-                {headings[idx + 1]?.depth > currentDepth &&
-                  generateTOC(headings.slice(idx + 1), headings[idx + 1].depth)}
-              </li>
-            );
+            if (exhausted) return;
+            if (depth < currentDepth) {
+              exhausted = true;
+              return;
+            }
+            if (depth === currentDepth)
+              return (
+                <li key={slug + "list"} className="py-1">
+                  <a
+                    key={slug + "anchor"}
+                    href={"#" + slug}
+                    className="text-wrap block bg-background hover:bg-muted px-2 py-1"
+                    onClick={onClickHandler}
+                  >
+                    {text}
+                  </a>
+                  {headings[idx + 1]?.depth > currentDepth &&
+                    generateTOC(
+                      headings.slice(idx + 1),
+                      headings[idx + 1].depth
+                    )}
+                </li>
+              );
           })}
         </ul>
       </>

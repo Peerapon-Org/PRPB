@@ -58,7 +58,7 @@ const { frontmatter, headings } = Astro.props;
       <div
         class="w-full 2xl:w-[80%] px-4 md:px-24 break-word whitespace-pre-line text-wrap pt-0 md:pt-[3.4rem] relative"
       >
-        <div class="py-4 md:py-6">
+        <div id="content" class="py-4 md:py-6">
           {
             frontmatter?.thumbnail && frontmatter?.thumbnail !== "" && (
               <div class="w-full lg:w-2/3 mx-auto border rounded-xl">
@@ -135,5 +135,13 @@ const { frontmatter, headings } = Astro.props;
   p {
     word-break: break-word;
     white-space: normal;
+  }
+
+  #content a {
+    color: blue;
+  }
+
+  #content a:hover {
+    text-decoration: underline;
   }
 </style>
