@@ -11,8 +11,10 @@ CATEGORY=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^category/ {
 SUBCATEGORIES=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^subcategories/ {print $NF}')
 TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 
-TEMPLATE=$(mktemp)
-cat ..github/actions/validate-tag/transacItem.json > $TEMPLATE
+# Replace the table name in the template
+TEMPLATE=../.github/actions/validate-tag/transacItem.json
+jq --arg t $TABLE_NAME '.ConditionCheck.TableName = $t' $TEMPLATE > $TEMPLATE.tmp
+mv $TEMPLATE.tmp $TEMPLATE
 
 CATEGORY_ITEM=$(jq --arg c $CATEGORY '.ConditionCheck.Key.Category.S = "null" | .ConditionCheck.Key.Value.S = $c' $TEMPLATE)
 SUBCATEGORY_ITEMS="["
@@ -24,7 +26,9 @@ done < <(echo $SUBCATEGORIES | jq -r '.[]')
 
 SUBCATEGORY_ITEMS="${SUBCATEGORY_ITEMS%,}]"
 TRANSACT_ITEMS=$(mktemp)
-echo $SUBCATEGORY_ITEMS | jq --argjson c "$CATEGORY_ITEM" '[$c] + .' > $TRANSACT_ITEMS
+(echo $SUBCATEGORY_ITEMS | jq --argjson c "$CATEGORY_ITEM" '[$c] + .') > $TRANSACT_ITEMS
+
+cat $TRANSACT_ITEMS
 
 trap validation_failed ERR
 aws dynamodb transact-write-items \
