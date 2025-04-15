@@ -26,9 +26,12 @@ done < <(echo $SUBCATEGORIES | jq -r '.[]')
 
 SUBCATEGORY_ITEMS="${SUBCATEGORY_ITEMS%,}]"
 TRANSACT_ITEMS=$(mktemp)
-echo $SUBCATEGORY_ITEMS | jq --argjson c "$CATEGORY_ITEM" '[$c] + .' > $TRANSACT_ITEMS
+(echo $SUBCATEGORY_ITEMS | jq --argjson c "$CATEGORY_ITEM" '[$c] + .') > $TRANSACT_ITEMS
 
+cat $CATEGORY_ITEM
+cat $SUBCATEGORY_ITEMS
 cat $TRANSACT_ITEMS
+echo $SUBCATEGORY_ITEMS | jq --argjson c "$CATEGORY_ITEM" '[$c] + .'
 
 trap validation_failed ERR
 aws dynamodb transact-write-items \
