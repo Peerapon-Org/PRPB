@@ -118,10 +118,10 @@
   }
 
   pre {
-    @apply rounded !bg-muted overflow-x-scroll px-[0.7rem] py-[1rem] font-mono font-semibold scrollbar-hide;
+    @apply rounded bg-muted overflow-x-scroll px-[1rem] py-[1rem] font-mono font-semibold;
   }
 
-  code {
+  code:not(pre code) {
     @apply bg-muted px-1;
   }
 
@@ -146,7 +146,8 @@
     @apply lg:w-[80%] 2xl:w-[70%];
   }
 
-  table {
+  table,
+  th {
     @apply mx-auto table-auto bg-table-odd text-center;
   }
 
@@ -156,6 +157,13 @@
 
   table td {
     @apply px-4 py-2;
+  }
+
+  table,
+  th,
+  tr,
+  td {
+    @apply border border-border;
   }
 }
 

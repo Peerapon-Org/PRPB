@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/internal-helpers": "^0.6.0",
+    "@astrojs/mdx": "^4.2.4",
     "@astrojs/react": "^4.2.0",
     "@astrojs/tailwind": "^5.1.4",
     "@hookform/resolvers": "^4.1.2",
