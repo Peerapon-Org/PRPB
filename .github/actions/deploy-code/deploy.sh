@@ -10,10 +10,7 @@ API_ENDPOINT="https://$(terraform output -raw app_domain_name)/api"
 API_KEY=$(aws apigateway get-api-key --api-key $(terraform output -raw api_key_id) --include-value --query 'value' --output text)
 popd > /dev/null 2>&1
 
-if [[ "$IS_PRODUCTION" == "true" ]]; then
-  echo production!
-else
-  echo non-production!
+if [[ "$IS_PRODUCTION" != "true" ]]; then
   # Run DynamoDB seeder
   pushd dynamodb > /dev/null 2>&1
   bash seeder.sh -k $API_KEY
