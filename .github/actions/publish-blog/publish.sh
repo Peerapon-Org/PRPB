@@ -28,8 +28,6 @@ API_INVOKE_URL=$(terraform output -raw api_invoke_url)
 DISTRIBUTION_ID=$(terraform output -raw distribution_id)
 APP_DOMAIN_NAME=$(terraform output -raw app_domain_name)
 
-echo $GITHUB_WORKSPACE
-
 trap rollback ERR
 
 aws s3 cp assets/blog/ "s3://$ORIGIN_BUCKET/blog/$SLUG/" --recursive
@@ -42,7 +40,7 @@ jq \
   --arg category "$CATEGORY" \
   --argjson subcategories "$SUBCATEGORIES" \
   --arg date "$DATE" \
-  '.blogs[0] | .title = $title | .description = $description | .thumbnail = $thumbnail | .slug = $slug | .category = $category | .subcategories = $subcategories | .publishDate = $date' \
+  '.blogs = [{"title": $title, "description": $description, "thumbnail": $thumbnail, "slug": $slug, "category": $category, "subcategories": $subcategories, "publishDate": $date}]' \
   .github/actions/publish-blog/items.json > items.json.tmp
 mv items.json.tmp items.json
 
