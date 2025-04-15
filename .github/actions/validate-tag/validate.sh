@@ -7,8 +7,8 @@ validation_failed () {
 }
 
 SLUG=${GITHUB_HEAD_REF#blog/}
-CATEGORY=$(head -n 10 "../src/pages/blog/$SLUG.md" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
-SUBCATEGORIES=$(head -n 10 "../src/pages/blog/$SLUG.md" | awk -F ': ' '/^subcategories/ {print $NF}')
+CATEGORY=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
+SUBCATEGORIES=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^subcategories/ {print $NF}')
 TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 
 TEMPLATE=$(mktemp)
