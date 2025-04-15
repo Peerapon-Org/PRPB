@@ -7,7 +7,7 @@
       "slug": "<slug>",
       "category": "<category>",
       "subcategories": "<subcategories>",
-      "publishDate": "<date>"
+      "publish_date": "<date>"
     }
   ]
 }
