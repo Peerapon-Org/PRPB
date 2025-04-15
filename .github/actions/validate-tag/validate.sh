@@ -13,7 +13,8 @@ TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 
 # Replace the table name in the template
 TEMPLATE=../.github/actions/validate-tag/transacItem.json
-jq --arg t $TABLE_NAME '.ConditionCheck.TableName = $t' $TEMPLATE
+jq --arg t $TABLE_NAME '.ConditionCheck.TableName = $t' $TEMPLATE > $TEMPLATE.tmp
+mv $TEMPLATE.tmp $TEMPLATE
 
 CATEGORY_ITEM=$(jq --arg c $CATEGORY '.ConditionCheck.Key.Category.S = "null" | .ConditionCheck.Key.Value.S = $c' $TEMPLATE)
 SUBCATEGORY_ITEMS="["
