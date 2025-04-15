@@ -17,7 +17,7 @@ rollback () {
 SLUG=${GITHUB_HEAD_REF#blog/}
 METADATA=$(sed 10q "../src/pages/blog/$SLUG.mdx")
 CATEGORY=$(echo "$METADATA" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
-SUBCATEGORIES=$(echo "$METADATA" | awk -F ': ' '/^subcategories/ {print $NF}' | jq -Rr @json)
+SUBCATEGORIES=$(echo "$METADATA" | awk -F ': ' '/^subcategories/ {print $NF}')
 DATE=$(echo "$METADATA" | awk -F ': ' '/^date/ {print $NF}' | tr -d '"')
 TITLE=$(echo "$METADATA" | awk -F ': ' '/^title/ {print $NF}' | tr -d '"')
 DESCRIPTION=$(echo "$METADATA" | awk -F ': ' '/^description/ {print $NF}' | tr -d '"')
@@ -34,16 +34,20 @@ trap rollback ERR
 
 aws s3 cp assets/blog/ "s3://$ORIGIN_BUCKET/blog/$SLUG/" --recursive
 pushd ../.github/actions/publish-blog > /dev/null 2>&1
-sed \
-  -i \
-  -e "s|<category>|$CATEGORY|g;" \
-  -e "s|<subcategories>|${SUBCATEGORIES:1:-1}|g;" \
-  -e "s|<date>|$DATE|g;" \
-  -e "s|<slug>|$SLUG|g;" \
-  -e "s|<title>|$TITLE|g;" \
-  -e "s|<description>|$DESCRIPTION|g;" \
-  -e "s|<thumbnail>|$THUMBNAIL|g;" \
-  items.json
+jq \
+  --arg title "$TITLE" \
+  --arg description "$DESCRIPTION" \
+  --arg thumbnail "$THUMBNAIL" \
+  --arg slug "$SLUG" \
+  --arg category "$CATEGORY" \
+  --arg subcategories "$SUBCATEGORIES" \
+  --arg date "$DATE" \
+  '.blogs[0] | .title = $title | .description = $description | .thumbnail = $thumbnail | .slug = $slug | .category = $category | .subcategories = $subcategories | .date = $date' \
+  items.json > items.json.tmp
+mv items.json.tmp items.json
+
+cat items.json
+
 curl \
   -X POST \
   -H "Content-Type: application/json" \
