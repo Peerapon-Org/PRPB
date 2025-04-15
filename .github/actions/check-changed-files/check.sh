@@ -4,7 +4,9 @@ set -e
 
 TEMP=$(mktemp)
 SLUG=${GITHUB_HEAD_REF#blog/}
-git diff --name-only $PREVIOUS_COMMIT origin/main > $TEMP
+git diff --name-only origin/main > $TEMP
+
+cat $TEMP
 
 if [[ $(cat $TEMP | wc -l) > 1 || $(cat $TEMP) != *"src/pages/blog/$SLUG.mdx" ]]; then
   echo "This PR expects only one blog post 'src/pages/blog/$SLUG.mdx' to be modified"
