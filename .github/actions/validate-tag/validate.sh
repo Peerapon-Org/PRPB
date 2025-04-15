@@ -11,9 +11,7 @@ CATEGORY=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^category/ {
 SUBCATEGORIES=$(head -n 10 "../src/pages/blog/$SLUG.mdx" | awk -F ': ' '/^subcategories/ {print $NF}')
 TABLE_NAME="$(terraform output -raw tag_ref_table_name)"
 
-TEMPLATE=$(mktemp)
-cat ..github/actions/validate-tag/transacItem.json > $TEMPLATE
-
+TEMPLATE=../.github/actions/validate-tag/transacItem.json
 CATEGORY_ITEM=$(jq --arg c $CATEGORY '.ConditionCheck.Key.Category.S = "null" | .ConditionCheck.Key.Value.S = $c' $TEMPLATE)
 SUBCATEGORY_ITEMS="["
 
