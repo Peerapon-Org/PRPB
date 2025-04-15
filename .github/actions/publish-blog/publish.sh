@@ -41,7 +41,7 @@ jq \
   --argjson subcategories "$SUBCATEGORIES" \
   --arg date "$DATE" \
   '.blogs = [{"title": $title, "description": $description, "thumbnail": $thumbnail, "slug": $slug, "category": $category, "subcategories": $subcategories, "publishDate": $date}]' \
-  .github/actions/publish-blog/items.json > items.json.tmp
+  items.json > items.json.tmp
 mv items.json.tmp items.json
 
 cat items.json
