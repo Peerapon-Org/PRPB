@@ -15,7 +15,7 @@ rollback () {
 }
 
 SLUG=${GITHUB_HEAD_REF#blog/}
-METADATA=$(sed 10q "../src/pages/blog/$SLUG.md")
+METADATA=$(sed 10q "../src/pages/blog/$SLUG.mdx")
 CATEGORY=$(echo "$METADATA" | awk -F ': ' '/^category/ {print $NF}' | tr -d '"')
 SUBCATEGORIES=$(echo "$METADATA" | awk -F ': ' '/^subcategories/ {print $NF}' | jq -Rr @json)
 DATE=$(echo "$METADATA" | awk -F ': ' '/^date/ {print $NF}' | tr -d '"')
