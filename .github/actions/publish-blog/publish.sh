@@ -40,7 +40,7 @@ jq \
   --arg category "$CATEGORY" \
   --argjson subcategories "$SUBCATEGORIES" \
   --arg date "$DATE" \
-  '.blogs = [{"title": $title, "description": $description, "thumbnail": $thumbnail, "slug": $slug, "category": $category, "subcategories": $subcategories, "publishDate": $date}]' \
+  '.blogs = [{"title": $title, "description": $description, "thumbnail": $thumbnail, "slug": $slug, "category": $category, "subcategories": $subcategories, "publish_date": $date}]' \
   items.json > items.json.tmp
 mv items.json.tmp items.json
 
